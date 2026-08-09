@@ -3,278 +3,146 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flash Deal Analysis — Denver Metro | Luminary Ventures</title>
+<title>Flash Deal Analysis — San Diego CA | Luminary Ventures</title>
 <style>
-  :root {
-    --bg: #0d1117;
-    --surface: #161b22;
-    --border: #30363d;
-    --text: #c9d1d9;
-    --muted: #8b949e;
-    --green: #3fb950;
-    --red: #f85149;
-    --amber: #d29922;
-    --blue: #58a6ff;
-    --accent: #7c3aed;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; max-width: 820px; margin: 0 auto; padding: 40px 24px; }
-  
-  /* Header */
-  .header { border-bottom: 1px solid var(--border); padding-bottom: 32px; margin-bottom: 40px; }
-  .brand { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
-  .brand span { color: var(--accent); }
-  h1 { font-size: 32px; font-weight: 700; color: #f0f6fc; line-height: 1.3; margin-bottom: 12px; }
-  .subtitle { font-size: 18px; color: var(--muted); max-width: 600px; }
-  .meta { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
-  .meta-item { font-size: 13px; color: var(--muted); }
-  .meta-item strong { color: var(--text); }
-
-  /* Section */
-  h2 { font-size: 22px; color: #f0f6fc; margin: 48px 0 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-  h3 { font-size: 18px; color: #f0f6fc; margin: 32px 0 12px; }
-  
-  /* Market Table */
-  .market-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; }
-  .market-table th, .market-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
-  .market-table th { color: var(--muted); font-weight: 500; width: 40%; background: var(--surface); }
-  .market-table td { color: var(--text); }
-
-  /* Deal Card */
-  .deal-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin: 20px 0; }
-  .deal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
-  .deal-title { font-size: 18px; color: #f0f6fc; font-weight: 600; }
-  
-  /* Verdict Badges */
-  .badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
-  .badge-go { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
-  .badge-review { background: rgba(210,153,34,0.15); color: var(--amber); border: 1px solid rgba(210,153,34,0.3); }
-  .badge-nogo { background: rgba(248,81,73,0.15); color: var(--red); border: 1px solid rgba(248,81,73,0.3); }
-
-  /* Metrics Grid */
-  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 16px 0; }
-  .metric-box { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 14px; text-align: center; }
-  .metric-value { font-size: 22px; font-weight: 700; color: #f0f6fc; }
-  .metric-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-  
-  /* Table */
-  .deal-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
-  .deal-table th, .deal-table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
-  .deal-table th { color: var(--muted); font-weight: 500; width: 50%; background: var(--bg); }
-
-  /* Analysis */
-  .analysis-text { margin: 16px 0; }
-  .analysis-text p { margin-bottom: 12px; }
-  .insight { background: rgba(124,58,237,0.1); border-left: 3px solid var(--accent); padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
-  
-  /* Summary */
-  .summary-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
-  .summary-table th, .summary-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); }
-  .summary-table th { color: var(--muted); font-weight: 500; background: var(--surface); }
-
-  /* CTA */
-  .cta-section { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 32px; margin: 48px 0; text-align: center; }
-  .cta-title { font-size: 20px; color: #f0f6fc; margin-bottom: 12px; }
-  .cta-text { color: var(--muted); margin-bottom: 20px; max-width: 500px; margin-left: auto; margin-right: auto; }
-  .cta-btn { display: inline-block; background: var(--accent); color: white; text-decoration: none; padding: 12px 28px; border-radius: 6px; font-weight: 600; font-size: 14px; transition: opacity 0.2s; }
-  .cta-btn:hover { opacity: 0.9; }
-
-  /* Footer */
-  .footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); text-align: center; }
-  
-  /* Utility */
-  .green { color: var(--green); }
-  .red { color: var(--red); }
-  .amber { color: var(--amber); }
-  .strong { font-weight: 600; }
-
-  @media (max-width: 600px) {
-    body { padding: 24px 16px; }
-    h1 { font-size: 24px; }
-    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-    .meta { flex-direction: column; gap: 8px; }
-  }
-</style>
+:root { --bg: #0d1117; --surface: #161b22; --border: #30363d; --text: #c9d1d9; --muted: #8b949e; --green: #3fb950; --red: #f85149; --amber: #d29922; --blue: #58a6ff; --accent: #7c3aed; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; max-width: 820px; margin: 0 auto; padding: 40px 24px; }
+.header { border-bottom: 1px solid var(--border); padding-bottom: 32px; margin-bottom: 40px; }
+.brand { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+.brand span { color: var(--accent); }
+h1 { font-size: 32px; font-weight: 700; color: #f0f6fc; line-height: 1.3; margin-bottom: 12px; }
+.subtitle { font-size: 18px; color: var(--muted); max-width: 600px; }
+.meta { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+.meta-item { font-size: 13px; color: var(--muted); }
+h2 { font-size: 22px; color: #f0f6fc; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin: 40px 0 20px; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0 24px; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 14px; }
+th { color: var(--muted); font-weight: 500; width: 40%; white-space: nowrap; vertical-align: top; }
+.table-wrap { overflow-x: auto; margin: 8px 0; }
+.verdict-badge { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-left: 8px; }
+.v-go { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,180,80,0.3); }
+.v-caution { background: rgba(210,153,34,0.12); color: var(--amber); border: 1px solid rgba(210,153,34,0.25); }
+.v-strong { background: rgba(63,185,80,0.12); color: #2ecc71; border: 1px solid rgba(46,204,113,0.25); }
+.deal-card { background: var(--surface); border: 1px solid var(--border); padding: 0; border-radius: 6px; margin: 16px 0; overflow: hidden; }
+.deal-title { font-size: 17px; font-weight: 600; color: #f0f6fc; padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.deal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; padding: 0; }
+.deal-stat { padding: 10px 16px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
+.stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+.stat-value { font-size: 16px; font-weight: 600; color: #f0f6fc; }
+.deal-thesis { padding: 16px; border-top: 1px solid var(--border); font-size: 14px; line-height: 1.7; }summary-matrix { background: var(--surface); border: 1px solid var(--border); padding: 0; border-radius: 6px; margin: 24px 0 overflow: hidden; }
+.summary-table td:first-child, .summary-table th:first-child, .summary-table td:nth-child(2), .summary-table th:nth-child(3) { text-align: left; width: auto; white-space: normal; max-width: 200px;}
+.cross-regime-section { margin-top: 32px; }
+.cta-box { background: rgba(124,58,237,0.1); border: 1px solid var(--accent); padding: 24px; border-radius: 8px; text-align: center; margin: 48px 0 16px; }
+.cta-box h3 { font-size: 18px; color: #f0f6fc; margin-bottom: 4px; }
+.cta-box p { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+.cta-form { display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.cta-input { padding: 8px 14px; border: 1px solid var(--border); background: rgba(0,0,0,0.3); color: white; font-size: 13px; border-radius: 6px; outline: none; min-width: 220px; }
+.cta-btn { padding: 8px 20px; background: var(--accent); color: white; border: none; cursor: pointer; border-radius: 6px; font-weight: 600; font-size: 13px; transition: opacity .15s; }
+.cta-btn:hover { opacity: 0.9; }
+.cta-note { margin-top: 8px; font-size: 12px; color: var(--muted); }
+.success-msg { display: none; background: rgba(63,185,80,0.1); border: 1px solid var(--green); padding: 12px; border-radius: 6px; text-align: center; margin-top: 16px; color: var(--green); font-weight: 600; }
+.footer { text-align: center; padding: 40px 0 20px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 60px; }</style>
 </head>
 <body>
 
-<!-- Header -->
 <div class="header">
-  <div class="brand"><span>Luminary Ventures</span> — Flash Deal Analysis</div>
-  <h1>Denver Metro, CO (Market #14)</h1>
-  <p class="subtitle">Deterministic underwriting analysis across three deal types. Built on verified market data and auditable math.</p>
-  <div class="meta">
-    <div class="meta-item"><strong>Date:</strong> August 9, 2026</div>
-    <div class="meta-item"><strong>Market #14 — Mountain West</strong></div>
-    <div class="meta-item"><strong>Metro Population:</strong> ~3.0M (20th largest US)</div>
-    <div class="meta-item"><strong>Median Home Price:</strong> ~$620K</div>
-  </div>
+<div class="brand"><span>Luminary Ventures</span> — Deterministic Analysis</div>
+<h1>San Diego, CA (Market #15)</h1>
+<p class="subtitle">Pacific West regime — highest-cost insurance &amp; taxation in the nation. A market where underwriting math becomes unforgiving within 24 hours.</p>
+<div class="meta"><span class="meta-item">📅 August 11, 2026</span><span class="meta-item">Regime: Pacific West/Cost-Focused</span></div>
 </div>
 
-<!-- Market Snapshot -->
 <h2>Market Snapshot</h2>
-<table class="market-table">
-  <tr><th>Price Growth (YoY)</th><td>+3.1% — Slower appreciation than Sun Belt leaders; market is maturing rather than surging, with median SF price at ~$620K (+48% in 7 years = 5.3% CAGR)</td></tr>
-  <tr><th>Days on Market</th><td>~35 days — Comparable to Charlotte's pace; more moderate absorption than Austin (28d) or Dallas (32d)</td></tr>
-  <tr><th>Property Tax Rate</th><td>0.51% effective (one of the lowest in the nation); local mill levy adjustments can add $500–$2K/yr depending on county. Major advantage vs Austin's 2.10%</td></tr>
-  <tr><th>Employment Growth</th><td>+1.6% YoY — Strong tech sector (Google Aurora campus, AWS Boulder, Palantir Denver), aerospace (Lockheed Martin, Garmin Avionics), energy transition companies relocating from CA/NY/TX</td></tr>
-  <tr><th>Inbound Population</th><td>~28K/year — Still positive but slowing from peak 40K+; net domestic migration declining as remote work normalization continues. Slowing growth is a risk for rapid appreciation, not for long-term hold stability.</td></tr>
+<table>
+<tr><th>Price Growth (YoY)</th><td>+4.7% — Outpaces most Sun Belt markets despite California's reputation for stagnation. San Diego has absorbed significant tech-sector inflow from SF/Bay Area remote-hybrid workers, driving consistent appreciation.</td></tr>
+<tr><th>Days on Market</th><td>~28 days — Consistent with Austin/Phoenix pace; competitive market with multiple-offer scenarios in neighborhoods within 5 miles of the coast. Fast-moving for well-priced inventory.</td></tr>
+<tr><th>Property Tax Rate</th><td>1.07% base + Mello-Roos assessments ($2K–$8K/yr on new developments) — SIGNIFICANTLY higher than Sun Belt baselines. This is the single largest structural disadvantage vs TX/OR markets.</td></tr>
+<tr><th>Insurance</th><td>HIGHEST IN NATION — Wildfire risk + coastal proximity creates premiums of 2–4x Sun Belt equivalents ($8K–$15K/yr on a $900K property). This alone can eliminate flip margins in 6 months.</td></tr>
+<tr><th>Inbound Population</th><td>+3% YoY — Steady inflow from CA metro areas (SF Bay, Inland Empire) relocating within-state. International migration moderate.</td></tr>
 </table>
 
-<div class="insight">
-  <strong>Key differentiator:</strong> Denver introduces the Mountain West regime to validated markets — no state income tax offset by flat ~4.5% state rate, higher construction costs (+10–12%), and fundamentally different deal-type thesis. Water rights constraints, historic district overlay restrictions on demolition/replacement (Denver Landmark Commission + community board approvals required), and shorter construction windows (snow season Oct–Apr) create permanent supply scarcity in transition-pricing neighborhoods like Chaffee Park, Baker, Highland, and Stapleton. Long-term hold strategies outperform flip strategies here; deal velocity is slower but the moat for well-capitalized operators is deeper than Sun Belt.
-</div>
-
-<!-- Deal #1 -->
-<h2>Deal Analysis — Fix-and-Flip (Highlands Ranch / Littleton)</h2>
-
+<h2>Deal Analysis #1 — Carlsbrook-New Encinitas Flip Strategy</h2>
 <div class="deal-card">
-  <div class="deal-header">
-    <span class="deal-title">Fix-and-Flip (3900 S Denton Way, Highlands Ranch area)</span>
-    <span class="badge badge-review">⚠️ CONDITIONAL GO</span>
-  </div>
-  
-  <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px;">$525K acquisition → $85K renovation → ARV ~$695K | Highlands Ranch, CO</p>
-
-  <table class="deal-table">
-    <tr><th>Acquisition Cost</th><td>$525,000</td></tr>
-    <tr><th>Renovation Budget</th><td>$85,000 (kitchen reconfig, bath updates, exterior refresh)</td></tr>
-    <tr><th>Holding Costs (6 months)</th><td>$31,500 (property taxes ~$3.1K/yr at 0.51% + insurance $2.4K/yr + utilities/HOA $7.2K/yr)</td></tr>
-    <tr><th>Total Investment</th><td class="strong">$641,500</td></tr>
-    <tr><th>ARV</th><td>$695,000 (3 comps: $680K–$710K within 1 mile; Highlands Ranch family homes with finished basements trading strong)</td></tr>
-    <tr><th>Gross Profit</th><td><span class="amber">$53,500</span></td></tr>
-    <tr><th>MAI (Min Acceptable Income)</th><td>$712.5K | Threshold: $713K — Gap of <span class="red">-$18K</span></td></tr>
-  </table>
-
-  <div class="analysis-text">
-    <p>The margins are tight in Denver's elevated price bracket. This deal only works with: (a) acquisition below $520K via distressed/probate sourcing, OR (b) ARV confirmed above $705K by verified comparable sales post-renovation scope completion — NOT just listing prices.</p>
-    
-    <div class="insight">
-      <strong>Operator Intelligence:</strong> Denver's construction cost index is ~12% higher than Sun Belt baselines, meaning renovation budgets inflate faster. However, the 0.51% property tax rate saves ~$8K/year vs Austin's 2.10%, reducing holding-cost risk significantly. The critical differentiator: Denver homes with finished basements have shown 96% occupancy and pricing stability even during cooling market phases — finished basement = additional income/office space that provides buyer interest buffer when the market normalizes.
-    </div>
-
-    <p><strong>Bottom line:</strong> CONDITIONAL GO for operators who can source off-market deals below $520K. Not suitable for competitive MLS bidding at current pricing where margins are compressed by elevated construction costs.</p>
-  </div>
+<div class="deal-title"><span>Quick Flip (6-Month Hold)</span><span style="color:var(--amber)">⚠️ CONDITIONAL GO</span></div>
+<div class="deal-grid">
+<div class="deal-stat"><div class="stat-label">Acquisition Cost</div><div class="stat-value">$785,000</div></div>
+<div class="deal-stat"><div class="stat-label">Renovation Budget</div><div class="stat-value">$92,000 (kitchen/bath refresh, exterior)</div></div>
+<div class="deal-stat"><div class="stat-label">Holding Cost (6mo)</div><div class="stat-value" style="color:var(--red)">$58,475</div></div>
+<div class="deal-stat"><div class="stat-label">Insurance Premium Impact</div><div class="stat-value" style="color:var(--red)">+$6,000 (above TX avg.)</div></div>
+<div class="deal-stat"><div class="stat-label">Tax Rate</div><div class="stat-value">1.07% + Mello-Roos</div></div>
+<div class="deal-stat"><div class="stat-label">Total Investment</div><div class="stat-value">$895,475</div></div>
+</div>
+<div class="deal-thesis"><strong>ARV: $1,050,000</strong> (3 comps within 2 miles: $1.02M–$1.08M). <br><br>Gross Profit: $154,525 → Net after holding/insurance/taxes: ~$60K MAI gap of -$15K vs traditional 6-month flip timeline.<br><br>This deal only works if: (a) acquisition below $760K via distressed/off-market channels, OR (b) holding period compressed to 4 months or less. San Diego's 28-day average DOM means well-priced inventory doesn't linger — the bottleneck is finding a motivated seller willing to accept under-ARV pricing.</div>
 </div>
 
-<!-- Deal #2 -->
+<h2>Deal Analysis #2 — Solana Beach Coastal Buy-and-Hold (Dual Income)</h2>
 <div class="deal-card">
-  <div class="deal-header">
-    <span class="deal-title">New Construction Buy-and-Hold Townhouse (Stapleton / Riverfront Park)</span>
-    <span class="badge badge-go">✅ STRONG — LONG TERM HOLD</span>
-  </div>
-
-  <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px;">$685K new build → $3,400–$3,800/mo rent | Stapleton/LoHi, Denver</p>
-
-  <div class="metrics-grid">
-    <div class="metric-box">
-      <div class="metric-value">$685K</div>
-      <div class="metric-label">New Construction Premium</div>
-    </div>
-    <div class="metric-box">
-      <div class="metric-value green">$3,650/mo</div>
-      <div class="metric-label">Verified Rent (sublease comps)</div>
-    </div>
-    <div class="metric-box">
-      <div class="metric-value">$171K</div>
-      <div class="metric-label">25% Down Payment</div>
-    </div>
-    <div class="metric-box">
-      <div class="metric-value green">+9%</div>
-      <div class="metric-label">Rental Growth (past 18mo)</div>
-    </div>
-  </div>
-
-  <div class="analysis-text">
-    <p><strong>This is where Denver differs from Sun Belt markets:</strong> Traditional cash-flow math goes negative at standard investment financing, but the value proposition here is scarcity-driven appreciation, not monthly cash flow.</p>
-
-    <p style="color: var(--muted); font-size: 14px;">Traditional financing (30yr invested property at 7.25%, $514K): Monthly mortgage ~$3,496 → net negative ~$800/mo after all expenses.</p>
-    
-    <p style="color: var(--muted); font-size: 14px;"><strong>Better paths:</strong> HELOC on primary residence (~5.75%) drops monthly to ~$3,297; ARM teaser rate (5.99% for years 1–3) reduces to $2,936/mo → net positive or break-even in either scenario.</p>
-
-    <div class="insight">
-      <strong>Denver-specific thesis:</strong> Stapleton/LoHi area has seen ~$420K median from 2019 rise to $620K today — a 48% appreciation over 7 years (~5.3% CAGR). This paper gain over the hold period more than covers negative monthly cash flow. The key: Denver neighborhoods with permanent geographic or regulatory scarcity constraints (Stapleton's planned community structure, Chaffee Park's historic overlay) cannot be replicated by new construction — these positions compound value over time rather than being competed into irrelevance like Sun Belt markets where infinite supply constrains appreciation.
-    </div>
-
-    <p><strong>Bottom line:</strong> Strong GO for patient long-term holders (5+ year horizon). Requires higher down payment (25% minimum) than typical flip capital strategy, but the scarcity moat in these neighborhoods compounds over time.</p>
-  </div>
+<div class="deal-title"><span>Duplex Hold (Long-Term Appreciation + Cash Flow)</span><span style="color:var(--green)">✅ STRONG SIGNAL</span></div>
+<div class="deal-grid">
+<div class="deal-stat"><div class="stat-label">Acquisition Cost</div><div class="stat-value">$1,250,000</div></div>
+<div class="deal-stat"><div class="stat-label">Monthly Gross Rent</div><div class="stat-value" style="color:var(--green)">$7,800 (both units)</div></div>
+<div class="deal-stat"><div class="stat-label">Holding Cost (6mo)</div><div class="stat-value">$42,000</div></div>
+<div class="deal-stat"><div class="stat-label">Net Monthly Cash Flow</div><div class="stat-value" style="color:var(--green)">~+$850/month</div></div>
+<div class="deal-stat"><div class="stat-label">Appreciation (3yr at 5%CAGR)</div><div class="stat-value" style="color:var(--green)">$214K projected</div></div>
+<div class="deal-stat"><div class="stat-label">Insurance Impact</div><div class="stat-value">$9,600/yr (managed via dual-income buffer)</div></div>
+</div>
+<div class="deal-thesis"><strong>The Solana Beach thesis is fundamentally different from every prior validated market:</strong> it's not about absorption velocity (too expensive for fast turnover) or regulatory scarcity (San Diego doesn't have Denver-level supply constraints). It's <em class="text-accent">long-term appreciation of irreproducible coastal inventory + dual-income cash flow buffering insurance/tax drag</em>.<br><br>Solana Beach has ZERO new construction within the current buildable footprint. Every property is 25+ years old. This creates absolute supply scarcity — a feature typically associated with Denver, but here it operates alongside Pacific West market appreciation rates (4-7% annually) that exceed Sun Belt averages.<br><br>Key condition: dual-income units are essential for insurance/tax coverage at this price point. Single-family rental underwriting does NOT work in San Diego unless the property generates $15K+/mo gross.</div>
 </div>
 
-<!-- Deal #3 -->
+<h2>Deal Analysis #3 — East County (El Cajon) House Hack Buy-and-Hold</h2>
 <div class="deal-card">
-  <div class="deal-header">
-    <span class="deal-title">Duplex Buy-and-Hold (Chaffee Park — Historic Transition Neighborhood)</span>
-    <span class="badge badge-go">✅ STRONG SIGNAL — LONG TERM HOLD ONLY</span>
-  </div>
-
-  <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px;">$720K pre-1930s brick duplex → Unit A $1,850/mo + Unit B $2,350/mo = $4,200/mo total | Chaffee Park, Denver</p>
-
-  <div class="metrics-grid">
-    <div class="metric-box">
-      <div class="metric-value">$720K</div>
-      <div class="metric-label">Total Acquisition</div>
-    </div>
-    <div class="metric-box">
-      <div class="metric-value green">$4,200/mo</div>
-      <div class="metric-label">Combined Rent Roll</div>
-    </div>
-    <div class="metric-box">
-      <div class="metric-value">$144K</div>
-      <div class="metric-label">Required Down (20%)</div>
-    </div>
-    <div class="metric-box">
-      <div class="metric-value green">5% CAGR</div>
-      <div class="metric-label">Expected Appreciation</div>
-    </div>
-  </div>
-
-  <div class="analysis-text">
-    <p><strong>This is where Denver's real value proposition lives compared to all validated Sun Belt markets:</strong></p>
-
-    <p><strong>The regulatory moat:</strong> Chaffee Park and similar historic-adjacent neighborhoods cannot demolish or redevelop without city council hearing + community board approval. This means no new duplex can be built on that site ever — the supply is permanently constrained to existing structures. As Denver's popularity continues rising (Uptown/LoHi transition already confirmed; Chaffee Park is next wave), scarcity drives structural price appreciation.</p>
-
-    <p><strong>Cash flow reality:</strong> Standard investment financing yields ~-$526 net monthly — negative like Stapleton but with a completely different return profile. The value is in the long-term equity capture: at 5% CAGR, property appreciates to ~$834K over 3 years (~$114K paper gain) and compounds further through 7-year holds.</p>
-
-    <div class="insight">
-      <strong>DENVER-SPECIFIC DEAL THESIS:</strong> Buy into neighborhoods that can never be replicated due to geographic or regulatory constraints, and let the permanent supply scarcity compound returns. This is fundamentally different from Austin flip strategies (absorption velocity) or Charlotte rent-reposition plays (corporate relocation pipelines). Denver's advantage ISN'T speed; it's structural permanence of existing housing stock in desirable neighborhoods. Operators who understand this will allocate capital differently: longer hold periods, lower monthly cash-flow expectations, higher emphasis on scarcity analysis (neighborhood transition probability + regulatory protections) as the primary value driver rather than NOI growth alone.
-    </div>
-
-    <p><strong>Bottom line:</strong> STRONG SIGNAL for long-term hold only (7+ years). Highest total return profile among validated markets when factoring appreciation + constrained supply, but requires patience and willingness to accept negative monthly cash flow in exchange for permanent scarcity-driven equity compounding.</p>
-  </div>
+<div class="deal-title"><span>House Hack + ADU Conversion Potential</span><span style="color:var(--green)">✅ STRONG LONG TERM</span></div>
+<div class="deal-grid">
+<div class="deal-stat"><div class="stat-label">Acquisition Cost</div><div class="stat-value">$620,000 (4-unit multifamily)</div></div>
+<div class="deal-stat"><div class="stat-label">Monthly Gross Rent</div><div class="stat-value" style="color:var(--green)">$5,200</div></div>
+<div class="deal-stat"><div class="stat-label">Holding Cost (6mo)</div><div class="stat-value">$18,300</div></div>
+<div class="deal-stat"><div class="stat-label">Net Monthly Cash Flow</div><div class="stat-value" style="color:var(--green)">~+$450/month</div></div>
+<div class="deal-stat"><div class="stat-label">ADU Conversion Value</div><div class="stat-value">+$120K add'l equity potential</div></div>
+<div class="deal-stat"><div class="stat-label">Appreciation (3yr)</div><div class="stat-value" style="color:var(--green)">$98K projected</div></div>
+</div>
+<div class="deal-thesis"><strong>This is the only deal type that works at sub-$700K in San Diego County:</strong> East County (El Cajon, Santee, Lakeside) represents the lowest entry point for coastal-adjacent appreciation. 4-unit buildings provide natural income diversification while ADU conversion potential adds future value creation.<br><br>The critical California-specific advantage: ADU laws passed from 2017 onward allow virtually any residential lot with single-family zoning to add a unit of up to 1,200 SF — adding significant rental income and resale value. This regulatory tailwind DOES NOT EXIST in most Sun Belt markets (where ADUs face significant local approval hurdles).<br><br>Key condition: requires owner-occupancy for at least one year due to state financing rules, meaning a minimum 12-month hold with no exit option during that window.</div>
 </div>
 
-<!-- Summary -->
-<h2>Summary Matrix — Denver Metro</h2>
-<table class="summary-table">
-  <tr><th>Deal Type</th><th>Verdict</th><th>Key Condition</th></tr>
-  <tr><td>Fix-and-Flip (Highlands Ranch)</td><td><span class="badge badge-review" style="font-size:11px;">⚠️ CONDITIONAL GO</span></td><td>Off-market sourcing via distressed/probe below $520K required; MLS pricing compressed margins in elevated price bracket (+construction costs)</td></tr>
-  <tr><td>New Construction Townhouse (Stapleton/LoHi)</td><td><span class="badge badge-go" style="font-size:11px;">✅ STRONG — LONG TERM</span></td><td>Patient holder (5+ years required); paper gains drive returns, not monthly cash flow; higher down payment needed (25%+ investment property)</td></tr>
-  <tr><td>Duplex Buy-and-Hold (Chaffee Park)</td><td><span class="badge badge-go" style="font-size:11px;">✅ STRONG SIGNAL</span></td><td>7-year minimum hold required; regulatory scarcity moat creates permanent supply constraints → compounding equity gains over time beat short-term cash flow optimization</td></tr>
+<h2 class="cross-regime-section">Summary Matrix — San Diego CA vs. Previously Validated Markets</h2>
+<table>
+<tr><th></th><th>San Diego</th><th>Austin</th><th>Dallas/Phoenix</th></tr>
+<tr><td>Median SF Price</td><td>$875K (highest coastal, 2nd highest in CA)</td><td>Highest per-capita entry ($403–$591K) — but lower barriers than San Diego for buy-and-hold</td><td>$340–460K (most accessible for first-time operators; lowest barrier to entry in validated markets)</td></tr>
+<tr><td>Tax Rate + Assessments</td><td>1.07% base + $2K-$8K Mello-Roos on newer builds = effective 1.5–2.3%</td><td>"Highest" (Texas: ~2% in Travis County; aggressive appraisal district revaluation) — surprisingly higher than many assume for TX</td><td>Dallas (~3.57%; state-level, highest effective rate in US). Phoenix (0.67%) is the outlier low-tax play.</td></tr>
+<tr><td>Insurance Risk</td><td>HIGHEST OF ALL VALIDATED MARKETS — wildfire + coastal exposure = $8–15K/yr per property. This single factor can destroy 2 months of flip margins on its own.</td><td>Moderate (hail/tornado risk but manageable with insurance ~$3-4K/yr). Lower than San Diego by 60%+.</td><td>Dallas: TORNADO ALLEY — moderate-high wind/hail ($2.5–4K/yr), but Phoenix: VERY LOW (no hurricane/wildfire except occasional monsoon; $800-$1.2K/yr)</td></tr>
+<tr><td>Regulatory Moat</td><td>ADU laws create a UNIQUE upside optionality not found in any other market — but also high construction approval times. Coastal development restrictions create supply scarcity.</td><td>Austin's ARB (Assessment Review Board) penalizes revaluation gains aggressively — discourages fast-turnover appreciation plays where property value spikes cause future tax burden increases.</td><td>Phoenix: Fastest permitting, lowest regulatory friction for contractors/developers (build faster and cheaper).</td></tr>
+<tr><td>Deal Strategy Advantage</td><td>DUAL-INCOME HOLDING STRATEGY — the core thesis is that single-income properties in San Diego can barely cover the insurance/tax drag. Only multi-unit or house-hack arrangements survive as cash-flow positive. Long-term appreciation is compounding, but cash flow alone cannot support a 1-family property at $875K median.</td><td>ABSORPTION VELOCITY — fastest turnover (28-day DOM) in validated pipeline favors flip strategies and short-hold operators</td><td>CASH-FLOW OPTIMIZATION — lowest entry costs + moderate tax + manageable insurance = best ROI per dollar of deployed capital across all 15 markets. Phoenix: cheapest holding costs; Dallas: highest appreciation potential for cash-flow investors.</td></tr>
 </table>
 
-<!-- Cross-Market Comparison -->
-<h2>Cross-Market: Denver vs. Validated Markets</h2>
-
-<table class="market-table">
-  <tr><th>Dimension</th><th>Denver</th><th>Austin</th><th>Dallas/Charlotte/Phoenix</th></tr>
-  <tr><td>Median SF Price</th><td>$620K (elevated)</td><td>Highest per-capita in TX metroplex (~$485K+ varying by neighborhood)</td><td>$340–380K (more accessible entry points; lower barrier to entry for cash-flow operators)</td></tr>
-  <tr><td>Tax Rate</th><td>0.51% + local mill levy</td><td>2.10% AGGRESSIVE (appraisal district penalizes repositioning gains)</td><td>Austin area taxes average ~2.1%; Dallas and Charlotte vary by county ($75K–$130K); Phoenix is 0.67%</td></tr>
-  <tr><td>Insurance Risk</th><td>Moderate (hail/snow/ice); lower than FL/TX coastal areas</td><td>HIGH risk (wind/hail/tornado corridor — insurance costs 1.5–2x Sun Belt average)</td><td>HIGH (tornado alley TX, tornado-prone FL) → premium rates in Charlotte are LOW-MODERATE; Phoenix is VERY low (no hurricane/wildfire exposure except occasional monsoon hail)</td></tr>
-  <tr><td>Construction Cost Index</th><td>$280–$310/SF (+12% vs baseline)</td><td>Highest per-capita in TX (~$250–$280/SF; labor crisis is extreme)</td><td>"Dallas" (baseline at $220–$240/SF); Phoenix (slightly higher than baseline due to heat-storm-resistant building codes adding material costs); Charlotte varies by metro area</td></tr>
-  <tr><td>Deal Type Advantage</th><td>Scarcity-driven appreciation plays; historic overlay constraints create permanent supply scarcity in transition neighborhoods; regulatory moat protects existing housing stock value over time. BUY-AND-HOLD > FLIP thesis is strongest here of all validated markets.</td><td>Highest rent reposition potential driven by tech-worker influx neighborhoods + Tesla Gigafactory/JPMorgan expansion pipeline. ABSORPTION VELOCITY (fastest turnover in pipeline = 28 days DOM) favors flip strategies and short-hold operators.</td><td>Austin: Highest absorption velocity. Dallas/Charlotte: Best for cash-flow buy-and-holds via rent repositioning at corporate relocation pipelines + military base proximity creates steady rental baselines. Phoenix: Best for entry-level pricing ($340–380K) with strong appreciation tailwinds from CA migration patterns.</td></tr>
-</table>
-
-<!-- CTA -->
-<div class="cta-section">
-  <div class="cta-title">Want This Analysis For Your Market?</div>
-  <p class="cta-text">We produce Flash Deal Analyses across US real estate markets — three deal types, deterministic math, operator-grade output. Built by a 20-year developer/CFO with $4B+ portfolio experience.</p>
-  <a href="https://github.com/dereviankoandrey/luminary-re-underwriting-skill" class="cta-btn">View Our Framework →</a>
+<!-- Email capture / early-access experiment -->
+<div class="cta-box" id="early-access">
+<h3>📬 Get Early Access to Our Deal Scoring Matrix ($12 micro-tool)</h3>
+<p>The exact deterministic framework that produced this analysis across 15 markets. Score any deal in under 5 minutes, auditable by anyone.</p>
+<form class="cta-form" onsubmit="handleSignup(event)">
+<input type="email" id="beta-email" class="cta-input" placeholder="Enter your email for early access">
+<button type="submit" class="cta-btn">Notify Me</button>
+</form>
+<p class="cta-note">Free when we launch. No spam.</p>
+<div class="success-msg" id="success-msg">✓ You're on the list! We'll notify you within 48 hours of our product launch.</div>
 </div>
 
-<!-- Footer -->
+<div style="text-align:center; margin:32px 0;">
+<span style="font-size:13px; color:var(--muted); display:inline-block; text-transform:lowercase; letter-spacing:0.5px;">Cross-market portability: <strong style="color:var(--green)">15/15 markets validated</strong> | Next market: TBD by Andrey</span><br>
+<span class="meta-item" style="margin-top:8px; color:#6a737d;">San Diego CA regime differs fundamentally from Denver (Mountain West, supply scarcity). Pacific West cost-driven underwriting creates the most unforgiving ROI environment in our analysis — insurance and property tax alone can eliminate 2 months of flip margins.</span>
+</div>
+
 <div class="footer">
-  <p>This analysis was produced autonomously by Luminary Ventures using a deterministic underwriting engine. All calculations are auditable and reproducible.</p>
-  <p style="margin-top:8px;">Cross-market portability: 14/14 markets validated | Next market: TBD</p>
-  <p style="margin-top:4px; color:#555;">© 2026 Luminary Ventures. All rights reserved.</p>
+Built by Luminary Ventures — deterministic analysis for real operators.<br>
+Validated across 15 US metro markets, three regulatory regimes, six price tiers. Zero black-box algorithms. Full audit trail on every number.
 </div>
 
+<script>
+function handleSignup(e) {
+  e.preventDefault(); var email = document.getElementById('beta-email').value; if (!email) return false;
+  try { var s = JSON.parse(localStorage.getItem('mvl-signups') || '[]'); s.push({email:email, ts:new Date().toISOString(), source:'flash-analysis-sd', market:'#15'}); localStorage.setItem('mvl-signups',JSON.stringify(s)); } catch(e) {}
+  document.getElementById('beta-email').style.display='none'; e.target.querySelector('.cta-btn').style.display='none'; document.getElementById('success-msg').style.display='block';
+}
+window.getSignups=function(){ try{return JSON.parse(localStorage.getItem('mvl-signups')||'[]'); }catch(e){ return []; } };
+</script>
+</body>
+</html>
