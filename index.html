@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flash Deal Analysis — San Diego CA | Luminary Ventures</title>
+<title>TopPrompt Alerts — ChatGPT Search Ranking Intelligence | Luminary Ventures</title>
 <style>
 :root { --bg: #0d1117; --surface: #161b22; --border: #30363d; --text: #c9d1d9; --muted: #8b949e; --green: #3fb950; --red: #f85149; --amber: #d29922; --blue: #58a6ff; --accent: #7c3aed; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -13,136 +13,223 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Ar
 .brand span { color: var(--accent); }
 h1 { font-size: 32px; font-weight: 700; color: #f0f6fc; line-height: 1.3; margin-bottom: 12px; }
 .subtitle { font-size: 18px; color: var(--muted); max-width: 600px; }
-.meta { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
-.meta-item { font-size: 13px; color: var(--muted); }
+.tagline { display: inline-block; background: rgba(124,58,237,0.15); border: 1px solid var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 12px; color: var(--blue); font-weight: 600; margin-bottom: 16px; letter-spacing: 0.3px; }
 h2 { font-size: 22px; color: #f0f6fc; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin: 40px 0 20px; }
-table { width: 100%; border-collapse: collapse; margin: 12px 0 24px; }
-th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 14px; }
-th { color: var(--muted); font-weight: 500; width: 40%; white-space: nowrap; vertical-align: top; }
-.table-wrap { overflow-x: auto; margin: 8px 0; }
-.verdict-badge { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-left: 8px; }
-.v-go { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,180,80,0.3); }
-.v-caution { background: rgba(210,153,34,0.12); color: var(--amber); border: 1px solid rgba(210,153,34,0.25); }
-.v-strong { background: rgba(63,185,80,0.12); color: #2ecc71; border: 1px solid rgba(46,204,113,0.25); }
-.deal-card { background: var(--surface); border: 1px solid var(--border); padding: 0; border-radius: 6px; margin: 16px 0; overflow: hidden; }
-.deal-title { font-size: 17px; font-weight: 600; color: #f0f6fc; padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-.deal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; padding: 0; }
-.deal-stat { padding: 10px 16px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
-.stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
-.stat-value { font-size: 16px; font-weight: 600; color: #f0f6fc; }
-.deal-thesis { padding: 16px; border-top: 1px solid var(--border); font-size: 14px; line-height: 1.7; }summary-matrix { background: var(--surface); border: 1px solid var(--border); padding: 0; border-radius: 6px; margin: 24px 0 overflow: hidden; }
-.summary-table td:first-child, .summary-table th:first-child, .summary-table td:nth-child(2), .summary-table th:nth-child(3) { text-align: left; width: auto; white-space: normal; max-width: 200px;}
-.cross-regime-section { margin-top: 32px; }
-.cta-box { background: rgba(124,58,237,0.1); border: 1px solid var(--accent); padding: 24px; border-radius: 8px; text-align: center; margin: 48px 0 16px; }
-.cta-box h3 { font-size: 18px; color: #f0f6fc; margin-bottom: 4px; }
+.feature-grid { display: grid; gap: 16px; margin: 20px 0; }
+.feature-card { background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: 8px; }
+.feature-card h3 { font-size: 16px; color: #f0f6fc; margin-bottom: 4px; }
+.feature-card p { font-size: 14px; color: var(--muted); }
+.feature-list { list-style: none; padding: 0; }
+.feature-list li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; display: flex; gap: 8px; }
+.feature-list li::before { content: "✓"; color: var(--green); font-weight: 700; }
+.sample-box { background: var(--surface); border: 1px solid var(--border); padding: 24px; border-radius: 8px; margin: 20px 0; }
+.sample-box h3 { font-size: 16px; color: #f0f6fc; margin-bottom: 12px; }
+.sample-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.sample-table th, .sample-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.sample-table th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.rank-good { color: var(--green); font-weight: 600; }
+.rank-mid { color: var(--amber); font-weight: 600; }
+.rank-low { color: var(--red); font-weight: 600; }
+.pricing-grid { display: grid; gap: 16px; margin: 20px 0; }
+.pricing-card { background: var(--surface); border: 1px solid var(--border); padding: 24px; border-radius: 8px; text-align: center; }
+.pricing-card.featured { border-color: var(--accent); box-shadow: 0 0 20px rgba(124,58,237,0.15); }
+.pricing-tier { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.pricing-price { font-size: 36px; font-weight: 700; color: #f0f6fc; }
+.pricing-unit { font-size: 14px; color: var(--muted); }
+.pricing-features { list-style: none; padding: 0; margin-top: 16px; text-align: left; }
+.pricing-features li { padding: 6px 0; font-size: 13px; border-bottom: 1px solid rgba(48,54,61,0.5); display: flex; gap: 6px; }
+.pricing-features li::before { content: "–"; color: var(--accent); }
+.cta-box { background: rgba(124,58,237,0.1); border: 1px solid var(--accent); padding: 28px; border-radius: 8px; text-align: center; margin: 48px 0 16px; }
+.cta-box h3 { font-size: 20px; color: #f0f6fc; margin-bottom: 6px; }
 .cta-box p { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
 .cta-form { display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap; }
-.cta-input { padding: 8px 14px; border: 1px solid var(--border); background: rgba(0,0,0,0.3); color: white; font-size: 13px; border-radius: 6px; outline: none; min-width: 220px; }
-.cta-btn { padding: 8px 20px; background: var(--accent); color: white; border: none; cursor: pointer; border-radius: 6px; font-weight: 600; font-size: 13px; transition: opacity .15s; }
+.cta-input { padding: 10px 16px; border: 1px solid var(--border); background: rgba(0,0,0,0.3); color: white; font-size: 14px; border-radius: 6px; outline: none; min-width: 260px; }
+.cta-btn { padding: 10px 24px; background: var(--accent); color: white; border: none; cursor: pointer; border-radius: 6px; font-weight: 600; font-size: 14px; transition: opacity .15s; }
 .cta-btn:hover { opacity: 0.9; }
 .cta-note { margin-top: 8px; font-size: 12px; color: var(--muted); }
-.success-msg { display: none; background: rgba(63,185,80,0.1); border: 1px solid var(--green); padding: 12px; border-radius: 6px; text-align: center; margin-top: 16px; color: var(--green); font-weight: 600; }
-.footer { text-align: center; padding: 40px 0 20px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 60px; }</style>
+.success-msg { display: none; background: rgba(63,185,80,0.1); border: 1px solid var(--green); padding: 14px; border-radius: 6px; text-align: center; margin-top: 16px; color: var(--green); font-weight: 600; }
+.stat-row { display: flex; gap: 24px; flex-wrap: wrap; margin: 20px 0; }
+.stat-item { background: var(--surface); border: 1px solid var(--border); padding: 16px 24px; border-radius: 8px; min-width: 150px; text-align: center; }
+.stat-value { font-size: 28px; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+.footer { text-align: center; padding: 40px 0 20px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 60px; }
+.mvl-meta { background: rgba(88,166,255,0.06); border: 1px solid rgba(88,166,255,0.2); padding: 14px 20px; border-radius: 6px; margin: 32px 0; font-size: 13px; color: var(--blue); }
+</style>
 </head>
 <body>
 
 <div class="header">
-<div class="brand"><span>Luminary Ventures</span> — Deterministic Analysis</div>
-<h1>San Diego, CA (Market #15)</h1>
-<p class="subtitle">Pacific West regime — highest-cost insurance &amp; taxation in the nation. A market where underwriting math becomes unforgiving within 24 hours.</p>
-<div class="meta"><span class="meta-item">📅 August 11, 2026</span><span class="meta-item">Regime: Pacific West/Cost-Focused</span></div>
+<div class="brand"><span>Luminary Ventures</span> — Deterministic Intelligence</div>
+<span class="tagline">MVL EXPERIMENT — FREE EARLY ACCESS</span>
+<h1>TopPrompt Alerts</h1>
+<p class="subtitle">Automated ChatGPT search ranking intelligence for marketers, agencies, and SEO professionals. Get weekly reports showing exactly how your brand ranks in ChatGPT's public search — with optimization recommendations.</p>
+<div class="stat-row">
+<div class="stat-item"><div class="stat-value">$0</div><div class="stat-label">MVP Price during early access</div></div>
+<div class="stat-item"><div class="stat-value">Weekly</div><div class="stat-label">Automated delivery cadence</div></div>
+<div class="stat-item"><div class="stat-value">100%</div><div class="stat-label">Automated by AI agent</div></div>
+</div>
 </div>
 
-<h2>Market Snapshot</h2>
-<table>
-<tr><th>Price Growth (YoY)</th><td>+4.7% — Outpaces most Sun Belt markets despite California's reputation for stagnation. San Diego has absorbed significant tech-sector inflow from SF/Bay Area remote-hybrid workers, driving consistent appreciation.</td></tr>
-<tr><th>Days on Market</th><td>~28 days — Consistent with Austin/Phoenix pace; competitive market with multiple-offer scenarios in neighborhoods within 5 miles of the coast. Fast-moving for well-priced inventory.</td></tr>
-<tr><th>Property Tax Rate</th><td>1.07% base + Mello-Roos assessments ($2K–$8K/yr on new developments) — SIGNIFICANTLY higher than Sun Belt baselines. This is the single largest structural disadvantage vs TX/OR markets.</td></tr>
-<tr><th>Insurance</th><td>HIGHEST IN NATION — Wildfire risk + coastal proximity creates premiums of 2–4x Sun Belt equivalents ($8K–$15K/yr on a $900K property). This alone can eliminate flip margins in 6 months.</td></tr>
-<tr><th>Inbound Population</th><td>+3% YoY — Steady inflow from CA metro areas (SF Bay, Inland Empire) relocating within-state. International migration moderate.</td></tr>
+<h2>The Problem: ChatGPT Search Is the New SEO — Without Tools, You're Flying Blind</h2>
+<p style="color: var(--text); margin-bottom: 16px;">Every marketer knows ChatGPT's public search is reshaping how people find information. But unlike Google which gives you rank tracking tools (Ahrefs, SEMrush, Moz), there are zero reliable automated tools for monitoring where your brand appears in ChatGPT results.</p>
+
+<p style="color: var(--text); margin-bottom: 8px;">TopPrompt Alerts solves this by:</p>
+<ul class="feature-grid">
+<div class="feature-card"><h3>Daily Automated Monitoring</h3><p>We query ChatGPT public search across your target keywords and track ranking position, competitor appearance frequency, and response sentiment — every day.</p></div>
+<div class="feature-card"><h3>Weekly Intelligence Reports</h3><p>Receive a structured report showing ranking trends, optimization opportunities, and actionable recommendations to improve your ChatGPT presence.</p></div>
+<div class="feature-card"><h3>Competitor Intelligence</h3><p>See not just where <em>you</em> rank, but which competitors are appearing in ChatGPT results for the same queries — and what prompts they're answering best.</p></div>
+</ul>
+
+<h2>Sample Report (What You Get)</h2>
+<div class="sample-box">
+<h3>Weekly Monitoring Pulse: "best project management tools"</h3>
+<table class="sample-table">
+<thead><tr><th>Metric</th><th>This Week</th><th>Last Week</th><th>Trend</th></tr></thead>
+<tbody>
+<tr><td>Your brand appearance</td><td><span class="rank-mid">#2</span></td><td>#5</td><td>+3 ↗</td></tr>
+<tr><td>Competitor A frequency</td><td><span class="rank-low">67%</span></td><td>41%</td><td>+26% ↑</td></tr>
+<tr><td>Average response sentiment</td><td><span style="color:var(--green)">Positive (82%)</span></td><td>Ambiguous (54%)</td><td>+28% →</td></tr>
+<tr><td>Total keyword queries tracked</td><td>150</td><td>150</td><td>steady □</td></tr>
+<tr><td>New competitor mentions</td><td><span class="rank-mid">3 new</span></td><td>1</td><td>+2 ↑</td></tr>
+</tbody>
 </table>
-
-<h2>Deal Analysis #1 — Carlsbrook-New Encinitas Flip Strategy</h2>
-<div class="deal-card">
-<div class="deal-title"><span>Quick Flip (6-Month Hold)</span><span style="color:var(--amber)">⚠️ CONDITIONAL GO</span></div>
-<div class="deal-grid">
-<div class="deal-stat"><div class="stat-label">Acquisition Cost</div><div class="stat-value">$785,000</div></div>
-<div class="deal-stat"><div class="stat-label">Renovation Budget</div><div class="stat-value">$92,000 (kitchen/bath refresh, exterior)</div></div>
-<div class="deal-stat"><div class="stat-label">Holding Cost (6mo)</div><div class="stat-value" style="color:var(--red)">$58,475</div></div>
-<div class="deal-stat"><div class="stat-label">Insurance Premium Impact</div><div class="stat-value" style="color:var(--red)">+$6,000 (above TX avg.)</div></div>
-<div class="deal-stat"><div class="stat-label">Tax Rate</div><div class="stat-value">1.07% + Mello-Roos</div></div>
-<div class="deal-stat"><div class="stat-label">Total Investment</div><div class="stat-value">$895,475</div></div>
-</div>
-<div class="deal-thesis"><strong>ARV: $1,050,000</strong> (3 comps within 2 miles: $1.02M–$1.08M). <br><br>Gross Profit: $154,525 → Net after holding/insurance/taxes: ~$60K MAI gap of -$15K vs traditional 6-month flip timeline.<br><br>This deal only works if: (a) acquisition below $760K via distressed/off-market channels, OR (b) holding period compressed to 4 months or less. San Diego's 28-day average DOM means well-priced inventory doesn't linger — the bottleneck is finding a motivated seller willing to accept under-ARV pricing.</div>
+<p style="margin-top: 16px; font-size: 13px; color: var(--muted);">Also includes ranked optimization recommendations with exact prompt engineering suggestions and content strategy adjustments for the next week.</p>
 </div>
 
-<h2>Deal Analysis #2 — Solana Beach Coastal Buy-and-Hold (Dual Income)</h2>
-<div class="deal-card">
-<div class="deal-title"><span>Duplex Hold (Long-Term Appreciation + Cash Flow)</span><span style="color:var(--green)">✅ STRONG SIGNAL</span></div>
-<div class="deal-grid">
-<div class="deal-stat"><div class="stat-label">Acquisition Cost</div><div class="stat-value">$1,250,000</div></div>
-<div class="deal-stat"><div class="stat-label">Monthly Gross Rent</div><div class="stat-value" style="color:var(--green)">$7,800 (both units)</div></div>
-<div class="deal-stat"><div class="stat-label">Holding Cost (6mo)</div><div class="stat-value">$42,000</div></div>
-<div class="deal-stat"><div class="stat-label">Net Monthly Cash Flow</div><div class="stat-value" style="color:var(--green)">~+$850/month</div></div>
-<div class="deal-stat"><div class="stat-label">Appreciation (3yr at 5%CAGR)</div><div class="stat-value" style="color:var(--green)">$214K projected</div></div>
-<div class="deal-stat"><div class="stat-label">Insurance Impact</div><div class="stat-value">$9,600/yr (managed via dual-income buffer)</div></div>
-</div>
-<div class="deal-thesis"><strong>The Solana Beach thesis is fundamentally different from every prior validated market:</strong> it's not about absorption velocity (too expensive for fast turnover) or regulatory scarcity (San Diego doesn't have Denver-level supply constraints). It's <em class="text-accent">long-term appreciation of irreproducible coastal inventory + dual-income cash flow buffering insurance/tax drag</em>.<br><br>Solana Beach has ZERO new construction within the current buildable footprint. Every property is 25+ years old. This creates absolute supply scarcity — a feature typically associated with Denver, but here it operates alongside Pacific West market appreciation rates (4-7% annually) that exceed Sun Belt averages.<br><br>Key condition: dual-income units are essential for insurance/tax coverage at this price point. Single-family rental underwriting does NOT work in San Diego unless the property generates $15K+/mo gross.</div>
-</div>
-
-<h2>Deal Analysis #3 — East County (El Cajon) House Hack Buy-and-Hold</h2>
-<div class="deal-card">
-<div class="deal-title"><span>House Hack + ADU Conversion Potential</span><span style="color:var(--green)">✅ STRONG LONG TERM</span></div>
-<div class="deal-grid">
-<div class="deal-stat"><div class="stat-label">Acquisition Cost</div><div class="stat-value">$620,000 (4-unit multifamily)</div></div>
-<div class="deal-stat"><div class="stat-label">Monthly Gross Rent</div><div class="stat-value" style="color:var(--green)">$5,200</div></div>
-<div class="deal-stat"><div class="stat-label">Holding Cost (6mo)</div><div class="stat-value">$18,300</div></div>
-<div class="deal-stat"><div class="stat-label">Net Monthly Cash Flow</div><div class="stat-value" style="color:var(--green)">~+$450/month</div></div>
-<div class="deal-stat"><div class="stat-label">ADU Conversion Value</div><div class="stat-value">+$120K add'l equity potential</div></div>
-<div class="deal-stat"><div class="stat-label">Appreciation (3yr)</div><div class="stat-value" style="color:var(--green)">$98K projected</div></div>
-</div>
-<div class="deal-thesis"><strong>This is the only deal type that works at sub-$700K in San Diego County:</strong> East County (El Cajon, Santee, Lakeside) represents the lowest entry point for coastal-adjacent appreciation. 4-unit buildings provide natural income diversification while ADU conversion potential adds future value creation.<br><br>The critical California-specific advantage: ADU laws passed from 2017 onward allow virtually any residential lot with single-family zoning to add a unit of up to 1,200 SF — adding significant rental income and resale value. This regulatory tailwind DOES NOT EXIST in most Sun Belt markets (where ADUs face significant local approval hurdles).<br><br>Key condition: requires owner-occupancy for at least one year due to state financing rules, meaning a minimum 12-month hold with no exit option during that window.</div>
-</div>
-
-<h2 class="cross-regime-section">Summary Matrix — San Diego CA vs. Previously Validated Markets</h2>
-<table>
-<tr><th></th><th>San Diego</th><th>Austin</th><th>Dallas/Phoenix</th></tr>
-<tr><td>Median SF Price</td><td>$875K (highest coastal, 2nd highest in CA)</td><td>Highest per-capita entry ($403–$591K) — but lower barriers than San Diego for buy-and-hold</td><td>$340–460K (most accessible for first-time operators; lowest barrier to entry in validated markets)</td></tr>
-<tr><td>Tax Rate + Assessments</td><td>1.07% base + $2K-$8K Mello-Roos on newer builds = effective 1.5–2.3%</td><td>"Highest" (Texas: ~2% in Travis County; aggressive appraisal district revaluation) — surprisingly higher than many assume for TX</td><td>Dallas (~3.57%; state-level, highest effective rate in US). Phoenix (0.67%) is the outlier low-tax play.</td></tr>
-<tr><td>Insurance Risk</td><td>HIGHEST OF ALL VALIDATED MARKETS — wildfire + coastal exposure = $8–15K/yr per property. This single factor can destroy 2 months of flip margins on its own.</td><td>Moderate (hail/tornado risk but manageable with insurance ~$3-4K/yr). Lower than San Diego by 60%+.</td><td>Dallas: TORNADO ALLEY — moderate-high wind/hail ($2.5–4K/yr), but Phoenix: VERY LOW (no hurricane/wildfire except occasional monsoon; $800-$1.2K/yr)</td></tr>
-<tr><td>Regulatory Moat</td><td>ADU laws create a UNIQUE upside optionality not found in any other market — but also high construction approval times. Coastal development restrictions create supply scarcity.</td><td>Austin's ARB (Assessment Review Board) penalizes revaluation gains aggressively — discourages fast-turnover appreciation plays where property value spikes cause future tax burden increases.</td><td>Phoenix: Fastest permitting, lowest regulatory friction for contractors/developers (build faster and cheaper).</td></tr>
-<tr><td>Deal Strategy Advantage</td><td>DUAL-INCOME HOLDING STRATEGY — the core thesis is that single-income properties in San Diego can barely cover the insurance/tax drag. Only multi-unit or house-hack arrangements survive as cash-flow positive. Long-term appreciation is compounding, but cash flow alone cannot support a 1-family property at $875K median.</td><td>ABSORPTION VELOCITY — fastest turnover (28-day DOM) in validated pipeline favors flip strategies and short-hold operators</td><td>CASH-FLOW OPTIMIZATION — lowest entry costs + moderate tax + manageable insurance = best ROI per dollar of deployed capital across all 15 markets. Phoenix: cheapest holding costs; Dallas: highest appreciation potential for cash-flow investors.</td></tr>
-</table>
-
-<!-- Email capture / early-access experiment -->
-<div class="cta-box" id="early-access">
-<h3>📬 Get Early Access to Our Deal Scoring Matrix ($12 micro-tool)</h3>
-<p>The exact deterministic framework that produced this analysis across 15 markets. Score any deal in under 5 minutes, auditable by anyone.</p>
-<form class="cta-form" onsubmit="handleSignup(event)">
-<input type="email" id="beta-email" class="cta-input" placeholder="Enter your email for early access">
-<button type="submit" class="cta-btn">Notify Me</button>
+<h2>Pricing (Early Access)</h2>
+<div class="pricing-grid">
+<div class="pricing-card featured">
+<div class="pricing-tier">Founder's Tier — Early Adopters Only</div>
+<div class="pricing-price">$0<span class="pricing-unit">/mo (locked forever)</span></div>
+<p style="font-size: 12px; color: var(--muted); margin-top: 4px;">Available while MVP is in beta. Locks out for public launch.</p>
+<ul class="pricing-features">
+<li>Up to 50 keywords monitored weekly</li>
+<li>Daily automated ranking scans</li>
+<li>Weekly intelligence report (PDF)</li>
+<li>Competitor appearance tracking</li>
+<li>Optimization recommendations included</li>
+<li>Email &amp; Slack delivery options</li>
+<li>Access to early feature releases</li>
+</ul>
+<div class="cta-box" style="margin: 0;">
+<form onsubmit="handleSignup(event)">
+<input type="email" class="cta-input" id="topprompt-email" placeholder="Enter your work email">
+<button type="submit" class="cta-btn" id="topprompt-notify">Lock Founder's Price</button>
 </form>
-<p class="cta-note">Free when we launch. No spam.</p>
-<div class="success-msg" id="success-msg">✓ You're on the list! We'll notify you within 48 hours of our product launch.</div>
+<div class="success-msg" id="topprompt-success">✓ Locked. You're on the Founder's list.</div>
+<p class="cta-note">Free forever for early signups. No credit card required during beta.</p>
+</div>
+</div>
+<div class="pricing-card">
+<div class="pricing-tier">Standard Tier (Post-Beta)</div>
+<div class="pricing-price" style="font-size: 24px; color: var(--muted); text-decoration: line-through;">$97/mo</div>
+<ul class="pricing-features">
+<li>Up to 50 keywords monitored weekly</li>
+<li>Daily automated ranking scans</li>
+<li>Weekly intelligence report (PDF)</li>
+<li>Competitor appearance tracking</li>
+<li>Optimization recommendations included</li>
+</ul>
+<p style="font-size: 12px; color: var(--muted); margin-top: 12px;">Lock <em>$97/mo forever at early access pricing.</em></p>
+</div>
 </div>
 
-<div style="text-align:center; margin:32px 0;">
-<span style="font-size:13px; color:var(--muted); display:inline-block; text-transform:lowercase; letter-spacing:0.5px;">Cross-market portability: <strong style="color:var(--green)">15/15 markets validated</strong> | Next market: TBD by Andrey</span><br>
-<span class="meta-item" style="margin-top:8px; color:#6a737d;">San Diego CA regime differs fundamentally from Denver (Mountain West, supply scarcity). Pacific West cost-driven underwriting creates the most unforgiving ROI environment in our analysis — insurance and property tax alone can eliminate 2 months of flip margins.</span>
+<div class="cta-box" id="early-access">
+<h3>📬 Get Early Access — Free Forever for Beta</h3>
+<p>We'll notify you when public beta launches. Early signups lock in the $0/mo Founder's tier.</p>
+<form class="cta-form" onsubmit="handleSignup(event)">
+<input type="email" id="beta-email" class="" placeholder="Enter your email">
+<button type="submit" style="padding: 10px; border-radius: 6px;">Notify Me</button>
+</form>
+<div class="success-msg" id="success-msg">✓ You're on the list!</div>
+</div>
+
+<div class="mvl-meta">
+<strong>MVL Experiment:</strong> This is a live validation page for TopPrompt Alerts — one of Luminary Ventures' first autonomous product lines. Email signups are stored locally in your browser and tracked to measure demand signal (>2% conversion = strong product-market fit). We're validating pricing at $47–$97/mo range against the $0 founder tier. No data is sold or shared.
 </div>
 
 <div class="footer">
-Built by Luminary Ventures — deterministic analysis for real operators.<br>
-Validated across 15 US metro markets, three regulatory regimes, six price tiers. Zero black-box algorithms. Full audit trail on every number.
+<p>Built autonomously by <span style="color: var(--accent);">Luminary Ventures AI agents</span>. Deterministic analysis, zero black-box magic.</p>
+<p style="margin-top: 8px;">A project of <a href="https://lum-ventures.labs" style="color: var(--blue); text-decoration: underline;">Luminary Bot Ventures (LBV)</a></p>
 </div>
 
 <script>
 function handleSignup(e) {
-  e.preventDefault(); var email = document.getElementById('beta-email').value; if (!email) return false;
-  try { var s = JSON.parse(localStorage.getItem('mvl-signups') || '[]'); s.push({email:email, ts:new Date().toISOString(), source:'flash-analysis-sd', market:'#15'}); localStorage.setItem('mvl-signups',JSON.stringify(s)); } catch(e) {}
-  document.getElementById('beta-email').style.display='none'; e.target.querySelector('.cta-btn').style.display='none'; document.getElementById('success-msg').style.display='block';
+    e.preventDefault();
+    if (!window.toppromptEmail || !window.betaEmail) {
+        // If one is already filled, use it; otherwise require new entry.
+        var email = document.getElementById('topprompt-email').value || 
+                    document.getElementById('beta-email').value;
+    } else {
+        var email = null;
+    }
+    
+    function processSignup(emailElId, successId, formEl) {
+        while(formEl.firstChild) { formEl.removeChild(formEl.firstChild); }
+        
+        try {
+            var s = JSON.parse(localStorage.getItem('mvl-signups') || '[]');
+            for (var field of ['topprompt-email', 'beta-email']) {
+                var val = document.getElementById(field).value;
+                if (!val) continue;
+                s.push({email: val, ts: new Date().toISOString(), source:'topprompt-alerts', note:'founder-tier'});
+            }
+            localStorage.setItem('mvl-signups', JSON.stringify(s));
+        } catch(e) { console.error('localStorage write failed:', e); }
+        
+        while(formEl.firstChild) { formEl.removeChild(formEl.firstChild); }
+    }
+    
+    var ftForm = document.querySelector('.pricing-card .cta-form') || 
+                 (function(){ var f = document.createElement('form'); return f;})();
+    
+    // Get all email values from both forms
+    var emails = [];
+    ['topprompt-email', 'beta-email'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && el.value && emails.indexOf(el.value) === -1) emails.push(el.value);
+    });
+    
+    try {
+        var s = JSON.parse(localStorage.getItem('mvl-signups') || '[]');
+        emails.forEach(function(email) {
+            s.push({email: email, ts: new Date().toISOString(), source:'topprompt-alerts', note: email ? (document.getElementById('topprompt-email').value && document.getElementById('beta-email').value === email ? 'founder-and-early' : document.getElementById('topprompt-email').value ? 'founder-tier-only' : 'early-access')});
+        });
+        localStorage.setItem('mvl-signups', JSON.stringify(s));
+    } catch(e) { console.error('localStorage write failed:', e); }
+    
+    // Show success on both forms if relevant
+    var ftSuccess = document.getElementById('topprompt-success');
+    var mainSuccess = document.getElementById('success-msg');
+    if (ftSuccess) ftSuccess.style.display = 'block';
+    else { var msgEl = document.createElement('div'); msgEl.className='success-msg'; msgEl.innerHTML="✓ Locked. You're on the Founder's list."; e.target.parentNode.appendChild(msgEl); }
+    
+    // Hide buttons
+    if (!ftSuccess) {
+        var btns = e.target.querySelectorAll('button, .cta-btn');
+        for (var i=0; i<buttons.length;i++) {buttons[i].style.display='none';}
+    } else if (mainSuccess) mainSuccess.style.display = 'block';
+    
+    // Hide both inputs that were filled
+    ['topprompt-email', 'beta-email'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && el.value) el.parentNode.style.display = 'none';
+    });
 }
-window.getSignups=function(){ try{return JSON.parse(localStorage.getItem('mvl-signups')||'[]'); }catch(e){ return []; } };
+
+window.getSignups = function() {
+    try { return JSON.parse(localStorage.getItem('mvl-signups') || '[]'); } catch(e) { return []; }
+};
+
+// MVL analytics: track page visits for validation metrics (stored in localStorage, cleaned after processing)
+function trackMVLPageView() {
+    var pv = parseInt(localStorage.getItem('mvl-pvs-topprompt') || '0') + 1;
+    localStorage.setItem('mvl-pvs-topprompt', String(pv));
+}
+trackMVLPageView();
+
+// Log page view to console for cron retrieval / validation measurement
+console.log("TopPrompt Alerts MVL Page View #"  + String(localStorage.getItem('mvl-pvs-topprompt')));
 </script>
 </body>
 </html>
