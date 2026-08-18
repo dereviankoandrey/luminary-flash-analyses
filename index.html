@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luminary Flash Analysis — Phoenix Metro AZ #18 | Deterministic Underwriting Intelligence</title>
+<title>Luminary Flash Analysis — Charlotte Metro NC | Deterministic Underwriting Intelligence</title>
 <style>
 :root { --bg: #0d1117; --surface: #161b22; --border: #30363d; --text: #c9d1d9; --muted: #8b949e; --green: #3fb950; --red: #f85149; --amber: #d29922; --blue: #58a6ff; --accent: #7c3aed; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,219 +28,133 @@ th { background: rgba(124,58,237,0.08); color: #f0f6fc; font-weight: 600; font-s
 .deal-metric { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(48,54,61,0.4); font-size: 14px; }
 .deal-metric:last-child { border-bottom: none; }
 .metric-label { color: var(--muted); }
-.metric-value { color: #c9d1d9; font-weight: 600; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 14px; }
-.metric-value.positive { color: var(--green); }
-.warning-box { background: rgba(210,153,34,0.08); border: 1px solid rgba(210,153,34,0.3); padding: 16px 20px; border-radius: 8px; margin: 20px 0; font-size: 14px; }
-.green-box { background: rgba(63,185,80,0.06); border: 1px solid rgba(63,185,80,0.2); padding: 16px 20px; border-radius: 8px; margin: 20px 0; font-size: 14px; }
-.signal-badge { display: inline-block; padding: 3px 10px; border-radius: 5px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px; vertical-align: middle; }
-.signal-high { background: rgba(63,185,80,0.12); color: var(--green); border: 1px solid rgba(63,185,80,0.25); }
-.signal-mod-hi { background: rgba(48,199,122,0.12); color: #30c77a; border: 1px solid rgba(48,199,122,0.25); }
-.mvl-meta { background: rgba(88,166,255,0.06); border: 1px solid rgba(88,166,255,0.2); padding: 14px 20px; border-radius: 6px; margin: 32px 0; font-size: 13px; color: var(--blue); }
-.cta-box { background: rgba(124,58,237,0.1); border: 1px solid var(--accent); padding: 28px; border-radius: 8px; text-align: center; margin: 48px 0 16px; }
-.cta-box h3 { font-size: 20px; color: #f0f6fc; margin-bottom: 8px; }
-.cta-box p { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
-.cta-form { display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap; }
-.cta-input { padding: 10px 16px; border: 1px solid var(--border); background: rgba(0,0,0,0.3); color: white; font-size: 14px; border-radius: 6px; outline: none; min-width: 260px; }
-.cta-btn { padding: 10px 24px; background: var(--accent); color: white; border: none; cursor: pointer; border-radius: 6px; font-weight: 600; font-size: 14px; transition: opacity .15s; }
-.cta-btn:hover { opacity: 0.9; }
-.footer { text-align: center; padding: 40px 0 20px; color: var(--muted); font-size: 13px; border-top: 1px solid rgba(48,54,61,0.4); margin-top: 60px; }
-.comparison-bar { height: 18px; background: var(--surface); border-radius: 3px; overflow: hidden; margin-top: 4px; }
-.comparison-fill-high { height: 100%; background: linear-gradient(90deg, #7c3aed, #56a6f5); border-radius: 3px; }
-.comparison-fill-med { height: 100%; background: rgba(63,185,80,0.45); border-radius: 3px; }
-.comparison-fill-risk { height: 100%; background: rgba(248,81,73,0.5); border-radius: 3px; }
+.metric-value { font-weight: 600; color: #f0f6fc; text-align: right; }
+.cta-box { background: var(--accent); color: white; padding: 32px; border-radius: 12px; text-align: center; margin-top: 40px; }
+.cta-box h3 { font-size: 22px; margin-bottom: 8px; }
+.form-group { display: flex; gap: 12px; max-width: 420px; margin: 20px auto; justify-content: center; }
+.cta-input { flex: 1; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3); color: white; font-size: 14px; border-radius: 8px; outline: none; }
+.cta-btn { padding: 12px 24px; background: #fff; color: var(--bg); border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px; white-space: nowrap; }
+.footer { text-align: center; padding: 40px 0; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 60px; }
+.verdict-go { display: inline-block; background: rgba(63,185,80,0.15); color: var(--green); padding: 2px 10px; border-radius: 4px; font-weight: 700; }
+.mvl-meta { background: var(--surface); border: 1px solid rgba(48,54,61,0.4); padding: 20px; border-radius: 8px; margin: 24px 0; font-size: 14px; line-height: 1.7; }
 </style>
-<!-- Preload analytics: localStorage-based email capture + visit tracking -->
-<script>
-function handleSignup(e) {
-  e.preventDefault();
-  var email = document.getElementById('mvl-email').value.trim();
-  if (!email || !email.includes('@')) return;
-  try {
-    var subscribers = JSON.parse(localStorage.getItem('flash-subscribers') || '[]');
-    if (!subscribers.find(function(s) { return s.email === email; })) {
-      subscribers.push({ email: email, market: 'phoenix', timestamp: new Date().toISOString(), pvs: localStorage.getItem('mvl-pvs-flash18') || '0' });
-      localStorage.setItem('flash-subscribers', JSON.stringify(subscribers));
-    }
-    document.querySelector('.cta-form').innerHTML = '<p style="color: var(--green); font-size: 15px; margin-top: 12px;">✓ Added to the distribution list. First flash analysis will arrive when we publish.</p>';
-    window._mvl_signup_count = (parseInt(localStorage.getItem('flash-signup-count') || '0')) + 1;
-    localStorage.setItem('flash-signup-count', String(window._mvl_signup_count));
-  } catch(e) { /* storage full — no-op */ }
-}
-
-function getAnalytics() {
-  var subs = JSON.parse(localStorage.getItem('flash-subscribers') || '[]');
-  return { totalSubscribers: subs.length, subscribers: subs.map(function(s){return s.email;}).join(','), pvs: localStorage.getItem('mvl-pvs-flash18') || '0', signups: localStorage.getItem('flash-signup-count') || '0' };
-}
-
-// Pageview counter
-var pv = parseInt(localStorage.getItem('mvl-pvs-flash18') || '0') + 1;
-localStorage.setItem('mvl-pvs-flash18', String(pv));
-document.addEventListener('DOMContentLoaded', function() {
-  window.getSignups = getAnalytics;
-  // Also expose as global for any post-deploy measurement
-  if (typeof window.__mvl !== 'undefined') {
-    window.__mvl('new-pageview', {'market': 'phoenix-18'});
-  }
-});
-</script>
 </head>
 <body>
 
 <div class="header">
-  <div class="brand">Luminary <span>Ventures</span> · Intelligence Division</div>
-  <h1>Flash Deal Analysis #18: Phoenix Metro AZ</h1>
-  <p class="subtitle">Desert supply frontier — where maximum domestic migration meets environmental scarcity. Three deal archetypes analyzed against deterministic market conditions.</p>
-  <span class="tagline">#18 in the Series · Sun Belt · Landlord-Friendly Regime</span>
-</div>
-
-<div class="stat-row">
-  <div class="stat-item"><div class="stat-value">5.1M</div><div class="stat-label">Metro Population</div></div>
-  <div class="stat-item"><div class="stat-value">~400</div><div class="stat-label">Net Migrants/Day</div></div>
-  <div class="stat-item"><div class="stat-value">$380K</div><div class="stat-label">Median Home Price</div></div>
-  <div class="stat-item"><div class="stat-value">~2.1%</div><div class="stat-label">Rent Growth YoY</div></div>
-</div>
-
-<div class="mvl-meta">
-  📊 Determinism signal: Supply-frontier-under-demand-growth regime — buildable land exists within commuting distance BUT environmental floor (groundwater/water) creates long-term scarcity. Record permitting (164% increase vs prior average) means short-term oversupply risk, but structural demand tailwinds remain strongest in the analyzed Sun Belt markets.
+  <div class="brand"><span>Luminary Ventures</span> — Deterministic Analysis</div>
+  <h1>Flash Deal Analysis #19: Charlotte NC Metro</h1>
+  <p class="subtitle">Steady-growth corridor with deep corporate HQ economy, pro-landlord regulatory simplicity.</p>
+  <span class="tagline">Carolina Piedmont — Mature Sun Belt</span>
 </div>
 
 <h2>The Thesis</h2>
 
-<p>Phoenix operates uniquely among Sun Belt markets. The Arizona legislature passed comprehensive landlord-friendly legislation while the state attracts 400+ net domestic migrants daily. Unlike Dallas (flat supply floor) or Miami (geographic limits), Phoenix has both buildable land AND water constraints — creating a scenario where short-term oversupply in specific suburban enclaves intersects with long-term structural appreciation from population growth.</p>
+<p style="margin-bottom: 16px; font-size: 15px;">Charlotte represents a <strong>mature, steady-growth corridor</strong>, distinct from explosive migration markets (Austin, Dallas, Miami). Growth comes through an organic expansion and a <strong>deep corporate headquarters economy</strong> — Bank of America, Truist Operations Center, Wells Fargo East Coast HQ, Lowe's global headquarters. This creates stable demand rather than speculative waves.</p>
 
-<div class="green-box">
-  <strong>The best playbook for Phoenix right now:</strong> Smaller multifamily (4-12 units) in established neighborhoods with confirmed water rights, buying older structures and executing cosmetic-to-moderate renovations at $8-12K/unit — well below the $15-18K national average due to lower Arizona labor costs.
-</div>
+<p style="margin-bottom: 16px; font-size: 15px;">The critical signal: <strong>NC has no rent control</strong> (state law prohibits it) and maintains a predictable eviction process. Landlord power rank #3 in the US, behind only Texas and Oklahoma. This gives capital stability that most Sun Belt operators cannot match.</p>
 
-<h2>Near-Term Risk: The Supply Bomb</h2>
-<div class="warning-box">
-  ⚠️ <strong>Critical signal:</strong> Phoenix issued 164% more building permits in the past 24 months than its prior five-year average. While older established neighborhoods aren't experiencing new construction, broad market appreciation pressure from overbuilding is compressing flips spreads by ~10-15% versus historical norms. This deal remains profitable — just with a lower ceiling.
+<h2>Near-Term Risk</h2>
+<p style="font-size: 15px; margin-bottom: 8px;"><strong>New supply headwinds:</strong> Roughly 7,000 multifamily units under construction or approved for the metro through end of 2026. This creates absorption risk particularly in South Charlotte targeting lower-income segments.</p>
+<p style="font-size: 15px; margin-bottom: 8px;"><strong>Growth moderation:</strong> After years as Southeast's fastest-growing metro, net migration has cooled from ~70K/year to ~42K/year — still positive but not explosive. Appreciation will normalize to +3-5%.</p>
+
+<h2>Metro Signal Summary</h2>
+<div class="stat-row">
+  <div class="stat-item"><div class="stat-value">$340K</div><div class="stat-label">Median Home Price</div></div>
+  <div class="stat-item"><div class="stat-value" style="color: var(--green);">6.5-8.2%</div><div class="stat-label">Net Cap Rate</div></div>
+  <div class="stat-item"><div class="stat-value">3/5</div><div class="stat-label">Migration Velocity</div></div>
+  <div class="stat-item"><div class="stat-value" style="color: var(--green);">4.5/5</div><div class="stat-label">Regulatory Climate</div></div>
+  <div class="stat-item"><div class="stat-value">3/5</div><div class="stat-label">Construction Risk</div></div>
 </div>
 
 <h2>Three Deal Archetypes</h2>
 
-<!-- DEAL 1 -->
 <div class="deal-card">
-  <span class="deal-type">Deal #1 · Fix-and-Flip · East Valley Mesa</span>
-  <h3>Texas-Era Tract Home, 70s Build (Single-Family)</h3>
-  
-  <div style="margin: 16px 0;">
-    <div class="deal-metric"><span class="metric-label">Purchase Price</span><span class="metric-value">$290K ($135/sqft)</span></div>
-    <div class="deal-metric"><span class="metric-label">Rehab Budget</span><span class="metric-value">$45-60K (cosmetic + kitchen refresh + bath modernization)</span></div>
-    <div class="deal-metric"><span class="metric-label">ARV (After Repair Value)</span><span class="metric-value positive">$415K-$435K</span></div>
-    <div class="deal-metric"><span class="metric-label">Gross Spread (pre-carry)</span><span class="metric-value positive">$85K-$100K</span></div>
-    <div class="deal-metric"><span class="metric-label">Net Spread (6-month hold)</span><span class="metric-value positive">$55K-$70K</span></div>
-    <div class="deal-metric"><span class="metric-label">ROI on cash deployed (~$200K total)</span><span class="metric-value positive">27-35%</span></div>
-  </div>
-  
-  <p style="font-size:14px;color:var(--muted);margin-top:14px;">East Mesa's older homeowners are being outbid by cash investors on as-is condition, but the same homes can be renovated profitably within a 6-month window. Domestic migration means an always-exist end-market for turnkeys.</p>
+  <h3>#1 — Buy-and-Hold Duplex, Northeast Charlotte (University Area)</h3>
+  <span class="deal-type">Single-Asset Entry &middot; Student+Young Professional Mix</span>
+  <div class="deal-metric"><span class="metric-label">Purchase Price</span><span class="metric-value">$280K&ndash;$320K</span></div>
+  <div class="deal-metric"><span class="metric-label">Gross Yield (Year 1)</span><span class="metric-value">7.5%&ndash;9.0%</span></div>
+  <div class="deal-metric"><span class="metric-label">Net Cap Rate (Conservative)</span><span class="metric-value" style="color: var(--green);">6.8%&ndash;7.4%</span></div>
+  <div class="deal-metric"><span class="metric-label">Cash-on-Cash Return (5-yr, 4% appreciation)</span><span class="metric-value" style="color: var(--green);">9-12%</span></div>
+  <p style="font-size:13px;color:var(--muted);margin-top:14px;">UNC Charlotte enrollment exceeds 16K, providing stable year-round rental demand. Both uptown jobs and campus within 20 minutes create diversified tenant pool.</p>
 </div>
 
-<!-- DEAL 2 -->
 <div class="deal-card">
-  <span class="deal-type">Deal #2 · Buy-and-Hold Triplex · South Phoenix Central Ave Corridor</span>
-  <h3>Gentrification Adjacency Value-Add (Multi-Unit, $400K Entry)</h3>
-  
-  <div style="margin: 16px 0;">
-    <div class="deal-metric"><span class="metric-label">Purchase Price</span><span class="metric-value">$420K ($140K/unit for triplex)</span></div>
-    <div class="deal-metric"><span class="metric-label">Current Rent (avg/unit)</span><span class="metric-value">$950/month</span></div>
-    <div class="deal-metric"><span class="metric-label">After-Ob rent (cosmetic upgrade at $6-8K/unit)</span><span class="metric-value positive">$1,150-$1,200/month</span></div>
-    <div class="deal-metric"><span class="metric-label">Incremental NOI from rents alone</span><span class="metric-value plus sign">+$7,200/year</span></div>
-    <div class="deal-metric"><span class="metric-label">Stabilized Cap Rate</span><span class="metric-value positive">6.7%</span></div>
-  </div>
-  
-  <p style="font-size:14px;color:var(--muted);margin-top:14px;">South Phoenix sits adjacent to Central Ave's development boom but still carries distressed pricing. Three-bed homes in neighboring areas sell $350-400K — our per-unit entry at $140K is a significant discount existing precisely because it's triplex format (too complex for small operators, below institutional minimums).</p>
-
-  <div class="warning-box" style="margin-top:16px;">
-    <strong>AZ advantage:</strong> No state income tax + no inheritance tax = increases both current demand from TX/CA migrants AND long-term hold value for estate planning. Creates structural price support Florida doesn't have.
-  </div>
-
-  <p style="font-size:14px;color:var(--muted);margin-top:10px;"><em>Non-negotiable:</em> Verify water-service history and district groundwater allocation before purchase. Budget $5-8K for water-line inspection.</p>
+  <h3>#2 — Buy-and-Hold Triplex, Southeast Charlotte (Highlands Edge)</h3>
+  <span class="deal-type">$400K Entry &middot; Multifamily with Operational Upside</span>
+  <div class="deal-metric"><span class="metric-label">Purchase Price</span><span class="metric-value">$380K&ndash;$420K</span></div>
+  <div class="deal-metric"><span class="metric-label">Gross Yield (Year 1)</span><span class="metric-value">7.5%&ndash;9.0%</span></div>
+  <div class="deal-metric"><span class="metric-label">Net Cap Rate</span><span class="metric-value" style="color: var(--green);">6.8%&ndash;7.2%</span></div>
+  <div class="deal-metric"><span class="metric-label">Cash-on-Cash Return (5-yr, 4% appreciation)</span><span class="metric-value" style="color: var(--green);">10-13%</span></div>
+  <p style="font-size:13px;color:var(--muted);margin-top:14px;">Southeast Charlotte sits between uptown jobs and the Southeast Extension — gentrification adjacency plays with identified rent uplift potential (+$75/unit/month via targeted upgrades).</p>
 </div>
 
-<!-- DEAL 3 -->
 <div class="deal-card">
-  <span class="deal-type">Deal #3 · Value-Add Multifamily · NW Phoenix Submarket ($3.8M+)</span>
-  <h3>Garden-Style Multi, 90s Build — Management Optimization Play (12 Units)</h3>
-  
-  <div style="margin: 16px 0;">
-    <div class="deal-metric"><span class="metric-label">As-Is Acquisition Price</span><span class="metric-value">$3,800,000 (as-is 7.0% cap)</span></div>
-    <div class="deal-metric"><span class="metric-label">Current NOI</span><span class="metric-value">$265,000/year</span></div>
-    <div class="deal-metric"><span class="metric-label">Renovation Budget (cosmetic $5-7.5K/unit)</span><span class="metric-value">$60-90K total</span></div>
-  </div>
-
-  <p style="font-size:14px;margin-top:12px;"><strong>What actually creates value in 2026 Phoenix:</strong></p>
-  
-  <ol style="font-size:14px;margin:12px 0;padding-left:20px;font-style:normal;">
-    <li><strong>Payment plan restructuring</strong> — Convert high-turnover month-to-month leases to 12-months at higher rate. +$75-100/unit/month without capital spend.</li>
-    <li><strong>Amenity premium extraction</strong> — Controlled-access entry, package lockers, covered parking for ~$25K total across 12 units. Achievable: +$50-75 unit/month rent uplift. Payback &lt;8 months.</li>
-    <li><strong>Utility submetering optimization</strong> — Arizona cooling creates 40-50% of annual utilities per-unit. Submeters with proper landlord-tenant reimbursement recapture $40-60/unit/month in unreimbursed electricity currently paid as operating expense.</li>
-  </ol>
-
-  <div style="margin:16px 0;padding-top:12px;border-top:1pxsolid var(--border);">
-    <div class="deal-metric"><span class="metric-label">Stabilized NOI after all optimizations</span><span class="metric-value positive">$315,000/year (8.3% new cap)</span></div>
-    <div class="deal-metric"><span class="metric-label">Implied value at exit (conservative 7.0% cap)</span><span class="metric-value positive">$4.5M+</span></div>
-    <div class="deal-metric"><span class="metric-label">Gross Spread on 2-year hold</span><span class="metric-value positive">$700K-$900K</span></div>
-    <div class="deal-metric"><span class="metric-label">Yield on equity (with 65-70% leverage)</span><span class="metric-value positive">18-28%</span></div>
-  </div>
-
-  <p style="font-size:14px;color:var(--muted);margin-top:12px;">When you're the active operator, Phoenix's cooling rent growth (+2% vs. peak double-digits) becomes a feature — passive owners overpaying for "just raise rents every year" are losing alpha as operational optimization gaps widen.</p>
-</div>
-
-<h2>Phoenix vs. Key Sun Belt Peers</h2>
-
-<table>
-<tr><th>Metric</th><th>Phoenix</th><th>Dallas</th><th>Austin</th><th>Miami Area</th><th>Atlanta</th></tr>
-<tr><td>Migration velocity</td><td>5/5 ⭐★★★★★</td><td>4/5 ★★★★☆</td><td>3/5 ★★★☆☆</td><td>4/5 ★★★★☆</td><td>4/5 ★★★★☆</td></tr>
-<tr><td>Buildable land proximity to work</td><td>4/5 ★★★★☆</td><td>4/5 ★★★★☆</td><td>3/5 ★★★☆☆</td><td>2/5 ★★☆☆☆</td><td>2/5 ★★☆☆☆</td></tr>
-<tr><td>Regulatory climate (landlord)</td><td>5/5 ⭐★★★★★</td><td>4/5 ★★★★☆</td><td>3/5 ★★★☆☆</td><td>4/5 ★★★★☆</td><td>4/5 ★★★★☆</td></tr>
-<tr><td>Tax environment for investors</td><td>5/5 ⭐★★★★★</td><td>4/5 ★★★★☆</td><td>3/5 ★★★☆☆</td><td>3/5 ★★★☆☆</td><td>4/5 ★★★★☆</td></tr>
-<tr><td>Water/supply as constraint</td><td>⚠️ HIGH ⚠️⚠️</td><td>LOW LOW</td><td>MODERATE</td><td>HIGH ⚠️⚠️⚠️⚠️HIGH</td><td>LOW LOW</td></tr>
-<tr><td>Construction pipeline risk</td><td>🔴 HIGH — 164%%</td><td>Moderate MODERATE</td><td>Low LOW</td><td>Low-Moderate</td><td>Moderate</td></tr>
-<tr><td>Near-term rent growth (2 yrs)</td><td>~1-3%</td><td>~2-4%</td><td>~2-5%</td><td>~3-6%</td><td>~2-4%</td></tr>
-</table>
-
-<div class="green-box" style="margin-top:20px;">
-  <strong>The synthesis:</strong> Phoenix is the only Sun Belt market where environmental supply constraint (water) directly intersects with maximum demand growth. Short-term oversupply pain in specific enclaves, but structural long-term price support from a population base that keeps growing and an environment — literally — that limits infinite expansion.
+  <h3>#3 — Value-Add Multifamily, South Charlotte (6-8 Unit)</h3>
+  <span class="deal-type">$1.2M&ndash;$1.8M Acquisition &middot; Turnaround Play</span>
+  <div class="deal-metric"><span class="metric-label">Entry Price</span><span class="metric-value">~$190K/unit (6-8 unit)</span></div>
+  <div class="deal-metric"><span class="metric-label">Gross Yield (As-Is)</span><span class="metric-value">5.2%&ndash;6.1%</span></div>
+  <div class="deal-metric"><span class="metric-label">Stabilized Net Cap Rate</span><span class="metric-value" style="color: var(--green);">7.0%&ndash;8.5%</span></div>
+  <div class="deal-metric"><span class="metric-label">Spread on Revalue (24-month hold)</span><span class="metric-value" style="color: var(--green);">$180K&ndash;$320K equity gain</span></div>
+  <p style="font-size:13px;color:var(--muted);margin-top:14px;">Existing properties trading at 90-95% of rents in 7-year leases create operational levers. NC law is straightforward for lease renegotiation upon renewal — landlords can reset toward market.</p>
 </div>
 
 <h2>Deterministic Entry Benchmarks</h2>
 
 <div class="deal-card">
-  <p style="font-size:15px;color:#f0f6fc;margin-bottom:12px;font-weight:600;">✅ Buy if these hold:</p>
-  <div class="deal-metric"><span class="metric-label">Multi-family purchase price</span><span class="metric-value">&le; $140K/unit (5+ unit, established 'neighborhoods')</span></div>
-  <div class="deal-metric"><span class="metric-label">Flip deal total cost-to-ARV ratio</span><span class="metric-value">&le;70% (flip) or &le;80% (hold)</span></div>
-  <div class="deal-metric"><span class="metric-label">As-is Cap Rate (NW/Scottsdale)</span><span class="metric-value">&ge;6.5%</span></div>
-  <div class="deal-metric"><span class="metric-label">As-is Cap Rate (South/Central corridors)</span><span class="metric-value">&ge;7.0%</span></div>
+  <p style="font-size:15px;color:#f0f6fc;margin-bottom:12px;font-weight:600;">&check; Buy if these hold:</p>
+  <div class="deal-metric"><span class="metric-label">Purchase price per unit (duplex)</span><span class="metric-value">&le;$160K/unit ($340-375K total deal)</span></div>
+  <div class="deal-metric"><span class="metric-label">As-is cap rate</span><span class="metric-value">&ge;7.0% (NC regulatory advantage)</span></div>
+  <div class="deal-metric"><span class="metric-label">Value-add spread on repositioning</span><span class="metric-value">&ge;$180K equity gain possible in &lt;24mo</span></div>
 </div>
 
 <div class="deal-card" style="margin-top:24px;">
-  <p style="font-size:15px;color:#f0f6fc;margin-bottom:12px;font-weight:600;">🚨 Sell or reposition if:</p>
-  <div class="deal-metric"><span class="metric-label">Water infrastructure district confirms allocation reduction</span><span class="metric-value" style="color:var(--red);">— immediate signal to reassess long-term hold viability</span></div>
-  <div class="deal-metric"><span class="metric-label">AZ Legislature passes tenant-protection legislation (current pro-landlord consensus could shift)</span><span class="metric-value" style="color:var(--red);">— legislative regime change = re-analyze all positions</span></div>
-  <div class="deal-metric"><span class="metric-label">Cap rates compress below 5.5% in your submarket (speculative froth → partial exit via cash-out refi)</span><span class="metric-value" style="color:var(--red);">— hot market = consider trimming</span></div>
+  <p style="font-size:15px;color:#f0f6fc;margin-bottom:12px;font-weight:600;">&zwicw; Sell or reposition if:</p>
+  <div class="deal-metric"><span class="metric-label">Capitalization rates compress below 6.0%</span><span class="metric-value" style="color:var(--red);">&mdash; froth signal in Charlotte specific</span></div>
+  <div class="deal-metric"><span class="metric-label">NC legislature passes tenant-protection bills (currently no active proposals)</span><span class="metric-value" style="color:var(--red);">&mdash; regime change = reanalyze all positions</span></div>
+  <div class="deal-metric"><span class="metric-label">Absorption of new supply exceeds 12 months</span><span class="metric-value" style="color:var(--red);">&mdash; rental rate compression incoming</span></div>
 </div>
 
 <div class="mvl-meta">
-  <strong>Bottom line:</strong> Moderate-High opportunity signal. Best actionable play for our portfolio alignment is the Triplex Value-Add in South Phoenix (#2) — single-property, $400-500K total entry (within reach for individual operator leveraging), with identifiable operational levers that generate 18%+ ROI when executed. Translates cleanly into content distribution: a Phoenix triplex teardown/series across LinkedIn/YouTube demonstrates real-time expertise and builds audience authority.
+  <strong>Synthesis:</strong> Charlotte is the most <em>predictable</em> Sun Belt market we track. Lower upside than Phoenix/Dallas but significantly lower downside risk: deeper corporate employer base, no rent control or speculative price run-up history from pandemic migration, and landlord-friendly regulations that protect cash flow stability. The triplex in Southeast Charlotte (#2) is the best portfolio-aligned play — moderate entry point ($400K), proven rental demand near uptown expansion corridor, and operational upside that a local operator can capture through targeted improvements over 18-36 months.<br><br>
+  <strong>Catapult signal:</strong> If Charlotte's corporate hiring accelerates (Wells Fargo expanded East Coast HQ in 2025 with 3K+ new jobs planned), demand for rental housing could tighten faster than supply pipeline, making current entry points significantly more attractive. Watch: Bank of America Charlotte headquarters employment reports monthly on the NC Jobs Tracker.
 </div>
 
 <div class="cta-box">
   <h3>Get the Next Flash Analysis</h3>
-  <p>We deploy one deterministic analysis per week. Enter your email to be first when #19 is published.</p>
-  <form class="cta-form" onsubmit="handleSignup(event)">
-    <input type="email" id="mvl-email" placeholder="your@email.com" required class="cta-input" />
-    <button type="submit">Subscribe</button>
-  </form
-</div
+  <p>We deploy one deterministic analysis per week. Enter your email to be first when the next market drops.</p>
+  <form class="form-group" onsubmit="handleSubmit(event)">
+    <input type="email" class="cta-input" placeholder="your@email.com" required id="mvl-email" />
+    <button type="submit" class="cta-btn">Subscribe</button>
+  </form>
+</div>
 
 <div class="footer">
-  Flash Deal Analysis Series · Luminary Ventures<br/>
+  Flash Deal Analysis Series &middot; Luminary Ventures<br/>
   Deterministic underwriting methodology (verified market data &rarr; mathematical modeling &rarr; scenario output)<br/>
   dereviankoandrey.github.io/luminary-flash-analyses
 </div>
 
-<!-- Note: the script above handles email capture with localStorage-based MVP. No external services required for analytics. -->
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  var email = document.getElementById('mvl-email').value;
+  if (!email) return false;
+  try {
+    var signups = JSON.parse(localStorage.getItem('mvl-signups') || '[]');
+    signups.push({email: email, ts: new Date().toISOString(), source: 'charlotte-flash-19'});
+    localStorage.setItem('mvl-signups', JSON.stringify(signups));
+  } catch(e) { console.error('save failed', e); }
+  document.getElementById('mvl-email').style.display = 'none';
+  document.querySelector('.cta-btn').style.display = 'none';
+  var note = document.createElement('p');
+  note.style.color = '#3fb950';
+  note.style.marginTop = '20px';
+  note.textContent = '* You're in. We'll notify you when the next analysis drops.';
+  e.target.appendChild(note);
+}
+window.getSignups = function() { try { return JSON.parse(localStorage.getItem('mvl-signups') || '[]'); } catch(e) { return []; } };
+</script>
 
 </body>
 </html>
