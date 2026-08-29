@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Luminary Deal Analyzer — Deterministic Underwriting Engine</title>
+<style>
+:root {
+  --bg: #0a0c12;
+  --surface: #141722;
+  --border: #252836;
+  --text: #e2e4ef;
+  --muted: #7d8199;
+  --green: #22c55e;
+  --red: #ef4444;
+  --amber: #f59e0b;
+  --blue: #3b82f6;
+  --cyan: #06b6d4;
+  --radius: 10px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+.container { max-width: 960px; margin: 0 auto; padding: 24px 20px; }
+
+/* Header */
+header { text-align: center; padding: 40px 0 32px; border-bottom: 1px solid var(--border); margin-bottom: 32px; position: relative; }
+header h1 { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.5px; }
+.badge { display: inline-block; background: rgba(6,182,212,0.12); color: var(--cyan); padding: 4px 14px; border-radius: 20px; font-size: 0.78rem; margin-bottom: 14px; letter-spacing: 0.3px; text-transform: uppercase; }
+header p { color: var(--muted); max-width: 560px; margin: 10px auto 0; font-size: 0.92rem; }
+
+/* Sections */
+.section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+.section h3 { font-size: 1.05rem; margin-bottom: 16px; color: #fff; display: flex; align-items: center; gap: 8px; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.field label { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.6px; }
+.field input, .field select { width: 100%; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+.field input:focus, .field select:focus { border-color: var(--cyan); }
+
+/* Buttons */
+.btn-row { display: flex; gap: 12px; margin-top: 6px; flex-wrap: wrap; }
+button { padding: 12px 24px; border-radius: 8px; font-size: 0.92rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+.btn-primary { background: var(--cyan); color: #000; }
+.btn-primary:hover { background: #0891b2; transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--cyan); color: var(--text); }
+
+/* Preset selector */
+.preset-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.preset-btn { padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; background: var(--bg); color: var(--muted); border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; }
+.preset-btn:hover, .preset-btn.active { border-color: var(--cyan); color: var(--cyan); }
+
+/* Results */
+.result-card { display: none; margin-top: 8px; }
+.result-card.visible { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.rec-bar { padding: 22px; border-radius: var(--radius); text-align: center; margin-bottom: 24px; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.3px; }
+.rec-go { background: rgba(34,197,94,0.1); color: var(--green); border: 2px solid var(--green); }
+.rec-review { background: rgba(245,158,11,0.1); color: var(--amber); border: 2px solid var(--amber); }
+.rec-nogo { background: rgba(239,68,68,0.1); color: var(--red); border: 2px solid var(--red); }
+
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.metric-card { background: var(--bg); border-radius: 8px; padding: 16px; text-align: center; }
+.metric-card .value { font-size: 1.5rem; font-weight: 700; color: #fff; }
+.metric-card .label { font-size: 0.72rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.6px; line-height: 1.3; }
+
+.flags-section h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 12px; }
+.flag-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg); border-radius: 6px; margin-bottom: 6px; font-size: 0.88rem; }
+.flag-icon { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.flag-warn .flag-icon { background: var(--amber); }
+.flag-ok .flag-icon { background: var(--green); }
+
+/* Comparison table */
+.comparison-section { margin-top: 24px; }
+.comp-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.comp-table th { text-align: left; padding: 10px 12px; background: var(--bg); color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--border); }
+.comp-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+
+/* Footer */
+footer { text-align: center; padding: 32px 0 16px; color: var(--muted); font-size: 0.8rem; }
+footer a { color: var(--cyan); text-decoration: none; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="badge">Deterministic Underwriting Engine</div>
+  <h1>Luminary Deal Analyzer</h1>
+  <p>Paste numbers from any listing. Get instant GO / REVIEW / NO-GO with auditable math — no black box, no hallucination.</p>
+</header>
+
+<!-- DEAL INPUT -->
+<div class="section">
+  <h3>📊 Deal Parameters</h3>
+  <div class="preset-row" id="presets"></div>
+  <div class="form-grid">
+    <div class="field"><label>Purchase Price ($)</label><input type="number" id="price" value="425000" /></div>
+    <div class="field"><label>Monthly Rent ($/mo)</label><input type="number" id="rent" value="3800" /></div>
+    <div class="field"><label>Down Payment (%)</label><input type="number" id="downPct" value="25" /></div>
+    <div class="field"><label>Interest Rate (%)</label><input type="number" id="rate" value="7.5" step="0.1" /></div>
+    <div class="field"><label>Loan Term (years)</label><input type="number" id="term" value="30" /></div>
+    <div class="field"><label>Closing Costs ($)</label><input type="number" id="closing" value="12750" /></div>
+    <div class="field"><label>Annual Property Tax ($)</label><input type="number" id="tax" value="6375" /></div>
+    <div class="field"><label>Annual Insurance ($)</label><input type="number" id="insurance" value="2400" /></div>
+    <div class="field"><label>Monthly Maintenance ($)</label><input type="number" id="maintenance" value="315" /></div>
+    <div class="field"><label>Vacancy Rate (%)</label><input type="number" id="vacancy" value="8" step="0.5" /></div>
+    <div class="field"><label>Property Mgmt Fee (%)</label><input type="number" id="mgmtFee" value="10" step="0.5" /></div>
+    <div class="field"><label>Rent Escalation (%/yr)</label><input type="number" id="escalation" value="3" step="0.5" /></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn-primary" onclick="analyze()">Run Analysis</button>
+    <button class="btn-secondary" onclick="resetAll()">Reset to Defaults</button>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="section result-card" id="results">
+  <h3>📋 Deterministic Underwriting Results</h3>
+  <div class="rec-bar" id="recBar"></div>
+  <div class="metrics-grid" id="metricsGrid"></div>
+  <div class="flags-section">
+    <h4>Risk Flags & Validation Checks</h4>
+    <div id="flagsContainer"></div>
+  </div>
+  <div class="comparison-section">
+    <h3 style="margin-top:8px;">📈 5-Year Cash Flow Projection</h3>
+    <table class="comp-table" id="projectionTable">
+      <thead><tr><th>Year</th><th>Avg Rent/mo</th><th>Annual Income</th><th>Annual Expenses</th><th>NOI</th><th>Cash Flow/yr</th></tr></thead>
+      <tbody id="projectionBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section">
+  <h3>🔍 How This Differs from AI Underwriting Tools</h3>
+  <p style="color:var(--muted); font-size:0.9rem; line-height:1.7;">
+    Every calculation here is <strong style="color:#fff;">deterministic math in your browser</strong>. No API calls, no LLM processing, no possibility of hallucination or changing assumptions between runs. The same inputs always produce the same outputs — auditable, reproducible, and verifiable by anyone with a calculator.<br><br>
+    This is why we built Luminary: if black-box AI can't be trusted to analyze source code without leaking secrets (<em>xAI Grok Build incident</em>) or making financial decisions without understanding facts (<em>MIT Sloan study: 27%→9% accuracy with AI advice</em>), why trust probabilistic tools with your capital deployment?
+  </p>
+</div>
+
+<footer>
+  Built by <a href="https://luminaryventures.ai" target="_blank">Luminary Ventures</a> — Deterministic underwriting for serious investors.<br>
+  All calculations run locally in your browser. No data is transmitted to any server.
+</footer>
+
+</div>
+
+<script>
+// ========== PRESETS ==========
+const presets = [
+  { name: "DFW Duplex", price:380000, rent:3200, downPct:25, rate:7.5, term:30, closing:11400, tax:5700, insurance:2200, maintenance:266, vacancy:8, mgmtFee:10, escalation:3 },
+  { name: "Nashville 4-plex", price:520000, rent:5600, downPct:25, rate:7.25, term:30, closing:15600, tax:8320, insurance:3200, maintenance:466, vacancy:8, mgmtFee:8, escalation:3 },
+  { name: "Miami Condo", price:310000, rent:2900, downPct:25, rate:7.75, term:30, closing:9300, tax:4650, insurance:4800, maintenance:258, vacancy:10, mgmtFee:10, escalation:2 },
+  { name: "Phoenix Triplex", price:340000, rent:3800, downPct:25, rate:7.5, term:30, closing:10200, tax:4080, insurance:1800, maintenance:316, vacancy:8, mgmtFee:9, escalation:3 },
+  { name: "Austin Multifamily", price:680000, rent:7200, downPct:25, rate:7.25, term:30, closing:20400, tax:11560, insurance:4200, maintenance:600, vacancy:7, mgmtFee:8, escalation:3 },
+];
+
+function buildPresets() {
+  const container = document.getElementById('presets');
+  presets.forEach((p, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'preset-btn';
+    btn.textContent = p.name;
+    btn.onclick = () => loadPreset(i);
+    container.appendChild(btn);
+  });
+}
+
+function loadPreset(idx) {
+  const p = presets[idx];
+  document.getElementById('price').value = p.price;
+  document.getElementById('rent').value = p.rent;
+  document.getElementById('downPct').value = p.downPct;
+  document.getElementById('rate').value = p.rate;
+  document.getElementById('term').value = p.term;
+  document.getElementById('closing').value = p.closing;
+  document.getElementById('tax').value = p.tax;
+  document.getElementById('insurance').value = p.insurance;
+  document.getElementById('maintenance').value = p.maintenance;
+  document.getElementById('vacancy').value = p.vacancy;
+  document.getElementById('mgmtFee').value = p.mgmtFee;
+  document.getElementById('escalation').value = p.escalation;
+  document.querySelectorAll('.preset-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+}
+
+function resetAll() {
+  presets[0].name && loadPreset(0);
+  document.querySelectorAll('.preset-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  document.getElementById('results').classList.remove('visible');
+}
+
+// ========== UNDERWRITING ENGINE ==========
+function analyze() {
+  const price = parseFloat(document.getElementById('price').value) || 0;
+  const rent = parseFloat(document.getElementById('rent').value) || 0;
+  const downPct = parseFloat(document.getElementById('downPct').value) / 100 || 0.25;
+  const rate = (parseFloat(document.getElementById('rate').value) || 7.5) / 100;
+  const termYr = parseInt(document.getElementById('term').value) || 30;
+  const closing = parseFloat(document.getElementById('closing').value) || 0;
+  const tax = parseFloat(document.getElementById('tax').value) || 0;
+  const insurance = parseFloat(document.getElementById('insurance').value) || 0;
+  const maintenance = parseFloat(document.getElementById('maintenance').value) || 0;
+  const vacancyPct = (parseFloat(document.getElementById('vacancy').value) || 8) / 100;
+  const mgmtPct = (parseFloat(document.getElementById('mgmtFee').value) || 10) / 100;
+  const escalationPct = (parseFloat(document.getElementById('escalation').value) || 3) / 100;
+
+  // Mortgage calc
+  const loanAmt = price * (1 - downPct);
+  const monthlyRate = rate / 12;
+  const numPayments = termYr * 12;
+  let mortgage = 0;
+  if (monthlyRate > 0 && numPayments > 0) {
+    mortgage = loanAmt * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+  } else {
+    mortgage = loanAmt / numPayments;
+  }
+
+  // Expenses
+  const effectiveRent = rent * (1 - vacancyPct);
+  const mgmtCost = rent * mgmtPct;
+  const annualExpenses = (mortgage + tax/12 + insurance/12 + maintenance + mgmtCost) * 12;
+  const annualIncome = rent * 12;
+  const annualNOI = annualIncome - ((tax + insurance + maintenance + mgmtCost) * 12);
+
+  // Metrics
+  const totalCashInvested = price * downPct + closing;
+  const capRate = (annualNOI / price) * 100;
+  const monthlyCF = effectiveRent - mortgage - tax/12 - insurance/12 - maintenance - mgmtCost;
+  const annualCashFlow = monthlyCF * 12;
+  const cocReturn = (annualCashFlow / totalCashInvested) * 100;
+  const dscr = annualNOI / (mortgage * 12);
+  const grim = price / annualIncome;
+
+  // ========== RISK FLAGS ==========
+  const flags = [];
+
+  if (capRate < 6) flags.push({ text: `Cap rate ${capRate.toFixed(2)}% is below 6% threshold`, type: 'warn' });
+  else flags.push({ text: `Cap rate ${capRate.toFixed(2)}% meets minimum threshold`, type: 'ok' });
+
+  if (cocReturn < 8) flags.push({ text: `Cash-on-cash return ${cocReturn.toFixed(2)}% is below 8% target`, type: 'warn' });
+  else flags.push({ text: `Cash-on-cash return ${cocReturn.toFixed(2)}% meets target`, type: 'ok' });
+
+  if (dscr < 1.25) flags.push({ text: `DSCR ${dscr.toFixed(2)}x is below 1.25x lender minimum`, type: 'warn' });
+  else flags.push({ text: `DSCR ${dscr.toFixed(2)}x meets lender requirements`, type: 'ok' });
+
+  if (grim > 10) flags.push({ text: `GRM ${grim.toFixed(1)} is above 10 — potentially overpriced for rent levels`, type: 'warn' });
+  else flags.push({ text: `GRM ${grim.toFixed(1)} within acceptable range`, type: 'ok' });
+
+  if (monthlyCF < 200) flags.push({ text: `Monthly cash flow only $${monthlyCF.toFixed(0)} — thin margin for error`, type: 'warn' });
+  else flags.push({ text: `Monthly cash flow $${monthlyCF.toFixed(0)} provides adequate cushion`, type: 'ok' });
+
+  if (insurance > price * 0.01) flags.push({ text: `Insurance ${'$'+insurance.toLocaleString()}/yr exceeds 1% of value — high-risk area`, type: 'warn' });
+  else flags.push({ text: `Insurance costs reasonable relative to property value`, type: 'ok' });
+
+  // ========== RECOMMENDATION ==========
+  let rec, recClass;
+  const score = flags.filter(f => f.type === 'ok').length;
+  if (score >= 5) { rec = "✓ GO — Strong Signal"; recClass = "rec-go"; }
+  else if (score >= 3) { rec = "⚠ REVIEW — Marginal"; recClass = "rec-review"; }
+  else { rec = "✗ NO-GO — Do Not Proceed"; recClass = "rec-nogo"; }
+
+  // ========== RENDER ==========
+  const bar = document.getElementById('recBar');
+  bar.textContent = rec;
+  bar.className = 'rec-bar ' + recClass;
+
+  const metricsGrid = document.getElementById('metricsGrid');
+  metricsGrid.innerHTML = `
+    <div class="metric-card"><div class="value" style="color:${capRate>=6?'var(--green)':'var(--red)'}">${capRate.toFixed(2)}%</div><div class="label">Cap Rate</div></div>
+    <div class="metric-card"><div class="value" style="color:${cocReturn>=8?'var(--green)':'var(--amber)'}">${cocReturn.toFixed(2)}%</div><div class="label">Cash-on-Cash</div></div>
+    <div class="metric-card"><div class="value" style="color:${dscr>=1.25?'var(--green)':'var(--red)'}">${dscr.toFixed(2)}x</div><div class="label">DSCR</div></div>
+    <div class="metric-card"><div class="value">$${monthlyCF.toLocaleString(undefined,{maximumFractionDigits:0})}</div><div class="label">Monthly Cash Flow</div></div>
+    <div class="metric-card"><div class="value">${grim.toFixed(1)}</div><div class="label">Gross Rent Multiplier</div></div>
+    <div class="metric-card"><div class="value">$${totalCashInvested.toLocaleString()}</div><div class="label">Total Cash Invested</div></div>
+  `;
+
+  const flagsContainer = document.getElementById('flagsContainer');
+  flagsContainer.innerHTML = flags.map(f => `<div class="flag-item flag-${f.type}"><span class="flag-icon"></span>${f.text}</div>`).join('');
+
+  // Projection table
+  const projBody = document.getElementById('projectionBody');
+  let projHTML = '';
+  for (let y = 0; y < 5; y++) {
+    const yrRent = rent * Math.pow(1 + escalationPct, y);
+    const yrIncome = yrRent * 12 * (1 - vacancyPct);
+    const yrMortgage = mortgage * 12;
+    const yrTax = tax * Math.pow(1.03, y);
+    const yrInsurance = insurance * Math.pow(1.04, y);
+    const yrMaint = maintenance * 12 * Math.pow(1.025, y);
+    const yrMgmt = rent * mgmtPct * 12;
+    const yrExpenses = yrMortgage + yrTax + yrInsurance + yrMaint + yrMgmt;
+    const yrNOI = yrIncome - (yrTax + yrInsurance + yrMaint + yrMgmt);
+    const yrCF = yrIncome - yrExpenses;
+    projHTML += `<tr><td>${y+1}</td><td>$${Math.round(yrRent).toLocaleString()}</td><td>$${Math.round(yrIncome).toLocaleString()}</td><td>$${Math.round(yrExpenses).toLocaleString()}</td><td>$${Math.round(yrNOI).toLocaleString()}</td><td style="color:${yrCF>=0?'var(--green)':'var(--red)'}">$${Math.round(yrCF).toLocaleString()}</td></tr>`;
+  }
+  projBody.innerHTML = projHTML;
+
+  document.getElementById('results').classList.add('visible');
+}
+
+// Init
+buildPresets();
+</script>
+</body>
+</html>
