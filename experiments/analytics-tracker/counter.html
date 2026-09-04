@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html><body><script>
+// Luminary Analytics Tracker v1.0
+// Logs pageviews to localStorage + sends beacon to a data endpoint
+(function(){
+  var sid = localStorage.getItem('lum_sid') || Math.random().toString(36).substr(2,9);
+  localStorage.setItem('lum_sid', sid);
+  var pv = parseInt(localStorage.getItem('lum_pv')||'0')+1;
+  localStorage.setItem('lum_pv', pv);
+  var url = location.href;
+  // Beacon to GitHub Gist API (replace gist_id with your own)
+  if(navigator.sendBeacon){
+    navigator.sendBeacon('https://api.github.com/gists/luminary-views', JSON.stringify({sid:sid,pv:pv,url:url,ts:new Date().toISOString()}));
+  }
+})();
+</script>
+<noscript><img src="placeholder" alt="" width="0" height="0"/></noscript>
+</body></html>

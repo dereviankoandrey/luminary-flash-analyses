@@ -178,7 +178,7 @@ if (gaps.length === 0) {
 }
 
 // CTA — the only conversion point, text-only (no form)
-html += '<div class="actions-box"><h3>Your deterministic edge starts here</h3><p style="color:var(--muted);font-size:14px;margin-bottom:8px">You just saw that your stack may be more exposed to platform risk than you thought. Luminary builds the hedge — deterministic underwriting, due diligence automation, and deal-analysis tools that run on math you control locally.</p><div style="margin-top:16px"><a href="#" class="export-btn" onclick="return false;" data-email-capture="true">Get a free Flash Deal Analysis for your next property</a> <button class="export-btn secondary" onclick="window.print()">Print Result</button></div><p style="color:var(--muted);font-size:12px;margin-top:12px">No email required. No signup. Just results.</p></div>';
+html += '<div class="actions-box"><h3>Your deterministic edge starts here</h3><p style="color:var(--muted);font-size:14px;margin-bottom:8px">You just saw that your stack may be more exposed to platform risk than you thought. Luminary builds the hedge — deterministic underwriting, due diligence automation, and deal-analysis tools that run on math you control locally.</p><div style="margin-top:16px"><a href="https://dereviankoandrey.github.io/luminary-product-hub/" class="export-btn">Get a free Flash Deal Analysis for your next property</a> <button class="export-btn secondary" onclick="window.print()">Print Result</button></div><p style="color:var(--muted);font-size:12px;margin-top:12px">No email required. No signup. Just results.</p></div>';
 
 document.getElementById('results').innerHTML = html;
 
@@ -196,5 +196,6 @@ window.addEventListener('DOMContentLoaded', function() {
     } catch(e) {}
 </script>
 
+<script src="/experiments/analytics-tracker/luminary-analytics.js"></script>
 </body>
 </html>
