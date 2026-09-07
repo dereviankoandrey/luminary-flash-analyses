@@ -31,6 +31,12 @@
 | `docs/analysis-methodology.md` | Full Analysis Methodology — The spec behind our deterministic approach |
 | `docs/underwriting-framework.md` | Underwriting Framework — Complete professional underwriting process documentation |
 
+### 📧 Email Sequences (for lead conversion)
+
+| File | Description |
+|------|-------------|
+| `email-sequences/WAITLIST-NURTURE-SEQUENCE.md` | 5-email nurture sequence for waitlist subscribers → toolkit buyers. Ready to paste into Gmail, Mailchimp, or ConvertKit. Includes personalization tips and tracking benchmarks.
+
 ---
 
 ## How to Use
