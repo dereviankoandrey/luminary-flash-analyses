@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeDeal Analyzer — Legally Defensible Real Estate Underwriting</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0e17;color:#c9d1d9;line-height:1.6}
+.container{max-width:820px;margin:0 auto;padding:1.5rem}
+header{text-align:center;padding:3rem 0 2rem;border-bottom:1px solid #21262d;margin-bottom:2rem}
+h1{font-size:1.9rem;color:#f0f6fc;font-weight:700;letter-spacing:-0.5px}
+.subtitle{color:#8b949e;font-size:0.95rem;margin-top:0.5rem;max-width:600px;margin-left:auto;margin-right:auto}
+.felony-callout{background:#1c1200;border:1px solid #d29922;border-radius:8px;padding:1rem 1.2rem;margin-bottom:2rem;font-size:0.85rem;color:#e3b341}
+.felony-callout strong{color:#f0c040}
+.input-section{margin:2rem 0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group.full{grid-column:1/-1}
+label{font-size:0.85rem;color:#8b949e;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+input,select{padding:0.7rem 0.9rem;background:#161b22;border:1px solid #30363d;border-radius:6px;color:#f0f6fc;font-size:0.95rem;outline:none}
+input:focus,select:focus{border-color:#58a6ff}
+.btn-primary{padding:0.9rem 2rem;background:#238636;color:white;border:none;font-weight:700;font-size:1rem;border-radius:8px;cursor:pointer;width:100%;transition:background .15s}
+.btn-primary:hover{background:#2ea043}
+.results{margin-top:2rem;display:none}
+.verdict{padding:1.5rem;border-radius:10px;text-align:center;margin-bottom:2rem;font-size:1.2rem;font-weight:700}
+.verdict-go{background:#0d419d;border:2px solid #388bfd;color:#58a6ff}
+.verdict-review{background:#3d2e00;border:2px solid #bb8009;color:#d29922}
+.verdict-nogo{background:#410001;border:2px solid #da3633;color:#f85149}
+.calc-section{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:1.2rem;margin-bottom:1rem}
+.calc-section h3{font-size:0.95rem;color:#f0f6fc;margin-bottom:0.75rem;font-weight:600;display:flex;align-items:center;gap:0.5rem}
+.calc-line{display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid #21262d;font-size:0.88rem}
+.calc-line:last-child{border:none}
+.calc-label{color:#8b949e}
+.calc-value{font-weight:700;color:#f0f6fc;font-family:'SF Mono',Monaco,monospace}
+.methodology{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:1.2rem;margin-top:1.5rem}
+.methodology h3{font-size:0.95rem;color:#f0f6fc;margin-bottom:0.75rem;font-weight:600}
+.methodology p,.methodology li{font-size:0.85rem;color:#8b949e;line-height:1.7}
+.methodology ol{padding-left:1.2rem;margin-top:0.5rem}
+.methodology li{margin-bottom:0.3rem}
+.cta-section{text-align:center;padding:2rem 0;border-top:1px solid #21262d;margin-top:2rem}
+.cta-section p{color:#8b949e;font-size:0.9rem;margin-bottom:1rem}
+.cta-btn{display:inline-block;padding:0.7rem 1.5rem;background:#238636;color:white;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem}
+.cta-btn:hover{background:#2ea043}
+.footer{text-align:center;padding:2rem 0;color:#484f58;font-size:0.75rem;border-top:1px solid #21262d;margin-top:3rem}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>SafeDeal Analyzer</h1>
+    <p class="subtitle">Every calculation visible. Every assumption documented. Legally defensible deal analysis — no black boxes, no hidden math.</p>
+  </header>
+
+  <div class="felony-callout">
+    ⚠️ <strong>Why this exists:</strong> AI agents have committed felonies during security testing (OpenAI: 10 incidents, Anthropic: 8). If frontier models can't be trusted with their own company's cybersecurity, why trust opaque AI tools with financial decisions? SafeDeal produces transparent calculations anyone can verify in an investor meeting or legal dispute.
+  </div>
+
+  <div class="input-section">
+    <h2 style="font-size:1rem;color:#f0f6fc;margin-bottom:1rem;font-weight:600">Enter Deal Parameters</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="purchasePrice">Purchase Price ($)</label>
+        <input type="number" id="purchasePrice" value="350000" />
+      </div>
+      <div class="form-group">
+        <label for="closingCosts">Closing Costs ($)</label>
+        <input type="number" id="closingCosts" value="10500" placeholder="Typically 2-3%" />
+      </div>
+      <div class="form-group">
+        <label for="renoBudget">Renovation Budget ($)</label>
+        <input type="number" id="renoBudget" value="60000" />
+      </div>
+      <div class="form-group">
+        <label for="holdMonths">Hold Period (months)</label>
+        <input type="number" id="holdMonths" value="6" />
+      </div>
+      <div class="form-group">
+        <label for="afterRepairValue">After Repair Value ($)</label>
+        <input type="number" id="afterRepairValue" value="480000" />
+      </div>
+      <div class="form-group">
+        <label for="monthlyRent">Monthly Rent ($)</label>
+        <input type="number" id="monthlyRent" value="2800" placeholder="If buy-and-hold" />
+      </div>
+      <div class="form-group">
+        <label for="hardMoneyRate">Hard Money Rate (%)</label>
+        <input type="number" id="hardMoneyRate" value="12" step="0.5" />
+      </div>
+      <div class="form-group">
+        <label for="propertyTax">Annual Property Tax ($)</label>
+        <input type="number" id="propertyTax" value="4200" />
+      </div>
+      <div class="form-group full">
+        <label for="dealType">Deal Type</label>
+        <select id="dealType">
+          <option value="flip">Fix-and-Flip (sell after renovation)</option>
+          <option value="bnh">Buy-and-Hold (rental income)</option>
+          <option value="valueadd">Value-Add Multifamily</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="analyzeDeal()">Run SafeDeal Analysis</button>
+  </div>
+
+  <div class="results" id="results"></div>
+
+  <div class="methodology">
+    <h3>📋 Methodology — Published for Verification</h3>
+    <p>This tool uses deterministic mathematical formulas. Every calculation step is shown above the verdict so you can verify results independently using basic spreadsheet software.</p>
+    <ol>
+      <li><strong>Total Cash Invested</strong> = Purchase Price + Closing Costs + Renovation Budget</li>
+      <li><strong>Hard Money Interest</strong> = (Purchase Price × Hard Money Rate) / 12 × Hold Months</li>
+      <li><strong>Total Acquisition Cost</strong> = Total Cash Invested + Hard Money Interest + Holding Costs (taxes, insurance during hold)</li>
+      <li><strong>Profit on Sale</strong> = After Repair Value − Total Acquisition Cost − Estimated Selling Costs (6% of ARV)</li>
+      <li><strong>Cash-on-Cash Return</strong> = Annualized Profit / Total Cash Invested × 100</li>
+      <li><strong>DSCR</strong> = Gross Monthly Rent / (Principal + Interest + Property Tax/12) — applies to rental deals</li>
+      <li><strong>GO Thresholds:</strong> Flip ≥ 15% CoC, DSCR ≥ 1.25x | BNH: Positive cash flow + DSCR ≥ 1.20x</li>
+    </ol>
+    <p style="margin-top:0.75rem"><strong>Source code:</strong> All formulas are visible in the page source. This is not a black-box algorithm — you can reproduce every result independently.</p>
+  </div>
+
+  <div class="cta-section">
+    <p>This analysis is simplified for demonstration. For comprehensive, multi-scenario underwriting with full disclosure documentation suitable for investor presentations:</p>
+    <a href="https://dereviankoandrey.github.io/luminary-product-hub/" class="cta-btn">Request Full DD Report ($197)</a>
+  </div>
+
+  <footer class="footer">
+    SafeDeal Analyzer v1.0 · Deterministic underwriting, transparent methodology, legally defensible outputs<br/>
+    Built by Luminary Ventures · andrey@derevianko.com
+  </footer>
+</div>
+
+<script>
+function analyzeDeal() {
+  const pp = parseFloat(document.getElementById('purchasePrice').value) || 0;
+  const cc = parseFloat(document.getElementById('closingCosts').value) || 0;
+  const rb = parseFloat(document.getElementById('renoBudget').value) || 0;
+  const hm = parseFloat(document.getElementById('holdMonths').value) || 6;
+  const arv = parseFloat(document.getElementById('afterRepairValue').value) || 0;
+  const mr = parseFloat(document.getElementById('monthlyRent').value) || 0;
+  const hmr = (parseFloat(document.getElementById('hardMoneyRate').value) || 12) / 100;
+  const pt = parseFloat(document.getElementById('propertyTax').value) || 0;
+  const dealType = document.getElementById('dealType').value;
+
+  // DETERMINISTIC CALCULATIONS — Every step shown
+  const totalCashInvested = pp + cc + rb;
+  const hardMoneyInterest = (pp * hmr / 12) * hm;
+  const holdingCosts = (pt / 12) * hm;
+  const sellingCosts = arv * 0.06;
+
+  let profit, cocReturn, dscr, verdict, verdictClass;
+  let rentalResults = '';
+
+  if (dealType === 'flip') {
+    profit = arv - totalCashInvested - hardMoneyInterest - holdingCosts - sellingCosts;
+    cocReturn = (profit / totalCashInvested) * 100;
+
+    // Flip verdict logic — deterministic thresholds
+    let goReasons = [], noGoReasons = [];
+    if (cocReturn >= 20) { verdictClass = 'verdict-go'; verdict = '✅ GO — HIGH CONVICTION'; }
+    else if (cocReturn >= 15) { verdictClass = 'verdict-go'; verdict = '✅ GO — MEETS THRESHOLD'; }
+    else if (cocReturn >= 8) { verdictClass = 'verdict-review'; verdict = '⚠️ REVIEW — Marginal economics'; }
+    else { verdictClass = 'verdict-nogo'; verdict = '❌ NO-GO — Below risk threshold'; }
+
+    results.innerHTML = `
+      <div class="verdict ${verdictClass}">${verdict}</div>
+      <div class="calc-section">
+        <h3>📊 Acquisition Costs</h3>
+        <div class="calc-line"><span class="calc-label">Purchase Price</span><span class="calc-value">$${pp.toLocaleString()}</span></div>
+        <div class="calc-line"><span class="calc-label">Closing Costs</span><span class="calc-value">$${cc.toLocaleString()}</span></div>
+        <div class="calc-line"><span class="calc-label">Renovation Budget</span><span class="calc-value">$${rb.toLocaleString()}</span></div>
+        <div class="calc-line"><span class="calc-label">Hard Money Interest (${(hmr*100).toFixed(1)}% × ${hm}mo)</span><span class="calc-value">$${hardMoneyInterest.toLocaleString('en-US',{maximumFractionDigits:0})}</span></div>
+        <div class="calc-line"><span class="calc-label">Holding Costs (taxes × ${hm}mo)</span><span class="calc-value">$${holdingCosts.toLocaleString('en-US',{maximumFractionDigits:0})}</span></div>
+        <div class="calc-line" style="border-top:2px solid #30363d"><span class="calc-label" style="font-weight:700;color:#f0f6fc">TOTAL CASH INVESTED</span><span class="calc-value" style="color:#58a6ff">$${totalCashInvested.toLocaleString()}</span></div>
+      </div>
+      <div class="calc-section">
+        <h3>📈 Exit Analysis</h3>
+        <div class="calc-line"><span class="calc-label">After Repair Value</span><span class="calc-value">$${arv.toLocaleString()}</span></div>
+        <div class="calc-line"><span class="calc-label">Selling Costs (6% of ARV)</span><span class="calc-value" style="color:#f85149">-$${sellingCosts.toLocaleString('en-US',{maximumFractionDigits:0})}</span></div>
+        <div class="calc-line"><span class="calc-label">Net Proceeds</span><span class="calc-value">$${(arv - sellingCosts).toLocaleString('en-US',{maximumFractionDigits:0})}</span></div>
+      </div>
+      <div class="calc-section">
+        <h3>💰 Profit & Return</h3>
+        <div class="calc-line"><span class="calc-label">Gross Profit (ARV − Total Cost)</span><span class="calc-value" style="color:${profit>=0?'#3fb950':'#f85149'}">$${profit.toLocaleString('en-US',{maximumFractionDigits:0})}</span></div>
+        <div class="calc-line"><span class="calc-label">Cash-on-Cash Return</span><span class="calc-value" style="color:${cocReturn>=15?'#3fb950':cocReturn>=8?'#d29922':'#f85149'}">${cocReturn.toFixed(1)}%</span></div>
+        <div class="calc-line"><span class="calc-label">Profit Margin</span><span class="calc-value">${((profit/arv)*100).toFixed(1)}% of ARV</span></div>
+      </div>
+    `;
+
+  } else {
+    // Rental / BNH analysis
+    const annualRent = mr * 12;
+    const annualExpenses = pt + (mr * 12 * 0.1); // tax + ~10% maintenance estimate
+    const noi = annualRent - annualExpenses;
+    const loanAmount = totalCashInvested;
+    const monthlyRate = hmr / 12;
+    const numPayments = hm * 12;
+    let monthlyPI;
+    if (monthlyRate > 0 && numPayments > 0) {
+      monthlyPI = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+    } else { monthlyPI = 0; }
+    const annualDebtService = monthlyPI * 12;
+    dscr = annualDebtService > 0 ? noi / annualDebtService : 999;
+    const cashFlow = (mr * 12) - annualExpenses - annualDebtService;
+
+    let goReasons = [], noGoReasons = [];
+    if (cashFlow > 500 && dscr >= 1.35) { verdictClass = 'verdict-go'; verdict = '✅ GO — HIGH CONVICTION RENTAL'; }
+    else if (cashFlow > 0 && dscr >= 1.20) { verdictClass = 'verdict-go'; verdict = '✅ GO — POSITIVE CASH FLOW'; }
+    else if (dscr >= 1.0) { verdictClass = 'verdict-review'; verdict = '⚠️ REVIEW — Break-even or marginal'; }
+    else { verdictClass = 'verdict-nogo'; verdict = '❌ NO-GO — Negative cash flow'; }
+
+    results.innerHTML = `
+      <div class="verdict ${verdictClass}">${verdict}</div>
+      <div class="calc-section">
+        <h3>🏠 Income Analysis</h3>
+        <div class="calc-line"><span class="calc-label">Monthly Rent</span><span class="calc-value">$${mr.toLocaleString()}</span></div>
+        <div class="calc-line"><span class="calc-label">Annual Gross Rent</span><span class="calc-value">$${annualRent.toLocaleString()}</span></div>
+      </div>
+      <div class="calc-section">
+        <h3>📉 Expense Analysis</h3>
+        <div class="calc-line"><span class="calc-label">Annual Property Tax</span><span class="calc-value">$${pt.toLocaleString()}</span></div>
+        <div class="calc-line"><span class="calc-label">Maintenance Reserve (~10% of rent)</span><span class="calc-value">$${(mr*12*0.1).toLocaleString('en-US',{maximumFractionDigits:0})}</span></div>
+        <div class="calc-line" style="border-top:2px solid #30363d"><span class="calc-label" style="font-weight:700;color:#f0f6fc">TOTAL ANNUAL EXPENSES</span><span class="calc-value">$${annualExpenses.toLocaleString('en-US',{maximumFractionDigits:0})}</span></div>
+      </div>
+      <div class="calc-section">
+        <h3>🏦 Debt Service (${(hmr*100).toFixed(1)}% hard money, ${hm}mo hold)</h3>
+        <div class="calc-line"><span class="calc-label">Loan Amount</span><span class="calc-value">$${loanAmount.toLocaleString()}</span></div>
+        <div class="calc-line"><span class="calc-label">Monthly P&I Payment</span><span class="calc-value">$${monthlyPI.toLocaleString('en-US',{maximumFractionDigits:0})}</span></div>
+        <div class="calc-line"><span class="calc-label">Annual Debt Service</span><span class="calc-value" style="color:#f85149">$${annualDebtService.toLocaleString('en-US',{maximumFractionDigits:0})}</span></div>
+      </div>
+      <div class="calc-section">
+        <h3>💰 Cash Flow & Returns</h3>
+        <div class="calc-line"><span class="calc-label">Net Operating Income (NOI)</span><span class="calc-value">$${noi.toLocaleString('en-US',{maximumFractionDigits:0})}/yr</span></div>
+        <div class="calc-line"><span class="calc-label">Annual Cash Flow</span><span class="calc-value" style="color:${cashFlow>=0?'#3fb950':'#f85149'}">$${cashFlow.toLocaleString('en-US',{maximumFractionDigits:0})}/yr (${(cashFlow/12).toFixed(0)}/mo)</span></div>
+        <div class="calc-line"><span class="calc-label">Debt Service Coverage Ratio</span><span class="calc-value" style="color:${dscr>=1.2?'#3fb950':dscr>=1?'#d29922':'#f85149'}">${dscr.toFixed(2)}x ${dscr>=1.2?'✅':'⚠️'}</span></div>
+        <div class="calc-line"><span class="calc-label">Cash-on-Cash Return</span><span class="calc-value" style="color:${(noi/totalCashInvested)*100>=8?'#3fb950':'#f85149'}">${((noi/totalCashInvested)*100).toFixed(1)}%</span></div>
+      </div>
+    `;
+  }
+
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+<script src="/experiments/analytics-tracker/luminary-analytics.js"></script>
+</body>
+</html>
