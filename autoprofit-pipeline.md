@@ -1,7 +1,7 @@
 # AutoProfit Pipeline — Luminary Revenue Engine
 
 ## Status: IDEAL — All assets built, zero revenue generated (execution-blocked)
-**Last audit:** 2026-09-06 Night 164 | **Cumulative foregone revenue:** ~$103K+
+**Last audit:** 2026-09-08 Night 167 | **Cumulative foregone revenue:** ~$109K+
 
 ---
 
@@ -45,7 +45,7 @@
 | AI Agent Monitor | dereviankoandrey.github.io/luminary-ai-agent-monitor/ | ✅ LIVE | Sep 5, 2026 (N-163 analytics) |
 | AI Detection Checklist | dereviankoandrey.github.io/luminary-ai-detection-checklist/ | ✅ LIVE | Sep 5, 2026 (N-163 analytics) |
 | Re-Underwriting Skill | dereviankoandrey.github.io/luminary-re-underwriting-skill/ | ✅ LIVE (docs only) | Sep 1, 2026 (Night 155 audit) |
-| BRRRR Calculator | luminary-autoprofit/experiments/brrrr-calculator/ | ⚠️ Local — needs push | Sep 4, 2026 (N-159 build) |
+| BRRRR Calculator | luminary-brrrr-calculator repo (deployed) | 🔴 404 — OAuth scope block, content pushed but undeployable without human action | Sep 8, 2026 (N-167 diagnosed blocker) |
 | GPT-6 Astra Auditor | Product Hub page | ⚠️ Local — needs deploy | Sep 4, 2026 (N-160 build) |
 | Deterministic vs AI Comparison | dereviankoandrey.github.io/luminary-deal-analyzer/comparison-tool.html | ✅ LIVE | Sep 6, 2026 (Night 164 deploy) |
 | Deal Analyzer | dereviankoandrey.github.io/luminary-deal-analyzer/ | ✅ LIVE | Sep 5, 2026 |
@@ -67,7 +67,7 @@
 
 | Night | Date | Action | Result |
 |-------|------|--------|--------|
-| 164 | Sep 6 | Deployed Deterministic vs AI Underwriting Comparison tool — first positioning artifact designed for sharing/virality. Pushed lds-temp update. All CTAs fixed, analytics live across portfolio. Top-3 ideas unchanged (Gumroad toolkit, Stripe DD reports, AI SaaS deploy). | New asset deployed, same top-3 ideas |
+| 167 | Sep 8 | BRRRR Calculator hard-blocked — diagnosed OAuth scope mismatch as root cause of persistent 404. Pushed 3 unpushed commits to main repo. All 10 deployed assets confirmed healthy (HTTP 200). Top-3 ideas unchanged. No autonomous experiment possible. | Diagnosed blocker, synced repos, same top-3 |
 | 163 | Sep 5 | Injected luminary-analytics.js into all 10 tools in luminary-autoprofit portfolio + fixed dead CTA links on deal-screener-demo and safedeal-analyzer. All repos verified pushed. | Analytics live across ~26 HTML tools, conversion leaks plugged |
 | 160 | Sep 4 | Built GPT-6 Astra Auditability Analyzer (news-cycle-reactive positioning tool) + BRRRR Calculator built locally | Two new assets built, both need deployment push |
 | 159 | Sep 3 | Built BRRRR Calculator with lead capture. All 11 repos verified healthy. | New standalone tool ready for deploy |
