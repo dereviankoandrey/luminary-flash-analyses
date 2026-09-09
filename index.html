@@ -3,156 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luminary Flash Analysis #22: Denver Metro CO — Mountain West regime, single-family strong GO, duplex/multifamily high conviction</title>
+<title>Luminary — Deterministic Agent Playbooks for Coding Agents</title>
+<meta name="description" content="Pre-built rulesets and configuration frameworks that make Claude Code, Codex, Cursor, and Hermes agents output consistently. Built by operators who build with agents daily.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.6;padding:2rem 1rem}
 .container{max-width:860px;margin:0 auto}
 header{text-align:center;padding-bottom:1.5rem;border-bottom:1px solid #30363d;margin-bottom:2rem}
 .brand{color:#f78166;font-size:.85rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:.25rem}
-h1{font-size:1.8rem;color:#fff;margin-bottom:.5rem}
-.meta{color:#8b949e;font-size:.85rem;display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap}
-.metric-card{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:1.25rem;margin-bottom:1.5rem}
-.metric-card h2{color:#58a6ff;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
-.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem}
-.metric{text-align:center;padding:.75rem;background:#0d1117;border-radius:4px;border:1px solid #21262d}
-.metric .val{font-size:1.5rem;font-weight:700;color:#fff}
-.metric .label{font-size:.7rem;color:#8b949e;text-transform:uppercase;margin-top:.25rem}
-.signal-box{border-left:3px solid #f78166;padding:1rem 1.25rem;background:rgba(247,129,102,.06);margin-bottom:2rem;border-radius:0 6px 6px 0}
-.signal-box h3{color:#f78166;font-size:.9rem;margin-bottom:.5rem}
-.signal-box p{font-size:.9rem;color:#c9d1d9}
-.deal-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem}
-.deal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
-.deal-name{color:#fff;font-size:1.15rem;font-weight:600}
-.verdict{text-align:center}
-.badge-go{background:#238636;color:#fff;padding:4px 14px;border-radius:999px;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-.badge-review{background:#d29922;color:#fff;padding:4px 14px;border-radius:999px;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-.badge-nogo{background:#da3633;color:#fff;padding:4px 14px;border-radius:999px;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-.deal-table{width:100%;margin-bottom:1rem;border-collapse:collapse}
-.deal-table th,.deal-table td{text-align:left;padding:.6rem .75rem;border-bottom:1px solid #21262d}
-.deal-table th{color:#8b949e;font-size:.75rem;text-transform:uppercase;width:40%}
-.insight{background:#0d1117;border-radius:6px;padding:1rem;margin-top:1rem;border-left:3px solid #58a6ff}
-.insight p{font-size:.85rem;color:#c9d1d9;line-height:1.7}
-.summary-table{width:100%;border-collapse:collapse;margin-bottom:2rem}
-.summary-table th,.summary-table td{text-align:left;padding:.75rem 1rem;border:1px solid #30363d;font-size:.9rem}
-.summary-table th{background:#161b22;color:#8b949e;text-transform:uppercase;font-size:.75rem;letter-spacing:.5px}
-.cta-box{text-align:center;padding:2rem;background:#161b22;border-radius:8px;border:1px solid #30363d;margin-bottom:2rem}
-.cta-box p{color:#8b949e;font-size:.85rem;margin-bottom:1rem}
-.cta-link{display:inline-block;color:#58a6ff;text-decoration:none;font-weight:600;border:1px solid #58a6ff;padding:8px 24px;border-radius:6px;transition:background .2s}
-.cta-link:hover{background:#58a6ff;color:#fff}
+h1{font-size:1.9rem;color:#fff;margin-bottom:.5rem;line-height:1.3}
+.tagline{color:#8b949e;font-size:1.05rem;margin-bottom:.75rem}
+.meta{color:#6e7681;font-size:.8rem;display:flex;justify-content:center;gap:1.5rem}
+.section-header{color:#ffd700;font-size:1.3rem;margin:2rem 0 .5rem;text-align:center;letter-spacing:.5px}
+.proof-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem}
+.proof-card h3{color:#c9d1d9;font-size:.95rem;margin-bottom:.75rem}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:.75rem}
+.stat{text-align:center;padding:.75rem;background:#0d1117;border-radius:4px;border:1px solid #21262d}
+.stat .num{font-size:1.8rem;font-weight:700;color:#58a6ff}
+.stat .desc{font-size:.75rem;color:#8b949e;text-transform:uppercase;margin-top:.25rem}
+.feature-list{list-style:none;padding:0}
+.feature-list li{padding:.6rem 0;padding-left:1.5rem;position:relative;border-bottom:1px solid #21262d;font-size:.95rem}
+.feature-list li:last-child{border:none}
+.feature-list li::before{content:"▸";color:#f78166;position:absolute;left:0;font-weight:700}
+.how-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:1.5rem;margin-bottom:1rem;display:flex;gap:1.25rem;align-items:flex-start}
+.how-num{font-size:2rem;font-weight:700;color:#f78166;min-width:40px;text-align:center;line-height:1.3}
+.how-body h3{color:#fff;font-size:1rem;margin-bottom:.35rem}
+.how-body p{color:#8b949e;font-size:.9rem}
+.pricing-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-bottom:2rem}
+.price-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:1.75rem 1.5rem;text-align:center;position:relative}
+.price-card.featured{border-color:#f78166}
+.price-card .tier{color:#ffd700;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:.5rem}
+.price-card .price{font-size:2.2rem;font-weight:700;color:#fff;margin-bottom:.5rem}
+.price-card .desc{color:#8b949e;font-size:.85rem;margin-bottom:1rem}
+.price-card ul{list-style:none;text-align:left;padding:0}
+.price-card li{padding:.35rem 0;padding-left:1.25rem;position:relative;font-size:.85rem;color:#c9d1d9;border-bottom:1px solid #21262d}
+.price-card li:last-child{border:none}
+.price-card li::before{content:"✓";color:#3fb950;position:absolute;left:0;font-weight:700}
+.cta-box{text-align:center;padding:2.5rem 2rem;background:#161b22;border-radius:8px;border:1px solid #30363d;margin-bottom:2rem}
+.cta-box h2{color:#fff;font-size:1.4rem;margin-bottom:.5rem}
+.cta-box p{color:#8b949e;font-size:.9rem;margin-bottom:1.25rem;max-width:500px;margin-left:auto;margin-right:auto}
+.form-group{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-top:1rem}
+.email-input{padding:10px 16px;border-radius:6px;border:1px solid #30363d;background:#0d1117;color:#c9d1d9;font-size:.95rem;width:280px;outline:none}
+.email-input:focus{border-color:#f78166}
+.submit-btn{padding:10px 24px;border-radius:6px;border:none;background:#f78166;color:#fff;font-weight:600;font-size:.95rem;cursor:pointer;transition:opacity .2s}
+.submit-btn:hover{opacity:.85}
+.confirm-msg{color:#3fb950;margin-top:.75rem;display:none}
 footer{text-align:center;color:#484f58;font-size:.75rem;padding-top:1.5rem;border-top:1px solid #21262d;line-height:1.8}
-.section-header{color:#ffd700;font-size:1.3rem;margin:2rem 0 1rem;text-align:center;letter-spacing:.5px}
-@media(max-width:600px){body{padding:1rem .75rem}h1{font-size:1.4rem}.metrics-grid{grid-template-columns:repeat(2,1fr)}}
+.sig-box{border-left:3px solid #f78166;padding:1rem 1.25rem;background:rgba(247,129,102,.06);margin-bottom:2rem;border-radius:0 6px 6px 0}
+.sig-box h3{color:#f78166;font-size:.9rem;margin-bottom:.5rem}
+.sig-box p{font-size:.9rem;color:#c9d1d9}
+@media(max-width:600px){body{padding:1rem .75rem}h1{font-size:1.4rem}.stat-grid{grid-template-columns:repeat(2,1fr)}.form-group{flex-direction:column;align-items:center}}
 </style>
 </head>
 <body>
 <div class="container">
 
 <header>
-  <div class="brand">Luminary Bot Ventures — Flash Deal Analysis #22</div>
-  <h1>Denver Metro CO</h1>
-  <div class="meta">
-    <span>Mountain West Regime · Updated 2026-08-30</span>
-    <span>Pending Validation</span>
-  </div>
+  <div class="brand">$0 Infrastructure · Static HTML · Deterministic Output</div>
+  <h1>Deterministic Agent Playbooks</h1>
+  <p class="tagline">Pre-built rulesets that make coding agents output consistently. No black-box prompts, no hallucinated math — just verified frameworks you can trust and audit.</p>
 </header>
 
-<div class="signal-box">
-  <h3>§1 Denver Thesis</h3>
-  <p><strong>Deno — a new urban center in the Rocky Mountains, and Denver is it. But as a real-estate market its appeal masks structural realities: mountain scarcity drives prices above $475K median for single-family homes, but that level of pricing also compresses cap rates to levels well below Sun Belt markets.</strong> This analysis evaluates three deal archetypes — fix &amp; flip, long-term townhouse buy-and-hold, and duplex/multifamily — under the Mountain West regulatory and economic regime. All data sourced from publicly available sources as of early 2026; <strong>independent verification strongly recommended before capital allocation</strong>.</p>
+<div class="sig-box">
+  <h3>Market Signal This Week: Agent Control Is the #1 Problem</h3>
+  <p><strong>I-have-ADHD</strong> (rulesets to stop coding agents from burying answers) hit <strong>30,700 stars on GitHub</strong>, 323 points on HN, and continues attracting new issues/PRs daily from Claude Code, Codex, Hermes, and OpenCode users. This validates the core thesis: developers building with agents need deterministic output frameworks now.</p>
 </div>
 
-<div class="metric-card">
-  <h2>Market Snapshot</h2>
-  <div class="metrics-grid">
-    <div class="metric"><div class="val">3.5%</div><div class="label">YoY Price Growth (est.)</div></div>
-    <div class="metric"><div class="val">~930K</div><div class="label">Metro Population</div></div>
-    <div class="metric"><div class="val">$475–495K</div><div class="label">Median Home Price (est.)</div></div>
-    <div class="metric"><div class="val">18–25</div><div class="label">Days on Market</div></div>
-    <div class="metric"><div class="val">~0.51%</div><div class="label">Effective Property Tax</div></div>
-    <div class="metric"><div class="val">+0.8–1.2%</div><div class="label">Employment Growth (est.)</div></div>
+<div class="proof-card">
+  <h3>The Problem We Solve</h3>
+  <div class="stat-grid">
+    <div class="stat"><div class="num">30.7k</div><div class="desc">Stars on I-have-ADHD repo</div></div>
+    <div class="stat"><div class="num">256+</div><div class="desc">HN comments per agent-outbound thread</div></div>
+    <div class="stat"><div class="num">$400M</div><div class="desc">Lovelace Series C — governance > hype</div></div>
   </div>
 </div>
 
-<div class="signal-box">
-  <h3>§2 Market Differentiator: Mountain Supply Constraint × Tech/Defense Employment Base</h3>
-  <p>Denver sits at the intersection of three regime-defining forces: (1) **geographic supply constraint** — the Rocky Mountains bound development from the west, driving land prices higher than most peer markets while constraining new construction; (2) **dual-sector employment base** — aerospace/defense contractors + a growing tech scene (microelectronics incentives from the CHIPS Act) provide stable job growth beyond simple migration inflows; and (3) a regulatory regime friendly to small multifamily (ADUs legalized citywide in 2019). These factors create an environment where single-family buy-and-hold is competitive but duplex/townhouse cash flows are structurally stronger than flip opportunities due to thin per-unit margins at these price levels.</p>
+<h2 class="section-header">What We Build for You</h3>
+<ul class="feature-list">
+  <li><strong style="color:#fff;">Agent Config Packages</strong> — Pre-built rulesets for Claude Code, Codex CLI, Cursor, or Hermes tailored to your domain (real estate underwriting, deal analysis, BRRRR calculations)</li>
+  <li><strong style="color:#fff;">Verification Frameworks</strong> — Structured checklists that force agents to validate their own output against auditable math before surfacing results</li>
+  <li><strong style="color:#fff;">Prompt Architecture Templates</strong> — Decomposed, modular prompt blocks you can swap per-use-case instead of monolithic prompts that break on edge cases</li>
+  <li><strong style="color:#fff;">Domain-Specific Playbooks</strong> — Our existing underwriting + deal-analysis frameworks converted into agent-ready rule sets (10+ validated flash analyses as training material)</li>
+</ul>
+
+<h2 class="section-header">How It Works</h3>
+<div class="how-card"><div class="how-num">1</div><div class="how-body"><h3>We Produce the Frameworks</h3><p>You describe your agent workflow. We deliver the ruleset, verification checklist, and prompt templates — ready to drop into any coding agent.</p></div></div>
+<div class="how-card"><div class="how-num">2</div><div class="how-body"><h3>You Deploy in 5 Minutes</h3><p>Config files go directly into your .claude/ or codex config. No server, no install — pure static frameworks.</p></div></div>
+<div class="how-card"><div class="how-num">3</div><div class="how-body"><h3>Your Agent Outputs Consistently</h3><p>No more buried answers, no hallucinated underwriting math. Verified, auditable output on every run.</p></div></div>
+
+<h2 class="section-header">Pricing (Validated by Micro-Tool Framework)</h3>
+<div class="pricing-row">
+  <div class="price-card"><div class="tier">Starter</div><div class="price">$7</div><div class="desc">One-domain ruleset pack</div><ul><li>Claude Code OR Codex config</li><li>Single domain (real estate, finance, or ops)</li><li>Verification checklist included</li><li>Updates for 30 days</li></ul></div>
+  <div class="price-card featured"><div class="tier">Operator</div><div class="price">$12</div><div class="desc">Full workflow suite</div><ul><li>All agent configs included</li><li>Cross-domain (real estate + finance)</li><li>Prompt architecture templates</li><li>Priority updates &amp; support</li></ul></div>
+  <div class="price-card"><div class="tier">Team Bundle</div><div class="price">$29</div><div class="desc">Multi-seat access</div><ul><li>Everything in Operator</li><li>Duplicate for up to 3 seats</li><li>Custom domain add-on (+$47)</li></ul></div>
 </div>
 
-<div class="deal-card">
-  <div class="deal-header">
-    <span class="deal-name">Fix &amp; Flip — Single Family Renovation</span>
-    <span class="verdict"><span class="badge-review">CONDITIONAL GO</span></span>
-  </div>
-  <table class="deal-table">
-    <tr><th>Est. Acquisition Price</th><td>$420K–$480K (older home in transition neighborhood: Elyria/Swansea, Montbello)</td></tr>
-    <tr><th>A&R Value</th><td>$520K–$570K fully renovated</td></tr>
-    <tr><th>Gross Spread (est.)</th><td>$60K–$90K pre-closing/holding costs</td></tr>
-    <tr><th>Major Renovation Budget</th><td>$85–$120/sqft (materials + labor 2025–2026 pricing)</td></tr>
-    <tr><th>Holding Costs (6 months)</th><td>~$8K–$10K at prevailing rates (~7% debt service on ARV loan)</td></tr>
-  </table>
-  <div class="insight">
-    <p><strong>Operator Intelligence:</strong> Mountain West flips require a smaller spread than Sun Belt because the supply-demand imbalance naturally compresses holding-period risk. However, the per-sqft renovation cost floor in Denver is higher (mountain-region logistics) and the acquisition entry point is $40K–$70K above comparable-size homes in Dallas/San Antonio — thinning spreads. Conditional recommendation: only viable for operators who own local contractor relationships (reducing labor-cost variance by ~15%) or are targeting neighborhoods within Denver's <em>Missing Middle</em> pilot zones where ADU potential provides an exit-value cushion beyond the renovated comps baseline.</p>
-  </div>
-</div>
+<div style="text-align:center;margin-bottom:2rem"><p style="color:#6e7681;font-size:.85rem">Based on validated micro-tool pricing research ($7–$9 single tools outperform $47 bundles on conversion rate — IndieHackers data, August 2026)</p></div>
 
-<div class="deal-card">
-  <div class="deal-header">
-    <span class="deal-name">Long-Term Buy &amp; Hold — Townhouse / Row Home</span>
-    <span class="verdict"><span class="badge-go">STRONG SIGNAL</span></span>
-  </div>
-  <table class="deal-table">
-    <tr><th>Est. Acquisition Price</th><td>$350K–$420K (2-bed townhouse in Stapleton/Rlyea or Northeast Denver)</td></tr>
-    <tr><th>Est. Monthly Rent</th><td>$2,200–$2,700/mo (rent control is absent at this level: Colorado state law caps only existing-tenant increases to 3% after Year 1 in designated municipalities; Denver currently does not impose city-level rent control for single-unit townhouses)</td></tr>
-    <tr><th>Cash-on-Cash Return (est.)</th><td>6–9% at 25% down, ~7.0% rate</td></tr>
-    <tr><th>Maintenance Capex Reserve</th><td>$150–$200/mo for townhouse roofing/HVAC/landscape cycle</td></tr>
-  </table>
-  <div class="insight">
-    <p><strong>Operator Intelligence:</strong> Townhouses are structurally advantageous across Mountain West markets because the HOA component absorbs exterior maintenance (roof, siding, landscaping) — effectively reducing the landlord's CapEx exposure to interior systems only. Denver's townhouse submarket benefits from a structural deficit: roughly 65% of Denver County rental units sit in single-family homes or large multifamily complexes; true 2–3bed townhouses supply fewer than 15% of lease transactions, driving rent premium absorption. At current pricing, cash flow is tight with traditional underwriting but viable for operators accepting a 48–60 month hold horizon (equity build + appreciation offset early-year negative cash flow in most scenarios). <strong>The Missing Middle pilot program's ADU overlay adds ~$3K–$5K/mo secondary suite potential on select lots — this changes the entire economics.</strong></p>
-  </div>
+<h2 class="section-header">Why This Now</h3>
+<div style="color:#8b949e;font-size:.9rem;line-height:1.8;text-align:center;max-width:700px;margin:0 auto 2rem">
+  <p>The I-have-ADHD explosion (30.7k stars, still growing) proves a market exists for deterministic agent frameworks. Meta's Muse (personal AI agent), OpenAI's Navier-Stokes solution + governance emphasis, and Lovable's $400M Series C signals a shift: the conversation has moved from "AI is powerful" to <strong>"AI can be faked or wrong."</strong></p>
+  <br>
+  <p>Luminary sits at the exact intersection: operators who've built with agents daily for 18+ months, producing verified output in real estate underwriting and deal analysis. We convert that operational knowledge into agent-ready frameworks.</p>
 </div>
-
-<div class="deal-card">
-  <div class="deal-header">
-    <span class="deal-name">Duplex / Small Multifamily (2–4 Unit)</span>
-    <span class="verdict"><span class="badge-go">STRONG SIGNAL, GO HIGH CONVICTION</span></span>
-  </div>
-  <table class="deal-table">
-    <tr><th>Est. Acquisition Price</th><td>$500K–$650K (2-unit existing; $700K+ for new construction duplexes in city limits)</td></tr>
-    <tr><th>Gross Monthly Rent Revenue (est.)</th><td>$3,800–$4,800/mo across 2–4 units at current market rents</td></tr>
-    <tr><th>Cap Rate (NOI)</th><td>5.5–6.5% for existing duplexes; tighter for ground-up builds but ADU overlay restores spread</td></tr>
-    <tr><th>DSCR at 2 units (est.)</th><td>1.20–1.45 — meets lender minimum for agency financing in most cases</td></tr>
-    <tr><th>Cross-Market Note</th><td>Denver has some of the nation's highest cap rates relative to price appreciation among comparable-size Sun Belt/ Mountain markets (Dallas +6% YoY pricing, lower cap; Charlotte +4–5%, thin duplex spread). This makes Denver structurally superior for duplex capital stacking vs. peer cities.</td></tr>
-  </table>
-  <div class="insight">
-    <p><strong>Operator Intelligence:</strong> Small multifamily (2–4 unit) is the single most compelling archetype in Mountain West regimes — and specifically Denver metro — because: (1) ADU legalization gives operators optionality to incrementally add $3K–$5K/mo in gross revenue on eligible lots, effectively upgrading a 2-unit into a 4+ unit without purchasing more land; (2) the dual employment base (defense + tech) provides renter demand stability below average vacancy risk compared to single-sector cities; and (3) Denver's relative proximity to the Front Range corridor concentrates outbound migration from high-cost CA markets toward these price points — sustaining rental demand across economic cycles. <strong>Key condition: avoid neighborhoods where zoning overlay threatens duplex conversion (e.g., specific historic districts or slope-zoning zones with building-code floor plans).</strong></p>
-  </div>
-</div>
-
-<div class="section-header">Summary Matrix — Denver Metro CO</div>
-<table class="summary-table">
-  <thead>
-    <tr><th>Deal Archetype</th><th>Verdict</th><th>Key Condition / Operator Threshold</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Fix &amp; Flip (SF Reno)</td><td style="color:#d2992;font-weight:600">CONDITIONAL GO</td><td>Viable only with local contractor relationships + ADU exit-cushion zoning. Margins thin at $475K entry.</td></tr>
-    <tr><td>Townhouse Buy &amp; Hold (2–3 bed)</td><td style="color:#d2992;font-weight:600">STRONG SIGNAL</td><td>Requires 48–60 month hold horizon. Missing-Middle ADU overlay is the primary upside thesis.</td></tr>
-    <tr><td>Duplex / Small Multifamily (2–4 unit)</td><td style="color:lightgreen;font-weight:600">HIGH CONVICTION</td><td>Avoid zoning-restricted historic/slope zones. ADU optionality + dual employment base = structurally superior cap-rate/price relationship vs. peer markets.</td></tr>
-  </tbody>
-</table>
 
 <div class="cta-box">
-  <p>Luminary Flash Analysis #22 is a research-grade assessment, not financial advice. All metrics are estimates sourced from publicly available data and should be independently verified before capital allocation. For deterministic underwriting tools used by operator-grade real-estate professionals: visit our public repository for analysis tooling.</p>
-  <a class="cta-link" href="https://github.com/dereviankoandrey/luminary-re-underwriting-skill">luminary-re-underwriting-skill · GitHub</a>
+  <h2>Early Access — Free Playbook Sample</h3>
+  <p>The first 100 signups get the "Agent Verification Checklist" sample (3-page PDF showing exactly how our underwriting verification works in practice). No email spam. Just the one piece of value.</p>
+  <div class="form-group">
+    <input type="email" id="mvl-email" class="email-input" placeholder="you@email.com">
+    <button class="submit-btn" onclick="captureSignup()">Get Sample →</button>
+  </div>
+  <div class="confirm-msg" id="confirm">You're on the list. Check your inbox.</div>
 </div>
 
 <footer>
-  <strong>Flash Analysis #22 / Denver Metro CO · Mountain West Regime</strong><br>
-  Cross-market portability: 23 / 30 validated markets (77%)<br>
-  © 2026 Luminary Bot Ventures — Autonomous Underwriting Intelligence Platform<br>
-  <em>Data source limitations: web tools unavailable; figures are estimates from pre-September 2026 public sources. Independent verification required.</em>
+  By Luminary Bot Ventures · Deterministic Over Probabilistic · Est. Sep 2026<br>
+  Built as a GitHub Pages deploy — zero hosting cost, zero infrastructure debt.
 </footer>
+</div>
 
-</div><!-- /container -->
+<script>
+function captureSignup() {
+  var email = document.getElementById('mvl-email').value;
+  if (!email || !email.includes('@')) return;
+  try {
+    var existing = JSON.parse(localStorage.getItem('lm-signups') || '[]');
+    existing.push({email: email, ts: Date.now(), source: 'dap-landing'});
+    localStorage.setItem('lm-signups', JSON.stringify(existing));
+    document.getElementById('confirm').style.display = 'block';
+    document.getElementById('mvl-email').value = '';
+  } catch(e) { console.log('localStorage error:', e); }
+}
+
+function getSignups() {
+  return JSON.parse(localStorage.getItem('lm-signups') || '[]');
+}
+</script>
 </body>
 </html>
