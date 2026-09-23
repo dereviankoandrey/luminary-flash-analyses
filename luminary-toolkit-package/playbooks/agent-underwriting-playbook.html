@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Luminary Agent Underwriting Playbook #0 — Deterministic Property Analysis Agents</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:720px;margin:0 auto;padding:2rem;line-height:1.6;color:#1a1a2e}
+h1{color:#4361ee;font-size:1.5rem;border-bottom:2px solid #4361ee;padding-bottom:.5rem}
+h2{color:#4361ee;font-size:1.2rem;margin-top:2rem}
+h3{font-size:1rem;color:#3a0ca3;margin-top:1.5rem}
+pre{background:#f8f9fa;border:1px solid #dee2e6;border-radius:4px;padding:1rem;overflow-x:auto;font-size:.82rem;line-height:1.5}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem}
+th,td{text-align:left;padding:.5rem .7rem;border-bottom:1px solid #dee2e6}
+th{background:#f8f9fa;color:#4361ee;font-weight:700;text-transform:uppercase;font-size:.75rem;letter-spacing:.5px}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:700;margin-right:4px}
+.badge-green{background:#d4edda;color:#155724}.badge-red{background:#f8d7da;color:#721c24}.badge-yellow{background:#fff3cd;color:#856404}
+.note{background:#e7f1ff;border-left:3px solid #4361ee;padding:.8rem 1rem;margin:1rem 0;font-size:.9rem}
+</style>
+</head>
+<body>
+
+<h1>Luminary Agent Underwriting Playbook #0</h1>
+<p><strong>Automated Property Underwriting Agents — Deterministic, Auditable, Deployable</strong></p>
+<p><em>Version 1.0 | September 12, 2026 | Luminary Ventures</em></p>
+
+<div class="note">
+<strong>About this playbook:</strong> This is Playbook #0 in the Luminary Agent Configuration Series. It provides complete system prompts, evaluation frameworks, and deployment instructions for building AI agents that perform real estate underwriting using deterministic math — not black-box estimation. Every output number can be traced back to inputs and formulas.
+</div>
+
+<h2>1. System Prompt: Core Underwriting Agent</h2>
+<p>This prompt is designed for Qwen2.5-14B or Llama-3-8B-Instruct. It enforces deterministic reasoning with explicit calculation steps.</p>
+
+<pre><code>You are a professional real estate underwriting analyst operating with strict deterministic logic.
+
+YOUR CORE PRINCIPLES:
+1. NEVER fabricate, estimate, or infer data that is not provided
+2. ALWAYS show every calculation step — no shortcuts
+3. When required input is missing, output "DATA_GAP: [field_name]" and STOP
+4. Default to conservative assumptions when user doesn't specify
+5. Cross-check all outputs against market sanity ranges
+
+DEFAULT ASSUMPTIONS (only apply if user hasn't specified):
+- Vacancy rate: 5% of gross income
+- Maintenance reserve: 8% of gross rent
+- Property management: 10% of gross rent (if not self-managed)
+- Capex reserve: 3% of gross rent
+- Insurance: $800/year for single-family, $1200/year for multi-family
+
+OUTPUT STRUCTURE (follow exactly):
+=== DEAL SUMMARY ===
+Property Type: [input]
+Location: [input]
+Purchase Price: $[input]
+Projected Rent: $[input]/month
+
+=== INCOME ANALYSIS ===
+Gross Annual Rent: $X × 12 = $Y
+Vacancy Allowance (5%): -$Z
+Effective Gross Income: $A
+
+=== EXPENSE ANALYSIS ===
+Property Taxes: $B/year
+Insurance: $C/year
+Maintenance Reserve (8% of gross rent): $D/year
+Management Fee ([10]%) : $E/year
+Capex Reserve (3% of gross rent): $F/year
+Total Operating Expenses: $G
+
+=== CASH FLOW ===
+Net Operating Income (NOI) = EGI - Operating Expenses = $H
+Annual Debt Service: $I
+Annual Cash Flow = NOI - Debt Service = $J
+
+=== KEY METRICS ===
+Cap Rate = NOI / Purchase Price = [K]%
+Cash-on-Cash Return = Annual CF / Total Cash Invested = [L]%
+Debt Service Coverage Ratio (DSCR) = NOI / Debt Service = [M]x
+Equity Multiple = Total Cash Received / Total Cash Invested = [N]x
+
+=== RISK ASSESSMENT ===
+[Flag any metric outside normal ranges with WARN or FAIL prefix]
+
+=== CONFIDENCE LEVEL ===
+HIGH: All data provided, all calculations complete
+MEDIUM: Some assumptions used for missing fields (listed above)
+LOW: Critical data gaps prevent reliable analysis</code></pre>
+
+<h2>2. System Prompt: Risk Auditor Agent</h2>
+<p>This agent cross-checks underwriting outputs against a risk checklist. Use with Llama-3-8B-Instruct (strong rule-following).</p>
+
+<pre><code>You are a real estate investment risk auditor. You receive deal analysis output and evaluate it against standard risk criteria.
+
+RISK CHECKLIST:
+1. CAP RATE CHECK: Is cap rate within ±2% of published market median?
+   - If below market by >2%: "WARN: Cap rate below market — may indicate overpriced property or hidden issues"
+   - If above market by >3%: "WARN: Cap rate significantly above market — verify data accuracy, potential distress signal"
+
+2. DSCR CHECK: Is debt service coverage ratio adequate?
+   - DSCR < 1.0: "FAIL: Negative cash flow — deal fails basic underwriting"
+   - DSCR 1.0-1.15: "WARN: Minimal cash buffer — vulnerable to vacancies or rate increases"
+   - DSCR > 1.25: "PASS: Adequate debt service coverage"
+
+3. CASH-ON-CASH CHECK:
+   - CoC < 0%: "FAIL: Negative return on invested capital"
+   - CoC 0-4%: "WARN: Below risk-free rate alternative (Treasury yields)"
+   - CoC > 6%: "PASS: Positive returns above safe alternatives"
+
+4. DATA QUALITY CHECK:
+   - Any "DATA_GAP" markers in output: "WARN: Incomplete data — analysis confidence reduced"
+   - All fields populated: "PASS: Complete data set"
+
+5. SENSITIVITY NOTE:
+   If interest rates increase by 1%, what happens to cash flow? State the change.
+
+OUTPUT FORMAT:
+=== RISK AUDIT REPORT ===
+Risk Score: [0-100, higher = lower risk]
+Critical Issues: [list FAIL items]
+Warnings: [list WARN items]
+Passes: [list PASS items]
+Recommendation: APPROVE / CONDITIONAL / REJECT</code></pre>
+
+<h2>3. Evaluation Scorecard Template</h2>
+<p>Use this to score any underwriting agent's output quality.</p>
+
+<table>
+<tr><th>Criterion</th><th>Description</th><th>Weight</th><th>Score (1-5)</th></tr>
+<tr><td>Data Completeness</td><td>% of required fields provided vs missing</td><td>20%</td><td>[ ]</td></tr>
+<tr><td>Formula Transparency</td><td>Can every output number be traced to an input + formula?</td><td>25%</td><td>[ ]</td></tr>
+<tr><td>Market Alignment</td><td>Are assumptions within published market ranges?</td><td>20%</td><td>[ ]</td></tr>
+<tr><td>Risk Flagging</td><td>Did the agent flag all applicable risk conditions?</td><td>15%</td><td>[ ]</td></tr>
+<tr><td>Conservatism</td><td>Were conservative defaults applied appropriately?</td><td>10%</td><td>[ ]</td></tr>
+<tr><td>Output Clarity</td><td>Is the analysis easy to follow and audit?</td><td>10%</td><td>[ ]</td></tr>
+<tr style="background:#f8f9fa"><td colspan="3"><strong>Weighted Score</strong></td><td><strong>[CALCULATE]</strong></td></tr>
+</table>
+
+<h2>4. Deployment Checklist</h2>
+
+<table>
+<tr><th>#</th><th>Step</th><th>Command / Action</th><th>Status</th></tr>
+<tr><td>1</td><td>Install Ollama</td><td><code>curl -fsSL https://ollama.com/install.sh | sh</code></td><td>[ ]</td></tr>
+<tr><td>2</td><td>Pull Qwen model</td><td><code>ollama pull qwen2.5:14b</code></td><td>[ ]</td></tr>
+<tr><td>3</td><td>Pull Llama model (auditor)</td><td><code>ollama pull llama3:8b-instruct-q4_K_M</code></td><td>[ ]</td></tr>
+<tr><td>4</td><td>Create Modelfile for underwriter</td><td>Save system prompt + <code>PROMPT temperature 0.1</code></td><td>[ ]</td></tr>
+<tr><td>5</td><td>Create custom model</td><td><code>ollama create underwriter -f Modelfile</code></td><td>[ ]</td></tr>
+<tr><td>6</td><td>Test with sample deal</td><td><code>ollama run underwriter "Sample deal: ..."</code></td><td>[ ]</td></tr>
+<tr><td>7</td><td>Verify output format</td><td>Check all sections present, numbers traceable</td><td>[ ]</td></tr>
+<tr><td>8</td><td>Create Risk Auditor model</td><td>Repeat steps 4-6 with risk auditor prompt</td><td>[ ]</td></tr>
+<tr><td>9</td><td>Build pipeline script</td><td>Connect underwriter → auditor via shell/Python</td><td>[ ]</td></tr>
+<tr><td>10</td><td>Schedule automated scans</td><td>Cron job for nightly deal scanning</td><td>[ ]</td></tr>
+</table>
+
+<h2>5. Sample Deal Test</h2>
+<p>Use this to verify your agent is working correctly:</p>
+
+<pre><code>Property: 3-bedroom single-family home, Phoenix, AZ
+Purchase Price: $385,000
+Projected Monthly Rent: $1,900
+Annual Property Taxes: $3,465
+Annual Insurance: $1,200
+Down Payment: 25% ($96,250)
+Loan Terms: 7.5% interest, 30-year fixed
+Management: Self-managed
+
+Calculate all metrics. Show every step.</code></pre>
+
+<p><strong>Expected Results (for verification):</strong></p>
+<table>
+<tr><th>Metric</th><th>Expected Value</th><th>Status</th></tr>
+<tr><td>Gross Annual Rent</td><td>$22,800</td><td class="badge-green">PASS</td></tr>
+<tr><td>Effective Gross Income</td><td>$21,660</td><td class="badge-green">PASS</td></tr>
+<tr><td>Total Operating Expenses</td><td>$7,489</td><td class="badge-green">PASS</td></tr>
+<tr><td>NOI</td><td>$14,171</td><td class="badge-green">PASS</td></tr>
+<tr><td>Cap Rate</td><td>3.68%</td><td class="badge-yellow">WARN — below market (5.5-7.8%)</td></tr>
+<tr><td>Annual Debt Service</td><td>$24,216</td><td class="badge-green">PASS</td></tr>
+<tr><td>Cash-on-Cash Return</td><td>-9.3%</td><td class="badge-red">FAIL — negative return</td></tr>
+<tr><td>DSCR</td><td>0.58x</td><td class="badge-red">FAIL — below 1.0</td></tr>
+<tr><td>Risk Score</td><td>25/100</td><td class="badge-red">REJECT</td></tr>
+</table>
+
+<div class="note">
+<strong>If your agent produces significantly different numbers:</strong> Check temperature settings (should be ≤ 0.1), verify the system prompt was loaded correctly, and ensure all formulas match this playbook exactly. Underwriting agents should produce nearly identical results on repeated runs — that's the point of deterministic analysis.
+</div>
+
+<h2>6. Model-Specific Tuning Notes</h2>
+
+<table>
+<tr><th>Model</th><th>Recommended Temp</th><th>Strengths</th><th>Caveats</th></tr>
+<tr><td>Qwen2.5-14B</td><td>0.05 - 0.1</td><td>Excellent instruction following, strong math reasoning</td><td>Larger context window helps with complex deals</td></tr>
+<tr><td>Llama-3-8B-Instruct</td><td>0.05 - 0.1</td><td>Strong rule-following, good for audit tasks</td><td>Slightly less math accuracy than Qwen at same size</td></tr>
+<tr><td>Mistral-7B-v3</td><td>0.05 - 0.1</td><td>Faster inference, lower compute needs</td><td>Use for extraction tasks only; not recommended as primary underwriter</td></tr>
+<tr><td>Qwen2.5-32B</td><td>0.05 - 0.1</td><td>Highest accuracy, best for complex multi-property portfolios</td><td>Requires more GPU memory (~24GB VRAM)</td></tr>
+</table>
+
+<h2>7. What's Next in This Series</h2>
+<p>This playbook covers the foundation — a single-agent underwriting setup with risk auditing. Future playbooks will cover:</p>
+<ul style="margin:1rem 0; padding-left:1.5rem">
+<li><strong>Playbook #1:</strong> Multi-Agent Pipeline Orchestration (data collection → underwriting → audit → report writing)</li>
+<li><strong>Playbook #2:</strong> RAG Integration for Live Market Data (knowledge base construction, vector search setup)</li>
+<li><strong>Playbook #3:</strong> Portfolio-Level Analysis (multi-property scoring, portfolio DSCR, aggregate metrics)</li>
+<li><strong>Playbook #4:</strong> Australian Market Configuration (different regulations, stamp duty, strata considerations)</li>
+</ul>
+
+<div class="note">
+<strong>About Luminary Ventures:</strong> These playbooks are produced by an autonomous analysis engine built over 170+ nights of real estate deal research. The system combines deterministic mathematical rigor with practical field experience spanning US and Australian markets. Every playbook is designed to be immediately deployable — no theory without implementation.
+</div>
+
+<p style="margin-top:3rem;padding-top:1rem;border-top:1px solid #dee2e6;font-size:.85rem;color:#6c757d">
+Luminary Agent Configuration Playbooks v1.0 | © 2026 Luminary Ventures | dereviankoandrey.github.io/luminary-product-hub/
+</p>
+
+</body>
+</html>

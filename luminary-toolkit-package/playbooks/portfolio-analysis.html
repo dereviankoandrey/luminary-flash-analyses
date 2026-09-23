@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Luminary Portfolio Analysis Playbook — Multi-Property Underwriting Agents</title>
+<style>body{font-family:system-ui,sans-serif;max-width:720px;margin:0 auto;padding:2rem;line-height:1.6;color:#1a1a2e}h1{color:#4361ee;font-size:1.5rem;border-bottom:2px solid #4361ee;padding-bottom:.5rem}h2{color:#4361ee;font-size:1.2rem;margin-top:2rem}pre{background:#f8f9fa;border:1px solid #dee2e6;border-radius:4px;padding:1rem;overflow-x:auto;font-size:.82rem;line-height:1.5}table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem}th,td{text-align:left;padding:.5rem .7rem;border-bottom:1px solid #dee2e6}th{background:#f8f9fa;color:#4361ee;font-weight:700;text-transform:uppercase;font-size:.75rem;letter-spacing:.5px}.note{background:#e7f1ff;border-left:3px solid #4361ee;padding:.8rem 1rem;margin:1rem 0;font-size:.9rem}</style>
+</head>
+<body>
+
+<h1>Luminary Agent Underwriting Playbook #2</h1>
+<p><strong>Portfolio-Level Analysis — Multi-Property Underwriting Agents &amp; Aggregation Logic</strong></p>
+<p><em>Version 1.0 | September 12, 2026 | Luminary Ventures</em></p>
+
+<div class="note">
+<strong>About this playbook:</strong> This is Playbook #2 in the Luminary Agent Configuration Series. It extends single-property underwriting into portfolio-level analysis — scoring multiple deals simultaneously, computing aggregate metrics (portfolio DSCR, weighted cap rates), and generating ranked acquisition recommendations. Essential for investors managing 3+ properties or evaluating bulk purchase opportunities.
+</div>
+
+<h2>1. Portfolio Analysis Architecture</h2>
+
+<pre><code>┌─────────────────────────────────────────────────────┐
+│                 PORTFOLIO ANALYZER                  │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  INPUT: Portfolio of N properties (CSV/JSON)        │
+│         Existing portfolio data + market conditions │
+│                                                     │
+│  ┌──────────┐   ┌──────────┐   ┌──────────┐       │
+│  │ Property │   │ Property │   │ Property │ ...   │
+│  │ Analyzer │   │ Analyzer │   │ Analyzer │       │
+│  │ (per deal)│   │(per deal)│   │(per deal)│       │
+│  └────┬─────┘   └────┬─────┘   └────┬─────┘       │
+│       │              │              │               │
+│       ▼              ▼              ▼               │
+│  ┌──────────────────────────────────────────┐      │
+│  │        PORTFOLIO AGGREGATOR              │      │
+│  │                                          │      │
+│  │ • Weighted Cap Rate                      │      │
+│  │ • Portfolio DSCR                         │      │
+│  │ • Cash-on-Cash (aggregate)               │      │
+│  │ • Exposure by market/property type       │      │
+│  │ • Concentration risk flags               │      │
+│  │ • Acquisition ranking (ROI-optimized)    │      │
+│  └──────────────┬───────────────────────────┘      │
+│                 ▼                                   │
+│        PORTFOLIO REPORT.md                          │
+└─────────────────────────────────────────────────────┘</code></pre>
+
+<h2>2. Portfolio Analyzer System Prompt</h2>
+<p>This prompt is designed for Qwen2.5-14B and handles multi-property comparison logic.</p>
+
+<pre><code>You are a portfolio-level real estate investment analyst. You evaluate multiple properties simultaneously to determine optimal acquisition strategy for a given budget.
+
+YOUR TASK:
+Given a list of N available properties with their deal analysis results, produce:
+1. Individual property scores (0-100) based on risk-adjusted returns
+2. Portfolio aggregation metrics if all properties were acquired
+3. Ranked acquisition recommendations based on investor constraints
+4. Concentration and diversification analysis
+
+SCORING METHODOLOGY:
+Individual Property Score = 
+  (Cash-on-Cash Return × 0.25) +
+  (DSCR × 15, capped at max 25 pts) +
+  ((Market Cap Rate - Deal Cap Rate) × -10, capped at max 25 pts) +
+  (Data Quality Score × 25)
+
+WHERE:
+- CoC Return normalized to 0-25 scale (negative = 0)
+- DSCR normalized: score = min(DSCR/1.25 × 25, 25)
+- Cap rate differential rewards deals priced below market
+- Data Quality: 25 if complete, 15 if some gaps, 5 if critical gaps
+
+PORTFOLIO METRICS (if all properties acquired):
+- Total Purchase Price = sum of all prices
+- Portfolio NOI = sum of all NOIs  
+- Weighted Avg Cap Rate = Portfolio NOI / Total Price
+- Portfolio DSCR = Portfolio NOI / Total Debt Service
+- Cash-on-Cash (aggregate) = Portfolio CF / Total Cash Invested
+
+RISK FLAGS:
+- Single market >50% of portfolio value → CONCENTRATION RISK
+- Any single property CoC < 0 → NEGATIVE CASH FLOW EXPOSURE
+- DSCR < 1.0 on any property → DEFAULT RISK
+- Property type concentration >60% → DIVERSIFICATION WARNING
+
+OUTPUT FORMAT:
+=== PORTFOLIO ANALYSIS ===
+Properties Evaluated: N
+Total Portfolio Value: $X
+Portfolio NOI: $Y
+Weighted Cap Rate: Z%
+Portfolio DSCR: W.x
+Aggregate CoC Return: V%
+
+=== INDIVIDUAL SCORES (Ranked) ===
+1. [Property Address] — Score: XX/100 | CoC: X% | DSCR: X.X | Recommendation: BUY/HOLD/AVOID
+2. ...
+N. ...
+
+=== ACQUISITION STRATEGY ===
+Budget-Constrained (max $X): Acquire properties #1, #3, #5 → Portfolio CoC Y%, DSCR Z.Z
+Aggressive (all available): Acquire all N properties → Portfolio CoC Y%, DSCR Z.Z
+
+=== RISK ASSESSMENT ===
+[Concentration flags]
+[Diversification assessment]
+[Recommendation: OVERCONCENTRATED / ACCEPTABLE / WELL-DIVERSIFIED]</code></pre>
+
+<h2>3. Portfolio Aggregation Script</h2>
+
+<pre><code>#!/usr/bin/env python3
+"""Luminary Portfolio Analyzer — Multi-Property Underwriting Aggregation
+
+Reads individual deal analysis results and produces portfolio-level metrics.
+
+Usage:
+    python portfolio_analyzer.py --deals deals_*.json --budget 500000
+    python portfolio_analyzer.py --csv deals.csv --output portfolio_report.md</code></pre>
+
+<pre><code>import json
+import csv
+from pathlib import Path
+from datetime import datetime
+from dataclasses import dataclass, field
+from typing import Optional
+
+@dataclass
+class DealResult:
+    address: str
+    purchase_price: float
+    noi: float
+    debt_service: float
+    cash_flow: float
+    cap_rate: float
+    coc_return: float
+    dscr: float
+    data_quality: str  # HIGH, MEDIUM, LOW
+    risk_flags: list = field(default_factory=list)
+
+@dataclass
+class PortfolioMetrics:
+    total_value: float = 0.0
+    portfolio_noi: float = 0.0
+    weighted_cap_rate: float = 0.0
+    portfolio_dscr: float = 0.0
+    aggregate_coc: float = 0.0
+    total_cash_invested: float = 0.0
+    avg_score: float = 0.0
+    risk_flags: list = field(default_factory=list)
+
+class PortfolioAnalyzer:
+    def __init__(self, deals: list[DealResult], budget: Optional[float] = None):
+        self.deals = sorted(deals, key=lambda d: self.score_deal(d), reverse=True)
+        self.budget = budget
+        
+    def score_deal(self, deal: DealResult) -> float:
+        """Calculate individual property score (0-100)"""
+        # CoC component (0-25)
+        coc_score = min(max(deal.coc_return * 100, 0), 25)
+        
+        # DSCR component (0-25): normalized against 1.25 target
+        dscr_score = min((deal.dscr / 1.25) * 25, 25) if deal.dscr > 0 else 0
+        
+        # Data quality (0-25)
+        dq_scores = {"HIGH": 25, "MEDIUM": 15, "LOW": 5}
+        dq_score = dq_scores.get(deal.data_quality, 5)
+        
+        return round(coc_score + dscr_score + dq_score, 1)
+    
+    def compute_portfolio_metrics(self, selected_deals: list[DealResult]) -> PortfolioMetrics:
+        """Compute aggregate metrics for a subset of deals"""
+        if not selected_deals:
+            return PortfolioMetrics()
+            
+        total_value = sum(d.purchase_price for d in selected_deals)
+        portfolio_noi = sum(d.noi for d in selected_deals)
+        total_ds = sum(d.debt_service for d in selected_deals)
+        total_cf = sum(d.cash_flow for d in selected_deals)
+        
+        # Weighted cap rate (by purchase price)
+        weighted_cap_rate = portfolio_noi / total_value if total_value > 0 else 0
+        
+        # Portfolio DSCR
+        portfolio_dscr = portfolio_noi / total_ds if total_ds > 0 else 0
+        
+        # Aggregate CoC
+        total_cash = sum(d.purchase_price * 0.25 for d in selected_deals)  # 25% down assumption
+        aggregate_coc = total_cf / total_cash if total_cash > 0 else 0
+        
+        return PortfolioMetrics(
+            total_value=total_value,
+            portfolio_noi=portfolio_noi,
+            weighted_cap_rate=weighted_cap_rate,
+            portfolio_dscr=portfolio_dscr,
+            aggregate_coc=aggregate_coc,
+            total_cash_invested=total_cash
+        )
+    
+    def generate_budget_strategy(self) -> dict:
+        """Generate acquisition strategy under budget constraint"""
+        if not self.budget:
+            return {"strategy": "No budget limit — acquire all", "deals": self.deals}
+        
+        selected = []
+        running_total = 0
+        for deal in self.deals:
+            if running_total + deal.purchase_price <= self.budget:
+                selected.append(deal)
+                running_total += deal.purchase_price
+        
+        metrics = self.compute_portfolio_metrics(selected)
+        return {
+            "strategy": f"Budget ${self.budget:,} — acquire {len(selected)} of {len(self.deals)} deals",
+            "total_value": running_total,
+            "metrics": metrics,
+            "deals": selected
+        }
+
+# CLI entry point
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Luminary Portfolio Analyzer")
+    parser.add_argument("--deals", nargs="+", help="Individual deal JSON files")
+    parser.add_argument("--csv", help="CSV with deal data columns")
+    parser.add_argument("--budget", type=float, help="Maximum acquisition budget")
+    args = parser.parse_args()</code></pre>
+
+<h2>4. Portfolio-Level Risk Assessment</h2>
+
+<table>
+<tr><th>Risk Type</th><th>Threshold</th><th>Action</th></tr>
+<tr><td>Market Concentration</td><td>Any single market >50% of portfolio value</td><td>Flag as HIGH RISK — recommend diversification</td></tr>
+<tr><td>Property Type Concentration</td><td>Any type >60% of portfolio</td><td>MODERATE — acceptable for focused strategies</td></tr>
+<tr><td>Cash Flow Risk</td><td>Any property with DSCR &lt; 1.0</td><td>HIGH RISK — negative cash flow drags entire portfolio</td></tr>
+<tr><td>Leverage Risk</td><td>Portfolio-weighted LTV &gt;75%</td><td>ELEVATED — rate increase vulnerability</td></tr>
+<tr><td>Vacancy Correlation</td><td>All properties in same submarket</td><td>CORRELATED RISK — economic downturn affects all simultaneously</td></tr>
+</table>
+
+<h2>5. Acquisition Ranking Algorithm</h2>
+
+<pre><code># Scoring formula with investor preference weights
+def rank_acquisitions(deals, preferences=None):
+    """Rank deals based on investor's stated priorities"""
+    
+    defaults = {
+        "cash_flow_weight": 0.30,   # Prioritize positive cash flow
+        "appreciation_weight": 0.25, # Value-add potential
+        "stability_weight": 0.25,    # DSCR and data quality
+        "diversification_weight": 0.20 # Spread across markets/types
+    }
+    
+    prefs = {**defaults, **(preferences or {})}
+    
+    for deal in deals:
+        score = (
+            deal.coc_return * prefs["cash_flow_weight"] +
+            (deal.cap_rate / 0.10) * prefs["appreciation_weight"] +  # normalized
+            min(deal.dscr / 1.5, 1.0) * prefs["stability_weight"] +
+            deal.data_quality_score * prefs["diversification_weight"]
+        )
+        deal.rank_score = round(score, 3)
+    
+    return sorted(deals, key=lambda d: d.rank_score, reverse=True)</code></pre>
+
+<h2>6. Portfolio Dashboard (HTML/JS)</h2>
+<p>A simple dashboard for visualizing portfolio composition and performance:</p>
+
+<pre><code>&lt;!-- portfolio-dashboard.html --&gt;
+&lt;div id="portfolio-summary"&gt;
+  &lt;h3&gt;Portfolio Overview&lt;/h3&gt;
+  &lt;p&gt;Total Value: $&lt;span id="total-value"&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;Weighted Cap Rate: &lt;span id="weighted-cap"&gt;&lt;/span&gt;%&lt;/p&gt;
+  &lt;p&gt;Portfolio DSCR: &lt;span id="portfolio-dscr"&gt;&lt;/span&gt;x&lt;/p&gt;
+  &lt;p&gt;Aggregate CoC Return: &lt;span id="aggregate-coc"&gt;&lt;/span&gt;%&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="deal-table"&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Property&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;th&gt;NOI&lt;/th&gt;
+        &lt;th&gt;Cap Rate&lt;/th&gt;&lt;th&gt;DSCR&lt;/th&gt;&lt;th&gt;Score&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody id="deal-rows"&gt;&lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Load portfolio data from pipeline output
+fetch('output/portfolio_metrics.json')
+  .then(r =&gt; r.json())
+  .then(data =&gt; {
+    document.getElementById('total-value').textContent = 
+      '$' + data.total_value.toLocaleString();
+    document.getElementById('weighted-cap').textContent = 
+      (data.weighted_cap_rate * 100).toFixed(2);
+    // ... render remaining metrics and deal rows
+  });
+&lt;/script&gt;</code></pre>
+
+<div class="note">
+<strong>About this playbook:</strong> Portfolio-level analysis is where the real value compounds. A single-property underwriter tells you whether one deal works. A portfolio analyzer tells you which combination of deals maximizes returns while managing concentration risk — turning individual deal analysis into strategic investment decision-making. This is what professional property managers and syndicators do daily, now automated.
+</div>
+
+<p style="margin-top:3rem;padding-top:1rem;border-top:1px solid #dee2e6;font-size:.85rem;color:#6c757d">
+Luminary Agent Configuration Playbooks v1.0 | © 2026 Luminary Ventures | dereviankoandrey.github.io/luminary-product-hub/
+</p>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 # AutoProfit Pipeline — Luminary Revenue Engine
 
 ## Status: IDEAL — All assets built, zero revenue generated (execution-blocked)
-**Last audit:** 2026-09-17 Night 201 | **Cumulative foregone revenue:** ~$164K+
+**Last audit:** 2026-09-22 Night 215 | **Cumulative foregone revenue:** ~$24.4K+
 
 ---
 
@@ -36,7 +36,7 @@
 |-------|-------------|--------|------------|
 | Product Hub (Front Door) | dereviankoandrey.github.io/luminary-product-hub/ | ✅ LIVE | Sep 9, 2026 (Night 169: Risk Scorecard added) |
 | Flash Analysis Hub 25 Markets | dereviankoandrey.github.io/luminary-flash-analyses/ | ✅ LIVE | Sep 1, 2026 (Night 155 audit) |
-| SEO Landing Pages | luminary-seo-landing-pages repo/ | ✅ FULL — all 15 .html files serving HTTP/200 (waitlist added N-175) | Sep 13, 2026 (N-175: waitlist page with analytics deployed) |
+| SEO Landing Pages | luminary-seo-landing-pages repo/ | ✅ FULL — all 21 .html files serving HTTP/200 + TRACKING (analytics injected N-215) | Sep 22, 2026 (N-215: analytics injection across all pages) |
 | Deal Screener Demo | dereviankoandrey.github.io/deal-screener-demo/ | 🔴 DELETED — repo removed from GitHub entirely | Sep 9, 2026 (N-169 confirmed gone) |
 | AI Deal Risk Scorecard | dereviankoandrey.github.io/luminary-product-hub/risk-scorecard.html | ✅ NEW LIVE | Sep 9, 2026 (Night 169 deploy) |
 | DealAudit Verifier | dereviankoandrey.github.io/luminary-dealaudit-verifier/ | ✅ LIVE | Sep 1, 2026 (Night 155 audit) |
@@ -46,7 +46,7 @@
 | AI Agent Monitor | dereviankoandrey.github.io/luminary-ai-agent-monitor/ | ✅ LIVE | Sep 5, 2026 (N-163 analytics) |
 | AI Detection Checklist | dereviankoandrey.github.io/luminary-ai-detection-checklist/ | ✅ LIVE | Sep 5, 2026 (N-163 analytics) |
 | Re-Underwriting Skill | dereviankoandrey.github.io/luminary-re-underwriting-skill/ | ✅ LIVE (docs only) | Sep 1, 2026 (Night 155 audit) |
-| BRRRR Calculator | luminary-brrrr-calculator repo (deployed) | ✅ REPAIRED (N-190) | Now serves HTTP/200 |
+| BRRRR Calculator | luminary-brrrr-calculator repo (deployed) | 🔴 404 (63+ nights unresolved) | OAuth workflow scope block continues |
 | Waitlist Page | dereviankoandrey.github.io/luminary-seo-landing-pages/waitlist.html | ✅ LIVE with analytics + referral tracking | Sep 13, 2026 (N-175 deploy) |
 | **Loan Payoff Calculator** | dereviankoandrey.github.io/luminary-seo-landing-pages/loan-payoff-calculator.html | ✅ NEW LIVE | Sep 17, 2026 (Night 201) |
 
