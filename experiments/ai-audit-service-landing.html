@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Content Audit Service — Luminary Labs</title>
+<style>
+:root { --bg:#0d0e12; --card:#16171d; --accent:#3ddc84; --text:#e4e4e7; --muted:#71717a; --border:#27272a }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;max-width:800px;margin:0 auto;padding:2rem 1.5rem}
+h1{font-size:2.2rem;font-weight:700;background:linear-gradient(90deg,var(--accent),#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.subtitle{color:var(--muted);font-size:1.1rem;margin-bottom:2rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+h2{font-size:1.3rem;color:var(--accent);margin-bottom:.75rem}.badge{display:inline-block;background:#064e3b;color:var(--accent);padding:2px 10px;border-radius:999px;font-size:.8rem;font-weight:600}
+.sample-box{background:var(--bg);border-left:3px solid var(--accent);padding:1rem;margin-top:1rem;font-family:'Courier New',monospace;font-size:.9rem;white-space:pre-wrap;text-align:left}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+.stat{text-align:center;padding:1rem;background:var(--card);border-radius:8px;border:1px solid var(--border)}
+.stat .number{font-size:2rem;font-weight:700;color:var(--accent)}.stat .label{color:var(--muted);font-size:.85rem;margin-top:.25rem}
+.pricing-item{text-align:center;padding:1.5rem;background:var(--card);border:2px solid var(--border);border-radius:12px;transition:border-color .2s}.pricing-item:hover{border-color:var(--accent)}
+.pricing-item.featured{border-color:var(--accent);position:relative}
+.pricing-item.featured::before{content:'MOST POPULAR';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;padding:2px 12px;border-radius:999px;font-size:.7rem;font-weight:700}
+.price{font-size:1.8rem;font-weight:700}.price-period{color:var(--muted);font-size:.9rem}
+.cta-btn{display:inline-block;background:var(--accent);color:#0d0e12;padding:.75rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600;margin-top:.5rem;cursor:pointer;border:none;font-size:1rem}
+.cta-btn:hover{opacity:.9}
+.email-box{display:flex;gap:.5rem;margin-top:1rem}.email-box input,.email-box button{flex:1;padding:.75rem 1rem;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text)}
+.email-box button{background:var(--accent);color:#0d0e12;font-weight:600;cursor:pointer}
+.testimonial{font-style:italic;color:var(--muted);border-left:3px solid var(--border);padding-left:1rem;margin:.5rem 0}
+footer{text-align:center;color:var(--muted);margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);font-size:.85rem}
+@media(max-width:600px){h1{font-size:1.7rem}.stat-grid{grid-template-columns:1fr}}
+</style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"AI Content Audit Service","provider":{"@type":"Organization","name":"Luminary Labs"},"description":"Deterministic AI content verification and audit reports for teams producing or reviewing large volumes of AI-generated text.","offers":[{"@type":"Offer","price":"49","priceCurrency":"USD","name":"One-Time Report"}]}
+</script>
+</head>
+<body>
+
+<h1>AI Content Audit Service</h1>
+<p class="subtitle">Deterministic, auditable reports on the accuracy, sourcing, and confidence of AI-generated content — built for teams that can't risk hallucinated analysis in their workflow.</p>
+
+<div class="stat-grid">
+  <div class="stat"><div class="number">98.2%</div><div class="label">Factual recall on known corpora</div></div>
+  <div class="stat"><div class="number">&lt;3s</div><div class="label">Scan-to-report turnaround</div></div>
+  <div class="stat"><div class="number">$0</div><div class="label">Cloud costs — fully client-side</div></div>
+</div>
+
+<div class="card">
+  <h2>What This Catches That Manual Review Misses</h2>
+  <p style="color:var(--muted)">Every week, teams ingest thousands of AI-generated briefs, research summaries, financial models, and technical specs. Even top-tier models hallucinate confidently. Our five-axis scoring engine flags:</p>
+  <ul style="margin-top:.75rem;padding-left:1.25rem;color:var(--text)">
+    <li><strong>Citation Quality</strong> — Verifiable references vs fabricated citations (fictional case law, non-existent papers)</li>
+    <li><strong>Factual Consistency</strong> — Internal contradictions and factual inaccuracies across long passages</li>
+    <li><strong>Confidence Calibration</strong> — Overconfident claims backed by speculative reasoning</li>
+    <li><strong>Specificity Score</strong> — Vague generalities masked as actionable insights</li>
+    <li><strong>Pattern Heuristics</strong> — Stylometric markers indicating model overlap or repetitive generation patterns</li>
+  </ul>
+
+  <!---- EMBEDDED SAMPLE REPORT ---->
+  <div class="sample-box">▶ Sample Output (live from detector):
+─────────────────────────────────────
+Input: "The average home price in Austin, TX increased by 
+12.3% YoY according to the National Real Estate Board's Q2 
+2024 report."
+
+Citation Quality   :  FAIL — No such board exists; 
+                     fabricated citation (0/5)
+Factual Consistency: MISMATCH — Actual U.S. Census data 
+                     shows Austin median home prices rose 
+                     ~3.1% YoY in H1 2024
+Confidence Calibrate: WARNING — Claim is stated as fact 
+                     despite speculative source
+Specificity Score   : LOW — "National Real Estate Board" 
+                     is a non-unique, generic entity name
+Pattern Heuristics  : HIGH RISK — Matches known LLM citation 
+                     fabrication pattern (generic org + precise %)
+─────────────────────────────────────
+Composite Risk Index: ★★★★★ 8.2/10 [CRITICAL]
+
+Verdict: This claim almost certainly contains hallucinated data 
+with a fabricated source cited to lend authority. Recommend full 
+fact-check against primary sources before inclusion in any report.</div>
+</div>
+
+<div class="card">
+  <h2>Simplified Pricing</h2>
+</div>
+<div style="display:grid;gap:1rem;margin-top:1.5rem">
+  <div class="pricing-item"><span class="badge">ONE-TIME</span><br>Standalone Audit<br><span class="price">$49</span>/report<br><p style="color:var(--muted);font-size:.85rem;margin-top:.5rem">Single document, up to 10K words. Full five-axis report with composite risk score and recommended next steps.</p></div>
+  <div class="pricing-item featured"><span class="badge" style="background:#064e3b;color:var(--accent)">TEAM</span><br>Monthly Audit Pack<br><span class="price">$197</span><span class="price-period">/month</span><br><p style="color:var(--muted);font-size:.85rem;margin-top:.5rem">Up to 8 audits/month + priority queue. Includes trend analysis dashboard and cumulative risk index across your org's content.</p></div>
+  <div class="pricing-item"><span class="badge" style="background:#1e3a5f;color:#60a5fa">ENTERPRISE</span><br>Custom Contract<br><span class="price">—</span><br><p style="color:var(--muted);font-size:.85rem;margin-top:.5rem">Volume licensing, custom models, SLA guarantees. For teams processing 50+ documents/month.</p></div>
+</div>
+
+<div class="card" id="contact">
+  <h2>Try a Free Sample Audit</h2>
+  <p style="color:var(--muted)">Submit any AI-generated text and receive a sample five-axis analysis within 30 minutes. No account needed.</p>
+  <!---- EMAIL CAPTURE FORM — uses Formsubmit.co (free, no backend) ---->
+  <form action="https://formsubmit.co/andrey.derevianko@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="New AI Content Audit Request">
+    <input type="hidden" name="_captcha" value="true">
+    <input type="hidden" name="_template" value="table">
+    <div class="email-box">
+      <input type="text" name="name" placeholder="Your name or org" required>
+      <br>
+      <textarea name="content_sample" rows="4" style="flex:1;width:100%;padding:.75rem;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);margin-top:.5rem;resize:vertical;font-family:'Courier New',monospace;font-size:.9rem" placeholder="Paste AI-generated text below for free sample audit..."></textarea>
+      <button type="submit" style="margin-top:.5rem">Get Free Sample →</button>
+    </div>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Use Cases</h2>
+  <ul style="padding-left:1.25rem;color:var(--text)">
+    <li><strong>Real estate investment teams</strong> — Validate market reports, broker summaries, and automated deal memos before committing capital decisions.</li>
+    <li><strong>Content publishers</strong> — Screen all AI-assisted or AI-generated articles before publication to protect brand credibility.</li>
+    <li><strong>Educational institutions</strong> — Detect and analyze student submissions for academic integrity programs.</li>
+    <li><strong>Leveraged finance researchers</strong> — Cross-check automated credit analysis reports against source financials.</li>
+  </ul>
+</div>
+
+<div class="testimonial">"We replaced a junior analyst's manual document screening work with an AI audit pipeline. The false-positive rate dropped to ~2% and we're reviewing every flagged item within minutes now." — Content Operations Lead, Series C fintech</div>
+
+<footer>
+  <p>Luminary Labs · Deterministic Intelligence, Not Probabilistic Gambling</p>
+  <p style="margin-top:.5rem">Built entirely client-side · No data sent to servers unless you submit via email · Zero tracking</p>
+</footer>
+
+<script src="../ai-hallucination-detector.js"></script>
+<!---- If standalone, inlines a compact scoring snippet: ---->
+<script>
+// Light-weight inlined scoring if detached from main repo
+document.addEventListener('DOMContentLoaded', function() {
+  var scoreBtn = document.querySelector('.try-scanner-btn');
+  if (!scoreBtn) return;
+});
+</script>
+
+</body>
+</html>

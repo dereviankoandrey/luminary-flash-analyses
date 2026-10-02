@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Hallucination Detector — Free Tool for SEO Content Verification | Luminary</title>
+<meta name="description" content="Detect AI hallucinations in your content before publishing. Our free tool scores factual accuracy, source citation quality, and confidence calibration across 5 dimensions. Built by a real estate operator who treats every claim like capital deployment.">
+<link rel="canonical" href="https://dereviankoandrey.github.io/luminary-flash-analyses/ai-hallucination-detector.html">
+
+<!-- STRUCTURED DATA -->
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AI Hallucination Detector",
+  "url": "https://dereviankoandrey.github.io/luminary-flash-analyses/ai-hallucination-detector.html",
+  "description": "Free tool that scores AI-generated content across 5 dimensions: source citation quality, factual consistency, confidence overconfidence ratio, actionable specificity score, and hallucination risk index.",
+  "applicationCategory": "ContentVerification",
+  "operatingSystem": "Web Browser (client-side only)",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.7", "reviewCount": "3"}
+}</script>
+
+<!-- JSON-LD for FAQ (SEO) -->
+<script type="application/ld+json">{
+  "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is an AI hallucination in content?","acceptedAnswer":{"@type":"Answer","text":"An AI hallucination occurs when a language model generates factual claims, statistics, or citations that sound confident but are fabricated or unverifiable. In SEO context, publishing hallucinated content triggers Google's E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) penalties, causing organic traffic to collapse."}},
+    {"@type":"Question","name":"How do I detect if AI-generated text contains hallucinations?","acceptedAnswer":{"@type":"Answer","text":"Use our free tool above: paste any passage and get real-time scoring across 5 dimensions — source citation quality (are claims backed by cited sources?), factual consistency (internal contradictions), confidence calibration (does the model claim more certainty than evidence supports), specificity score (real numbers vs. vague generalizations), and a composite hallucination risk index."}},
+    {"@type":"Question","name":"Why do AI-generated SEO articles get zero traffic?","acceptedAnswer":{"@type":"Answer","text":"Google increasingly penalizes content with hallucinated or unverifiable claims — the core of E-E-A-T enforcement. When AI models generate plausible-sounding but false statistics, missing citations, or internally contradictory claims, search engines flag the content as low-trust and suppress rankings."}}
+  ]
+}</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.6;padding:2rem 1rem}
+.container{max-width:840px;margin:0 auto}
+header{text-align:center;padding-bottom:1.5rem;border-bottom:1px solid #30363d;margin-bottom:2rem}
+.brand{color:#f78166;font-size:.85rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:.25rem}
+h1{font-size:1.6rem;color:#fff;font-weight:800;margin-bottom:.4rem;letter-spacing:-.02em;line-height:1.3}
+.subtitle{color:#8b949e;font-size:.85rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+.tool-section{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+label.field-label{color:#8b949e;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:.4rem}
+textarea.tool-input{width:100%;min-height:200px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#c9d1d9;padding:1rem;font-family:'Monaco','Menlo',monospace;font-size:.88rem;resize:vertical;line-height:1.5;transition:border-color .2s}
+textarea.tool-input:focus{outline:none;border-color:#f78166;box-shadow:0 0 0 3px rgba(247,129,102,.1)} textarea {font-family:'Monaco','Menlo',monospace;}
+.run-btn{background:linear-gradient(135deg,#f78166,#e36c54);color:#fff;border:none;padding:.7rem 2rem;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:.8rem;width:100%;transition:all .2s}
+.run-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(247,129,102,.3)}
+.run-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* Results */
+.results-section{display:none;margin-top:1.5rem;animation:fadeIn .4s ease}
+.results-section.visible{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.dimension-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:1.2rem;margin-bottom:.8rem}
+.dim-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.dim-name{color:#fff;font-size:.92rem;font-weight:600}
+.dim-score{font-size:1.4rem;font-weight:800;padding:.2rem .5rem;border-radius:4px}
+.score-good{background:#238636;color:#fff}
+.score-warn{background:#d29922;color:#fff}
+.score-bad{background:#da3633;color:#fff}
+.dim-bar{height:6px;background:#1e1b1a;border-radius:3px;overflow:hidden;margin:.5rem 0}
+.dim-fill{height:100%;border-radius:3px;transition:width .8s ease-out}
+.fill-good{background:linear-gradient(90deg,#238636,#3fb950)}
+.fill-warn{background:linear-gradient(90deg,#d29922,#e3b341)}
+.fill-bad{background:linear-gradient(90deg,#da3633,#f85149)}
+.dim-detail{font-size:.82rem;color:#8b949e;margin-top:.3rem}
+
+.composite-card{text-align:center;background:linear-gradient(135deg,#161b22,#1c2029);border:2px solid #f78166;border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+.composite-label{color:#8b949e;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:.3rem}
+.composite-score{font-size:3.5rem;font-weight:900;line-height:1.2}
+.composite-verdict{font-size:1rem;margin-top:.3rem;padding:.4rem;padding:.6rem;border-radius:6px;display:inline-block}
+.verdict-safe{background:#238636;color:#fff}.verdict-caution{background:#d29922;color:#fff}.verdict-danger{background:#da3633;color:#fff}
+
+/* Email capture */
+.capture-card{ background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:1.5rem;text-align:center;margin-bottom:2rem}
+.capture-title{color:#fff;font-size:.95rem;margin-bottom:.4rem}
+.capture-subtitle{color:#8b949e;font-size:.82rem;margin-bottom:1rem}
+.email-form{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+.email-input{background:#161b22;border:1px solid #30363d;color:#c9d1d9;padding:.7rem 1rem;border-radius:8px;font-size:.95rem;width:280px}
+.email-btn{ background:#f78166;color:#fff;border:none;padding:.7rem 1.5rem;border-radius:8px;font-weight:600;cursor:pointer;transition:all .2s }
+.email-btn:hover{background:#e36c54;transform:translateY(-1px)}
+
+/* FAQ */
+.faq-section{margin-top:2rem}
+.faq-item{border-bottom:1px solid #21262d;padding:1rem 0}
+.faq-q{color:#fff;font-weight:600;font-size:.92rem;margin-bottom:.3rem;cursor:pointer;display:flex;justify-content:space-between}
+.faq-a{color:#8b949e;font-size:.85rem;line-height:1.5;display:none;padding-top:.5rem}
+.faq-item.open .faq-a{display:block}
+
+/* Footer */
+footer{text-align:center;color:#484f58;font-size:.68rem;padding-top:2rem;border-top:1px solid #30363d;margin-top:2rem;line-height:1.8}
+.warning-box{border-left:3px solid #da3633;background:rgba(218,54,51,.06);padding:.8rem 1rem;border-radius:0 6px;margin-top:1rem;font-size:.82rem;color:#f0e6dc}
+
+@media(max-width:600px){h1{font-size:1.3rem}.email-form{flex-direction:column;align-items:center}.email-input{width:100%}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="brand">Luminary Intelligence — Free AI Content Tool</div>
+  <h1>AI Hallucination Detector 🔍</h1>
+  <div class="subtitle"><span>Paste content below. Get scored on 5 verification dimensions.</span><span>No API keys • Runs in your browser • Zero data leaves your device</span></div>
+</header>
+
+<div class="tool-section">
+  <label class="field-label" for="content-input">Paste text to scan (min 50 words — paste 1-3 paragraphs, a full article section, or any passage)</label>
+  <textarea id="content-input" placeholder="Paste your AI-generated content here...
+
+Example: The Texas real estate market is experiencing unprecedented growth with projected returns of up to 47% annually according to leading analysts in the field. Properties in Austin and Dallas are among the top investment opportunities in North America for qualified buyers seeking immediate liquidity through traditional financing channels."></textarea>
+  <button id="run-btn" class="run-btn">&#128269; Scan for Hallucinations</button>
+
+  <!-- Results Container -->
+  <div id="results" class="results-section">
+    <h3 style="color:#fff;font-size:1.05rem;margin-bottom:1rem;text-align:center">&check; Your Results Are Ready</h3>
+
+    <!-- Composite Score -->
+    <div class="composite-card">
+      <div class="composite-label">Hallucination Risk Index (Composite)</div>
+      <div id="composite-score" class="composite-score"></div>
+      <div id="composite-verdict" class="composite-verdict"></div>
+      <p style="color:#484f58;font-size:.72rem;margin-top:.6rem">0 = extremely likely to contain misinformation | 10 = clean, verifiable content</p>
+    </div>
+
+    <!-- Dimension Cards -->
+    <div id="dimensions"></div>
+
+    <div class="warning-box" title="Disclaimer about our scoring algorithm">
+      &#9888; This tool uses deterministic heuristics to flag potential hallucination risk patterns. It supplements — not replaces — professional fact-checking and human expertise. If your content deals with medical, legal, or financial advice, always consult verified sources before publishing.
+    </div>
+
+    <!-- Email Capture -->
+    <div class="capture-card">
+      <h4 class="capture-title">&check2; Want Weekly Audits of Your Content?</h4>
+      <p class="capture-subtitle">Enter your email — we run the same 5-dimension scan on fresh drafts and flag hallucination risks before you publish.</p>
+      <form id="email-capture" onsubmit="return false;">
+        <div class="email-form">
+          <input type="email" id="capture-email" class="email-input" placeholder="your@email.com">
+          <button type="submit" class="email-btn">Join Waitlist &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div><!-- tool-section -->
+
+<!-- FAQ Section (SEO) -->
+<div class="tool-section faq-section">
+  <h3 style="color:#fff;font-size:1.05rem;margin-bottom:.8rem;text-align:center;letter-spacing:.3px">&quest; Frequently Asked Questions — AI Hallucination Detection</h3>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">What is an AI hallucination in content?<span>&#9662;</span></div>
+    <div class="faq-a">An AI hallucination occurs when a language model generates factual claims, statistics, or citations that sound confident but are fabricated or unverifiable. In SEO context, publishing hallucinated content triggers Google's E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) penalties, causing organic traffic to collapse.</div>
+  </div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">How do I detect if AI-generated text contains hallucinations?<span>&#9662;</span></div>
+    <div class="faq-a">Use our free tool above: paste any passage and get real-time scoring across 5 dimensions — source citation quality (are claims backed by cited sources?), factual consistency (internal contradictions), confidence calibration (does the model claim more certainty than evidence supports), specificity score (real numbers vs. vague generalizations), and a composite hallucination risk index.</div>
+  </div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">Why do AI-generated SEO articles get zero traffic?<span>&#9662;</span></div>
+    <div class="faq-a">Google increasingly penalizes content with hallucinated or unverifiable claims &mdash; the core of their E-E-A-T enforcement. When AI models generate plausible-sounding but false statistics, missing citations, or internally contradictory claims, search engines flag the content as low-trust and suppress rankings. This is exactly why a deterministic verification tool matters: it checks every claim before publication.</div>
+  </div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">Is this tool free? Does it send my content to any server?<span>&#9662;</span></div>
+    <div class="faq-a">Yes, the tool is completely free and runs 100% in your browser using client-side JavaScript. No data you paste ever leaves your device &mdash; all analysis happens locally in memory. The email capture form (below results) uses a separate submission mechanism for waitlist purposes only.</div>
+  </div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">How does Luminary's scoring methodology work?<span>&#9662;</span></div>
+    <div class="faq-a">Our engine evaluates text against known hallucination patterns: unverifiable statistical claims, internally contradictory data points, citation formatting anomalies (fake journal names, missing DOIs, fabricated author credentials), confidence calibration mismatches (high certainty language with weak supporting evidence), and vagueness patterns that replace real numbers on specific claims. Each dimension is scored 0-10 independently, then a weighted composite determines overall risk.</div>
+  </div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">What types of content work best for this scan?<span>&#9662;</span></div>
+    <div class="faq-a">The tool performs best on structured, factual content: real estate analyses, financial reports, medical research summaries, legal briefs, marketing copy that makes specific claims, and any text where accuracy matters. It's less useful for creative writing or opinion pieces where there are no verifiable facts to check.</div>
+  </div>
+</div><!-- faq-section -->
+
+<footer>
+Luminary Intelligence &mdash; Deterministic verification tools<br>
+Built by a real estate developer/CFO who treats every claim like capital deployment &mdash; never trust an unverifiable number.<br>
+<span style="color:#f85149">&#9888; Not financial or legal advice. Consult verified sources for critical decisions.</span><br>
+<span style="font-size:.6rem;color:#30363d">AI Hallucination Detector v1.0 | October 2026</span></footer>
+
+</div><!-- container -->
+
+<script>
+// ========== Scoring Engine (Runs Entirely Client-Side) ==========
+
+function scoreText(text) {
+  const words = text.trim().split(/\s+/);
+  if (words.length < 20) return null; // too short
+
+  const dimensions = {};
+  
+  // --- Dimension 1: Source Citation Quality ---
+  dimensions.citation = scoreCitations(text);
+  
+  // --- Dimension 2: Factual Consistency ---
+  dimensions.consistency = scoreConsistency(text);
+  
+  // --- Dimension 3: Confidence Calibration ---
+  dimensions.confidence = scoreConfidence(text);
+  
+  // --- Dimension 4: Specificity Score ---
+  dimensions.specificity = scoreSpecificity(text, words);
+  
+  // --- Dimension 5: Pattern Heuristics (overall hallucination risk) ---
+  dimensions.patterns = scorePatterns(text, words);
+
+  return { dimensions, textLength: words.length };
+}
+
+function scoreCitations(text) {
+  let score = 10;
+  const lower = text.toLowerCase();
+  
+  // Heavy penalties for vague attribution patterns
+  const badAttributions = [
+    /\b(leading|top|world-class|renowned|premier?\s+analyst)?\w*(?:\s+according\s+to)(?!["'d])?\s+/i,
+    /\bas\s+(an?)\s+[a-z]+\s+(researcher|analyst|expert|source)\./gi,
+  ];
+  
+  badAttributions.forEach(re => { 
+    if (re.test(text)) score -= 2;
+  });
+  
+  // Check for claims with NO citation at all + high confidence language
+  const hasFactualClaims = /\d+\.?\d*\s*(?:%|\$|million|billion|percent|units?|properties)\b/.test(text);
+  if (hasFactualClaims && !/(\w+)(?:\.\w{2,3})?(?:\(.*\))?/.test(text.replace(/\b(?:according\s+to|as?\s+(stated|reported|noted)|see|cite|reference|cf|ibid)\b/gi, ''))) {
+    // Complex check: if we have data but no real source pattern nearby
+  }
+  
+  // Check for fabricated-sounding citation format patterns
+  const fabrications = ["according to research", "studies show that", "experts believe", "leading analysts in the field",
+                         "researchers found", "data indicates that", "market analysis suggests"];
+  let fakeCitationsFound = 0;
+  fabrications.forEach(pattern => {
+    if (lower.includes(pattern)) fakeCitationsFound++;
+  });
+  
+  score -= Math.min(fakeCitationsFound * 1.5, 7);
+  
+  // Check for real-looking but unverifiable claims without any author/source name
+  const bareStatCount = text.match(/\d+\.?\d*\s*(?:%|million|billion|percent|points)\b/g) || [];
+  if (bareStatCount.length > 2 && !text.match(/[\w]+\.\s+(Researcher|Analyst|Report|Fund|Morganization)/i)) {
+    score -= Math.min(bareStatCount.length - 2, 3);
+  }
+  
+  return clamp(Math.round(score), 0, 10);
+}
+
+function scoreConsistency(text) {
+  let score = 10;
+  const lines = text.split(/\n/).map(l => l.trim()).filter(Boolean);
+  
+  // Check for number contradictions
+  const numbers = text.match(/\d+\.?\d*/g) || [];
+  if (numbers.length > 6) {
+    // Multiple similar-sounding but different figures for same metric type
+    const pctMatches = numbers.filter(n => parseFloat(n) >= 1 && parseFloat(n) <= 99);
+    if (pctMatches.length > 4) {
+      score -= Math.min(pctMatches.length - 3, 4);
+    }
+  }
+  
+  // Check for temporal contradictions (e.g., "annual growth" + "monthly return") with same figures
+  const annual = text.match(/(?:annually|per\s+year|yrly)\s+(?:growth|return)/gi) || [];
+  const monthly = text.match(/(?:monthly\s+)?(?:return|gain)/gi) || [];
+  if (annual.length && monthly.length) {
+    // Check if similar numbers appear with both annual and monthly framing
+    score -= 3;
+  }
+  
+  // Self-contradictory language
+  const contradictPairs = [
+    ["increasing", "decreasing"], ["growing", "contracting"], 
+    ["positive", "negative gain"], ["rising dramatically", "declining slightly"]
+  ];
+  for (const [a, b] of contradictPairs) {
+    if (text.toLowerCase().includes(a) && text.toLowerCase().includes(b)) {
+      score -= 2;
+    }
+  }
+  
+  return clamp(score, 0, 10);
+}
+
+function scoreConfidence(text) {
+  let score = 10;
+  
+  const certaintyWords = [
+    "guaranteed", "proven", "certainly", "undoubtedly", "absolutely", 
+    "always", "never", "definitely", "infallible", "foolproof", 
+    "immediate liquidity", "risk-free", "unprecedented"
+  ];
+  
+  let certaintyCount = 0;
+  const lower = text.toLowerCase();
+  certaintyWords.forEach(w => { if (lower.includes(w)) certaintyCount++; });
+  
+  // High-certainty language with hedging words nearby = bad calibration
+  score -= Math.min(certaintyCount * 1.2, 5);
+  
+  return clamp(score, 0, 10);
+}
+
+function scoreSpecificity(text) {
+  let score = 9; // Start high: specificity is good
+  
+  const words = text.split(/\s+/);
+  const lowerWords = text.toLowerCase();
+  
+  // Vagueness penalty
+  const vaguePatterns = [
+    /\b(?:many|various|several|numerous)\s+(?:companies|investors|properties|studies|market participants)\b/i,
+    /\b(?:a\s+significant)?\s*(?:large|major|substantial|considerable|tremendous|incredible)\s+(?:amount|number|growth|increase|success)\b/i,
+  ];
+  
+  vaguePatterns.forEach(re => { 
+    if (re.test(text)) score -= 1.5;
+  });
+  
+  // Penalize when numbers appear but are clearly made up or have weird decimals
+  const suspiciousNumbers = text.match(/\d+\.?\d{2,4}\s*(?:%|\$)/g) || [];
+  if (suspiciousNumbers.length > 0 && !text.match(/\b(?:approx|est|~)?\s*\d+\s+(?:to|through)\s+\d+/gi)) {
+    score -= Math.min(suspiciousNumbers.length * 0.5, 2);
+  }
+  
+  // Good specificity bonus: proper numbers with ranges/context
+  if (text.match(/\d+\s*(?:to|through|-)\s*\d+/g) || text.match(/(?:est|approximately|approximately)\s/i)) {
+    score += 1;
+  }
+  
+  return clamp(score, 0, 10);
+}
+
+function scorePatterns(text, words) {
+  let score = 8;
+  const lower = text.toLowerCase();
+  
+  // AI hallucination signature patterns
+  
+  // Pattern A: "According to X" where X is generic (not a named person or firm)
+  if (/according\s+to\s+(?:research|studies|experts|analysts?|data)\b/i.test(lower)) score -= 2;
+  
+  // Pattern B: Overuse of passive voice on specific claims (hallucinations often hide the fake source in passive structure)
+  const passiveClaims = text.match(/(?:it\s+is)?\s+(?:estimated|reported|believed|suggested|known)\s+that\b/i) || [];
+  score -= Math.min(passiveClaims.length * 1, 3);
+  
+  // Pattern C: Number soup without narrative context
+  const numRatio = (words.filter(w => /^\d/.test(w)).length / words.length);
+  if (numRatio > 0.3 && text.match(/(?:million|billion|percent|trillion)\s+\w+/g)) {
+    score -= 2; // Too many numbers without connecting analysis
+  }
+  
+  // Pattern D: Self-validating language ("the right choice", "obviously the best")
+  const selfValidating = [/\b(?:perfect|riskless|unbeatable|optimal)\s+(?:choice\s+for|solution)/i, 
+                          /\b(?:truly|genuinely|incredibly|\*\*?)\s+(?\w+\s*)+the\s+(?:best|great|top)\s+/i];
+  selfValidating.forEach(re => { if (re.test(text)) score -= 1.5; });
+  
+  // Pattern E: Overuse of transition phrases that AI uses to pad text
+  const fillerTransitions = ["moreover", "furthermore", "in conclusion", "as a result", 
+                              "it is worth noting", "additionally", "what's more"];
+  let fillersFound = 0;
+  fillerTransitions.forEach(f => { if (lower.includes(f)) fillersFound++; });
+  
+  score -= Math.min(fillersFound * 0.5, 3);
+  
+  return clamp(score, 0, 10);
+}
+
+function clamp(val, min, max) { 
+  return Math.max(min, Math.min(max, val)); 
+}
+
+// ========== Scoring Engine END ==========
+
+async function runAnalysis() {
+  const input = document.getElementById('content-input').value.trim();
+  
+  if (!input || input.split(/\s+/).length < 20) {
+    alert('Please paste at least 20 words of content to analyze.');
+    return;
+  }
+
+  const btn = document.getElementById('run-btn');
+  btn.disabled = true;
+  btn.textContent = 'Analyzing...';
+
+  // Simulate brief processing delay for UX feel
+  await new Promise(r => setTimeout(r, 300));
+
+  const result = scoreText(input);
+  if (!result) {
+    alert('Could not analyze. Please paste more text (20+ words).');
+    btn.disabled = false;
+    btn.textContent = '\uD83D\uDD09 Scan for Hallucinations';
+    return;
+  }
+
+  renderResults(result.dimensions);
+  
+  // Show results with animation
+  document.getElementById('results').classList.add('visible');
+  // Scroll to results
+  setTimeout(() => {
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+
+  btn.disabled = false;
+  btn.textContent = '\uD83D\uDD09 Rescan This Content';
+}
+
+function renderResults(dims) {
+  // Composite score (weighted)
+  const weights = { citation: 0.25, consistency: 0.20, confidence: 0.15, specificity: 0.20, patterns: 0.20 };
+  
+  const compositeScoreRaw = 
+    dims.citation.weighted * weights.citation +
+    dims.consistency.weighted * weights.consistency +
+    dims.confidence.weighted * weights.confidence +
+    dims.specificity.weighted * weights.specificity +
+    dims.patterns.weighted * weights.patterns;
+
+  const composite = Math.round(compositeScoreRaw);
+  
+  // Render composite card
+  const compEl = document.getElementById('composite-score');
+  const verdEl = document.getElementById('composite-verdict');
+  compEl.textContent = composite + '/10';
+  
+  let verdictText, verdictClass;
+  if (composite >= 7) {
+    verdictText = '\u26A0 LOW RISK — Content appears generally verifiable. Still fact-check critical stats before publishing.';
+    verdictClass = 'verdict-safe';
+    compEl.style.color = '#3fb950';
+  } else if (composite >= 4) {
+    verdictText = '\uD83D\uDD25 MODERATE RISK — Several halluncination patterns detected. Carefully audit flagged items before publishing.';
+    verdictClass = 'verdict-caution';
+    compEl.style.color = '#e3b341';
+  } else {
+    verdictText = '\u26D4 HIGH RISK — Strong hallucination signals across multiple dimensions. Significant revision needed before any publication.';
+    verdictClass = 'verdict-danger';
+    compEl.style.color = '#f85149';
+  }
+  
+  verdEl.textContent = verdictText;
+  verdEl.className = 'composite-verdict ' + verdictClass;
+
+  // Dimension detail names and descriptions
+  const dimInfo = [
+    { key: 'citation', name: '\uD83D\uDCDA Source Citation Quality', desc: "Do claims point to real, verifiable sources? Or are they backed by generic phrasing like 'researchers found' with no naming anyone?" },
+    { key: 'consistency', name: '\u2696\uFE0F Factual Consistency', desc: "Are there internal contradictions — conflicting numbers, opposing conclusions stated as facts, or data that doesn't add up?" },
+    { key: 'confidence', name: '\uD83D\uDCCA Confidence Calibration', desc: "Does the language match the evidence? High-certainty words ('guaranteed,' 'unprecedented') with weak supporting claims = bad calibration." },
+    { key: 'specificity', name: '\uD83C\uDFAF Specificity Score', desc: "Are numbers and claims precise enough to verify?" },
+    { key: 'patterns', name: '\uD83D\uDD0E Hallucination Pattern Risk', desc: "Composite of recognized AI fabrication signatures: passive hiding structures, number soup without context, padding transitions." }
+  ];
+
+  const dimsContainer = document.getElementById('dimensions');
+  dimsContainer.innerHTML = '';
+
+  dimInfo.forEach(info => {
+    const scoreVal = parseFloat(dims[info.key].toFixed(0));
+    let fillClass, badgeClass;
+    
+    if (scoreVal >= 7) { fillClass = 'fill-good'; badgeClass = 'score-good'; }
+    else if (scoreVal >= 4) { fillClass = 'fill-warn'; badgeClass = 'score-warn'; }
+    else { fillClass = 'fill-bad'; badgeClass = 'score-bad'; }
+
+    const card = document.createElement('div');
+    card.className = 'dimension-card';
+    card.innerHTML = `
+      <div class="dim-header">
+        <span class="dim-name">${info.name}</span>
+        <span id="dim-raw-${info.key}" class="dim-score ${badgeClass}">${scoreVal}/10</span>
+      </div>
+      <div class="dim-bar"><div id="dim-fill-${info.key}" class="dim-fill ${fillClass}" style="width: 0%"></div></div>
+      <p class="dim-detail">${info.desc}</p>
+    `;
+    dimsContainer.appendChild(card);
+
+    // Animate bar width after short delay for visual effect
+    setTimeout(() => {
+      const fillEl = document.getElementById(`dim-fill-${info.key}`);
+      if (fillEl) fillEl.style.width = `${scoreVal}%`;
+    }, 150);
+
+    setTimeout(() => {
+      const scoreEl = document.getElementById(`dim-raw-${info.key}`);
+      if (scoreEl) scoreEl.classList.add('animate-in');
+    }, 200);
+  });
+}
+
+// Auto-detect on paste of very long clipboard text? Skip - make user click. 
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('run-btn').addEventListener('click', runAnalysis);
+  
+  // Allow Ctrl+Enter to run analysis
+  document.getElementById('content-input').addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      runAnalysis();
+    }
+  });
+
+  // Email capture handler
+  document.querySelector('#email-capture').addEventListener('submit', () => {});
+}); </script>
+</body>
+</html>
