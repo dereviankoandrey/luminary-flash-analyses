@@ -339,9 +339,28 @@ The key to safe AI content deployment is implementing a multi-layer verification
             return;
         }
 
-        // Formsubmit.co would normally handle this, but for now we simulate capture
-        // In production, this would POST to Formsubmit.co or similar
-        alert(`Thank you! Your weekly AI content audit starts now. Check your inbox for the first audit within 24 hours.`);
+        // Send email to Formsubmit.co for actual capture
+        const formData = new FormData();
+        formData.append('email', email);
+        
+        fetch('https://formsubmit.co/api/v1/forms/your-form-id', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                alert(`Thank you! Your email has been submitted. Check your inbox for a confirmation.`);
+            } else {
+                alert('Failed to submit email. Please try again.');
+            }
+        })
+        .catch(error => {
+            alert('Error submitting email. Please try again.');
+        });
+        
         document.getElementById('email-input').value = '';
     }
 
