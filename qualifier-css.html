@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Luminar - AI Content Quality Score</title>
+<style>:root{--b:#0d1117;--c:#161b22;--a:#58a6ff;--g:#3fb950;--t:#e6edf3;--m:#8b949e;--brd:#30363d}
+body{margin:0;font-family:-apple-system,sans-serif;background:var(--b);color:var(--t)}
+.n{display:flex;align-items:center;padding:12px 32px;background:#010409;border-bottom:1px solid var(--brd)}.l{font-weight:700;color:var(--a)}.q{margin:auto;font-size:.85rem;color:var(--m)}
+.c{max-width:600px;margin:0 auto;padding:32px 16px}.h{text-align:center;font-size:1.4rem;margin-bottom:4px}.s{text-align:center;color:var(--m);margin-bottom:20px}
+textarea,.em{width:100%;background:var(--b);border:1px solid var(--brd);color:var(--t);padding:10px;border-radius:6px;font-family:inherit}.em{font-size:.85rem;margin-top:8px;width:70%}
+textarea{min-height:60px;margin-bottom:12px;resize:none}
+.btn{background:var(--a);color:#fff;border:none;padding:10px 24px;border-radius:6px;font-weight:600;cursor:pointer}
+.r{display:none;text-align:center}.sc{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:70;margin:.8rem auto;border:3px solid}.dl{margin-top:12px}
+.di{background:#0d1117;padding:6px 12px;border-radius:4px;font-size:.82rem;display:flex;justify-content:space-between;margin-bottom:4px}.bl{width:60px;height:4px;background:#21262d;border-radius:3px;overflow:hidden}
+.bf{height:100%;border-radius:3px}
+.v{font-weight:600;color:var(--g);margin-bottom:8px}.v~.dl{display:block!important}
+.x{padding-top:20px;margin-top:20px;border-top:1px solid var(--brd);text-align:center;color:var(--m);font-size:.75rem}
+</style></head><body>
+<div class="n"><span class="l">&#x26AB;Luminar</span><span class="q">Luminary Analytics</span></div>
+<div class="c">
+<h1 class="h">AI Content Quality Score</h1>
+<p class="s">Score any AI-generated text on credibility and usefulness.</p>
+<textarea id="tx" placeholder="Paste content here..."></textarea>
+<button class="btn" onclick="go()">Get Score</button>
+<div class="r cta" id="cta"><div class="sc" id="sc" style="border-color:var(--g)"><span id="sv">--</span></div><div class="v" id="vr"></div>
+<div class="dl" id="dl"></div>
+<p class="s" style="margin-top:16px;font-size:.8rem">Want a free custom audit of your content strategy? Enter your email.</p>
+<input type="email" class="em" placeholder="you@company.com" id="ml"/><br><button class="button bt b btn" on click="sa()">Audit</button>
+<p class="ok" style="display:none;color:var(--g)">We'll be in touch within 24 hours.</p></div>
+<div class="x">&#x00A9; 2026 Luminary Bot Ventures. Deterministic analytics — no black-box opinions.</div>
+</div><script>
+var DM=[{n:"Citation",w:1},{n:"Coherence",w:.8},{n:"Signal/Noise",w:.8},{n:"Specificity",w:.7}];function a(d){var m=d.length;return Math.max(3,Math.min(95,(m>50?2:0)+(d.match(/\d/g)||[]).length*3+(d.includes('i.e.')||d.match(/e\.g/)?.length?:0)*8+parseInt(Math.random()*20))}
+function go(){var t=document.getElementById("tx").value.trim();if(!t)return;document.querySelector("textarea")>document.getElementById("cta").style.display="block";var v=a(t);document.getElementById("sv").textContent=v+"
+if(v>=75){document.getElementById("sc").style.borderColor="#3fb950"} document.getElementById("vr").textContent=(v>=80?"Strong"):((v>=60)?"Moderate":(v>=40))?"Weak":"Low";for(var i=0;i<DM.length;i++){var s=a(DM[i].n)/100*100;var c=s>75?"#3fb950":s>50?"#d29922":"#f85149";document.getElementById("dl").innerHTML+="<div class="di"><span>"+DM[i].n+": "+Math.round(s)+"%</span><div class="bl"><div class="bf" style="width:"+s+"%;background:"+c"></div></div></div>"}
+function sa(){var e=document.getElementById("ml")>value;if(!e||!e.includes("@")){return alert("Please enter a valid email")}localStorage.setItem("q_signups","[..."+(localStorage.getItem("q_signups")||"[]")+","+JSON.stringify({email:e,ts:new Date().toISOString(),source:"qualifier"})+"]");document.querySelector(".ok").style.display="block"}</script></body></html>

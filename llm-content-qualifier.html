@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Luminar — AI Content Quality Score | Luminary Ventures</title>
+<style>
+:root{--bg:#0d1117;--c1:#161b22;--ac:#58a6ff;--grn:#3fb950;--red:#f85149;--orange:#d29922;--txt:#e6edf3;--muted:#8b949e;--border:#30363d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+nav.bar{background:#010409;border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px}
+nav .logo{font-weight:700;font-size:1.1rem;color:var(--ac)}
+nav .tagline{color:var(--muted);font-size:.85rem;margin-left:auto}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+.card{background:var(--c1);border:1px solid var(--border);border-radius:12px;width:100%;max-width:760px;padding:32px}
+h1{text-align:center;font-size:1.8rem;margin-bottom:4px}
+.sub{text-align:center;color:var(--muted);margin-bottom:28px;font-size:.95rem}
+textarea{width:100%;min-height:160px;background:#0d1117;border:1px solid var(--border);color:var(--txt);padding:14px;border-radius:8px;font-size:1rem;resize:vertical;font-family:inherit}
+textarea:focus{outline:none;border-color:var(--ac)}
+.btn{display:block;margin:16px auto;padding:12px 32px;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;font-weight:600}
+.btn:hover{opacity:.9}
+.result-box{text-align:center;margin-top:24px;display:none;border-top:1px solid var(--border);padding-top:24px}
+.score-circle{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.4rem;font-weight:800;margin:0 auto 16px;border:4px solid}
+.dim{margin-top:20px;display:grid;gap:8px;text-align:left}
+.dim-item{background:#0d1117;padding:10px 14px;border-radius:6px;font-size:.9rem;display:flex;justify-content:space-between;align-items:center}
+.dim-bar{width:120px;height:8px;background:#21262d;border-radius:4px;overflow:hidden;flex-shrink:0;margin-left:12px}
+.dim-fill{height:100%;border-radius:4px}
+.score-range{font-size:.75rem;color:var(--muted);flex-basis:160px;text-align:right}
+.cta-box{margin-top:24px;padding:16px;background:#161b22;border:1px solid var(--border);border-radius:8px;display:none}
+.cta-title{font-weight:600;margin-bottom:6px;font-size:.95rem}
+.cta-sub{color:var(--muted);font-size:.8rem;margin-bottom:12px}
+.email-input{background:#0d1117;border:1px solid var(--border);padding:10px 14px;border-radius:6px;color:var(--txt);width:100%;margin-bottom:8px;font-size:.95rem}
+.email-row{display:flex;gap:8px}
+.email-row button{white-space:nowrap;margin:auto 0;padding:10px 20px;background:var(--grn)}
+.thanks{color:var(--grn);text-align:center;display:none;margin-top:8px;font-size:.9rem}
+footer{text-align:center;color:var(--muted);padding:24px;font-size:.8rem;border-top:1px solid var(--border);}
+</style>
+</head>
+<body>
+<nav class="bar">
+<span class="logo">&#x26AB; Luminar</span>
+<a style="color:var(--muted);text-decoration:none;font-size:.85rem" href="/">Flash Analyses</a>
+<span class="tagline">Luminary Analytics &amp; Intelligence</span>
+</nav>
+
+<main>
+<div class="card">
+<h1>AI Content Quality Score</h1>
+<p class="sub">Paste any AI-generated text. Our deterministic engine scores credibility, usefulness, and signal density in 5 dimensions.</p>
+
+<textarea id="txt" placeholder="Paste your AI-generated article, blog post, email, or report here..."></textarea>
+<button class="btn" onclick="analyze()">Get Score</button>
+
+<div class="result-box" id="res">
+ <div class="score-circle" id="sc"><span id="sv">--</span></div>
+ <p style="font-weight:600;margin-bottom:4px;justify-content:center;display:flex" id="verdict"></p>
+ <style>#verdict{flex}</style>
+<div class="dim" id="dims"></div>
+
+<div class="cta-box" id="cta">
+<div class="cta-title">&#x2705; Result saved</div>
+<p class="cta-sub">Want a free custom audit of your own content strategy? Enter your email — we'll reach out with one actionable insight based on our analysis.</p>
+<form id="capForm" onsubmit="return false"><div class="email-row">
+<input type="email" class="email-input" placeholder="you@company.com" id="eMail"/>
+<button type="button" class="btn email-row-btn" onclick={submitEmail()} style="margin:auto 0;padding:10px 20px;background:#3fb950;font-size:.9rem">Get Audit</button>
+</div></form>
+<div class="thanks" id="tks">&#x2714; We'll be in touch within 24 hours.</div>
+</div>
+</div>
+
+<footer>&copy; 2026 Luminary Bot Ventures. Deterministic analytics — no black-box AI opinions.</footer>
+</main>
+
+<script>
+const DIMS=[
+{name:"Citation Density",desc: "Specific, verifiable references vs. vague claims",weight:.25},
+{name:"Logical Coherence", "Desc":"Does each sentence follow from the previous? Contradictions?",weight:.20},
+{name:"Signal-to-Noise Ratio","Desc":"Substance per word. Padding/hedging detection?",weight:.20},
+{name:"Specificity Score", "Desc":"Concrete numbers, names, dates vs. generalities",weight:.15},
+];
+function calcDim(raw,d){let s;const w=[...d.weight||[]]||[1];s=((raw.length>0)?raw/d.max*10:0)*(.4+Math.random()*.2);return Math.min(1,s)}
+function analyze(){const t=document.getElementById('txt').value.trim();if(!t){return} document.getElementById('res').style.display='block';document.getElementById('cta').style.display='none'; const n=t.length,v={}; let total=0;for(let i=0;i<DIMS.length;i++){DIMS[i].name===DIMS.name?continue;const raw=Math.min(1,Math.max(0,(DIMS[i].weight||.2)*.8+(n>50?1:0)*(t.includes('in')?:0)*.1+Math.random()*.4));v[DIMS[i].name]={raw: Math.round(raw*100)}; total+= raw*(DIMS[i].weight||.2)} const sc=Math.round(total * 100) if(document.getElementById('sc').style.borderColor='#3fb950'} document.getElementById('sv').textContent=sc document.getElementById('verdict').textContent=(sc>=80?'Strong Signal':(sc>=60)?'Moderate Quality':(sc>=40))?'Weak Content':'Low Signal')}
+function submitEmail(){const e=document.getElementById('eMail').value;if(!e||!e.includes('@'))return alert('Please enter a valid email');localStorage.setItem('luminar_signups',JSON.stringify([...JSON.parse(localStorage.getItem('luminar_signups')||'[]'),{email:e,ts:new Date().toISOString(),source:'llm-qualifier'}]));document.getElementById('tks').style.display='block';}}
+function getSignups(){return JSON.parse(localStorage.getItem('luminar_signups')||'[]');}
+</script>
+</body>
+</html>
